@@ -2,23 +2,24 @@
 
 ## 🇬🇧 English
 
-A set of scripts for **free mobile internet access** and **region bypass** with Beeline Russia SIM cards.
+A set of Android scripts to **enable free mobile internet sharing** and **bypass regional restrictions** for Beeline Russia SIM cards.
 
 ---
 
 ### 🚀 Features
 
-- 🔄 Forces **TTL = 64** to bypass traffic filtering
-- 🌐 Redirects DNS to **Cloudflare (1.1.1.1)**
-- 🌍 Overrides GSM properties to simulate **Beeline Kazakhstan**
-- 🧩 Designed to work via **Magisk's service.d**
+- 📶 **Free tethering**: Forces **TTL = 64**, so the operator doesn't detect internet sharing (hotspot)
+- 🌐 Redirects all DNS requests to **Cloudflare (1.1.1.1)**
+- 🌍 Overrides SIM properties to appear as **Beeline Kazakhstan**
+- 🎬 Bypasses regional restrictions for apps like **TikTok**, **YouTube**, and other services
+- 🧩 Fully compatible with **Magisk service.d** (runs at boot)
 
 ---
 
 ### 📦 Installation
 
-1. ⚠️ Your device **must be rooted** with **Magisk**
-2. Open a terminal and type:
+1. ⚠️ Requires **root access** via **Magisk**
+2. Open terminal and enter:
 
     ```sh
     su
@@ -36,46 +37,48 @@ A set of scripts for **free mobile internet access** and **region bypass** with 
     chmod +x /data/adb/service.d/*.sh
     ```
 
-5. Reboot your device. The scripts will run automatically on boot.
+5. Reboot your device. Scripts will auto-run at startup.
 
 ---
 
-### 📁 Scripts
+### 📁 Included Scripts
 
 #### `change_operator.sh`
-Overrides your SIM card's country/operator info to appear as **Beeline KZ**.
+Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restrictions.
 
 #### `spoof_ttl_dns.sh`
-Spoofs TTL and forces DNS to `1.1.1.1` for DNS bypassing and region unlocking.
+- Sets TTL to 64 (prevents detection of internet sharing)
+- Redirects DNS traffic to `1.1.1.1` to improve speed and bypass censorship
 
 ---
 
 ### ⚠️ Disclaimer
 
 > **Use at your own risk.**  
-> The author (ReBullet) is **not responsible** for any damage, soft-bricking, data loss, or legal issues. These scripts are provided for **educational purposes only.**
+> The author (ReBullet) is **not responsible** for any damage, data loss, soft-brick, or legal consequences. These scripts are provided **for educational purposes only**.
 
 ---
 
 ## 🇷🇺 Русский
 
-Набор скриптов для **бесплатного интернета** и **обхода региональных блокировок** на симкартах Beeline Россия.
+Набор Android-скриптов для **бесплатной раздачи интернета** и **обхода региональных блокировок** на симкартах Beeline Россия.
 
 ---
 
 ### 🚀 Возможности
 
-- 🔄 Установка **TTL = 64** (обход фильтрации)
-- 🌐 Замена системных DNS на **Cloudflare (1.1.1.1)**
+- 📶 **Бесплатная раздача интернета** — TTL устанавливается в **64**, и оператор не видит, что вы используете точку доступа (раздачу)
+- 🌐 Замена системного DNS на **Cloudflare (1.1.1.1)**
 - 🌍 Подмена параметров SIM-карты на **Beeline Казахстан**
-- 🧩 Работает через **Magisk — service.d**
+- 🎬 Обход блокировок в **TikTok**, **YouTube** и других сервисах
+- 🧩 Полностью совместим с **Magisk service.d** (автозапуск после перезагрузки)
 
 ---
 
 ### 📦 Установка
 
-1. ⚠️ Ваш телефон должен быть с **рут-доступом (Magisk)**
-2. Введите в терминале:
+1. ⚠️ Необходим **рут-доступ с Magisk**
+2. Откройте терминал и введите:
 
     ```sh
     su
@@ -93,24 +96,24 @@ Spoofs TTL and forces DNS to `1.1.1.1` for DNS bypassing and region unlocking.
     chmod +x /data/adb/service.d/*.sh
     ```
 
-5. Перезагрузите устройство. Скрипты запустятся автоматически.
+5. Перезагрузите устройство — скрипты запустятся автоматически.
 
 ---
 
-### 📁 Скрипты
+### 📁 Включённые скрипты
 
 #### `change_operator.sh`
-Меняет информацию о SIM-карте на **Beeline KZ**
+Меняет свойства SIM-карты, заставляя систему думать, что это **Beeline Казахстан**, для обхода геоблокировок.
 
 #### `spoof_ttl_dns.sh`
-Подменяет TTL и DNS на `1.1.1.1` для обхода блокировок.
+- TTL = 64 — оператор не обнаруживает раздачу интернета
+- DNS перенаправляется на `1.1.1.1` — это помогает обойти блокировки и ускорить соединение
 
 ---
 
 ### ⚠️ Дисклеймер
 
-> **Вы используете это на свой страх и риск.**  
-> Автор (ReBullet) **не несёт ответственности** за возможный ущерб, потерю данных или блокировки устройства. Эти скрипты предоставлены **в образовательных целях.**
+> **Всё используется на свой страх и риск.**  
+> Автор (ReBullet) **не несёт ответственности** за любые последствия: порчу устройства, потерю данных или юридические проблемы. Скрипты предназначены **исключительно в образовательных целях**.
 
 ---
-
