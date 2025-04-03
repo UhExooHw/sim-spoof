@@ -9,7 +9,7 @@ A set of Android scripts to **enable free mobile internet sharing** and **bypass
 ### 🚀 Features
 
 - 📶 **Free tethering**: Forces **TTL = 64**, so the operator doesn't detect internet sharing (hotspot)
-- 🌐 Redirects all DNS requests to **Cloudflare (1.1.1.1)**
+- 🌐 Redirects all DNS requests to **Google (8.8.8.8)**
 - 🌍 Overrides SIM properties to appear as **Beeline Kazakhstan**
 - 🎬 Bypasses regional restrictions for apps like **TikTok**, **YouTube**, and other services
 - 🧩 Fully compatible with **Magisk service.d** (runs at boot)
@@ -68,7 +68,7 @@ Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restr
 ### 🚀 Возможности
 
 - 📶 **Бесплатная раздача интернета** — TTL устанавливается в **64**, и оператор не видит, что вы используете точку доступа (раздачу)
-- 🌐 Замена системного DNS на **Cloudflare (1.1.1.1)**
+- 🌐 Замена системного DNS на **Google (8.8.8.8)**
 - 🌍 Подмена параметров SIM-карты на **Beeline Казахстан**
 - 🎬 Обход блокировок в **TikTok**, **YouTube** и других сервисах
 - 🧩 Полностью совместим с **Magisk service.d** (автозапуск после перезагрузки)
