@@ -48,7 +48,7 @@ Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restr
 
 #### `spoof_ttl_dns.sh`
 - Sets TTL to 64 (prevents detection of internet sharing)
-- Redirects DNS traffic to `1.1.1.1` to improve speed and bypass censorship
+- Redirects DNS traffic to `8.8.8.8` to improve speed and bypass censorship
 
 ---
 
@@ -107,7 +107,7 @@ Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restr
 
 #### `spoof_ttl_dns.sh`
 - TTL = 64 — оператор не обнаруживает раздачу интернета
-- DNS перенаправляется на `1.1.1.1` — это помогает обойти блокировки и ускорить соединение
+- DNS перенаправляется на `8.8.8.8` — это помогает обойти блокировки и ускорить соединение
 
 ---
 
