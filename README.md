@@ -11,8 +11,11 @@ A set of Android scripts to **enable free mobile internet sharing** and **bypass
 - 📶 **Free tethering**: Forces **TTL = 64**, so the operator doesn't detect internet sharing (hotspot)
 - 🌐 Redirects all DNS requests to **Google (8.8.8.8)**
 - 🌍 Overrides SIM properties to appear as **Beeline Kazakhstan**
+- 🕒 Sets device timezone to **Asia/Almaty** (Kazakhstan)
 - 🎬 Bypasses regional restrictions for apps like **TikTok**, **YouTube**, and other services
 - 🧩 Fully compatible with **Magisk service.d** (runs at boot)
+
+> ⚠️ **Important:** SIM spoofing only works when the SIM card is in the **first slot (SIM1)**. The second slot is not affected due to system-level limitations.
 
 ---
 
@@ -44,7 +47,7 @@ A set of Android scripts to **enable free mobile internet sharing** and **bypass
 ### 📁 Included Scripts
 
 #### `change_operator.sh`
-Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restrictions.
+Overrides SIM country/operator to **Beeline KZ**, and sets timezone to **Asia/Almaty**, helping bypass geo-based restrictions.
 
 #### `spoof_ttl_dns.sh`
 - Sets TTL to 64 (prevents detection of internet sharing)
@@ -70,8 +73,12 @@ Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restr
 - 📶 **Бесплатная раздача интернета** — TTL устанавливается в **64**, и оператор не видит, что вы используете точку доступа (раздачу)
 - 🌐 Замена системного DNS на **Google (8.8.8.8)**
 - 🌍 Подмена параметров SIM-карты на **Beeline Казахстан**
+- 🕒 Установка часового пояса на **Asia/Almaty** (Казахстан)
 - 🎬 Обход блокировок в **TikTok**, **YouTube** и других сервисах
 - 🧩 Полностью совместим с **Magisk service.d** (автозапуск после перезагрузки)
+
+> ⚠️ **Важно:** Подмена SIM работает **только для первой SIM-карты (SIM1)**.  
+> Вторая SIM не подменяется из-за ограничений на уровне системы Android.
 
 ---
 
@@ -103,7 +110,7 @@ Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restr
 ### 📁 Включённые скрипты
 
 #### `change_operator.sh`
-Меняет свойства SIM-карты, заставляя систему думать, что это **Beeline Казахстан**, для обхода геоблокировок.
+Меняет свойства SIM-карты и часовой пояс, заставляя систему думать, что это **Beeline Казахстан**, для обхода геоблокировок.
 
 #### `spoof_ttl_dns.sh`
 - TTL = 64 — оператор не обнаруживает раздачу интернета
@@ -117,3 +124,5 @@ Overrides SIM country/operator to **Beeline KZ**, helping bypass geo-based restr
 > Автор (ReBullet) **не несёт ответственности** за любые последствия: порчу устройства, потерю данных или юридические проблемы. Скрипты предназначены **исключительно в образовательных целях**.
 
 ---
+
+Если хочешь, могу ещё оформить это как Markdown-файл (`README.md`) и помочь упаковать модуль под Magisk.
