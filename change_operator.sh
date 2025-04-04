@@ -8,5 +8,7 @@ while true; do
     resetprop gsm.sim.operator.numeric 40101
     resetprop gsm.operator.alpha "Beeline"
     resetprop gsm.sim.operator.alpha "Beeline"
+    resetprop persist.sys.timezone Asia/Almaty
+    resetprop persist.sys.country KZ
     sleep 10
 done
