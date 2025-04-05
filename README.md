@@ -38,12 +38,52 @@
 ## 🚀 Установка
 
 ```bash
-chmod +x ReBullet-SIM-Spoof.sh
-./ReBullet-SIM-Spoof.sh
+chmod +x rebullet.sh
+./rebullet.sh
 ```
 
 После запуска выберите страну, DNS и подтвердите установку.  
 Скрипты `ReBullet-SIM.sh` и `ReBullet-TTL.sh` будут установлены в `/data/adb/service.d/` и автоматически применяться при каждой загрузке.
+
+---
+
+## 🖥 Пример вывода скрипта
+
+```text
+======================================
+         ReBullet SIM Spoof
+======================================
+Magisk is installed
+Kernel supports BBR, continuing...
+
+Select Country:
+  1) Kazakhstan
+  2) Uzbekistan
+  3) Russia
+Enter number (1-3): 1
+
+Select DNS Provider:
+  1) Cloudflare (1.1.1.1)
+  2) Google (8.8.8.8)
+  3) Yandex (77.88.8.88)
+Enter number (1-3): 1
+
+[+] Creating ReBullet-SIM.sh
+[+] Creating ReBullet-TTL.sh
+
+[✓] Scripts installed:
+    /data/adb/service.d/ReBullet-SIM.sh
+    /data/adb/service.d/ReBullet-TTL.sh
+
+Support the project on GitHub:
+https://github.com/UhExooHw/sim-spoof
+
+Reboot required to apply changes.
+
+  1) Reboot now
+  2) Reboot later
+Choose an option (1-2):
+```
 
 ---
 
