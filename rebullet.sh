@@ -2,16 +2,28 @@
 
 clear
 
+if [ ! -d /data/adb/service.d ]; then
+    echo "Magisk is not installed. Exiting."
+    exit 1
+fi
+
+if ! cat /proc/sys/net/ipv4/tcp_available_congestion_control | grep -qw bbr; then
+    echo "Kernel does not support BBR. Exiting."
+    exit 1
+fi
+
 echo "======================================"
 echo "         ReBullet SIM Spoof"
 echo "======================================"
+echo "Magisk is installed"
+echo "Kernel supports BBR, continuing..."
 echo ""
+
 echo "Select Country:"
 echo "  1) Kazakhstan"
 echo "  2) Uzbekistan"
-echo "  3) Kyrgyzstan"
-echo "  4) Russia"
-echo -n "Enter number (1-4): "
+echo "  3) Russia"
+echo -n "Enter number (1-3): "
 read COUNTRY_CHOICE
 
 case "$COUNTRY_CHOICE" in
@@ -26,11 +38,6 @@ case "$COUNTRY_CHOICE" in
     TZ="Asia/Tashkent"
     ;;
   3)
-    MCCMNC="43701"
-    ISO="kg"
-    TZ="Asia/Bishkek"
-    ;;
-  4)
     MCCMNC="25099"
     ISO="ru"
     TZ="Europe/Moscow"
@@ -59,8 +66,6 @@ case "$DNS_CHOICE" in
     ;;
 esac
 
-mkdir -p /data/adb/service.d
-
 echo ""
 echo "[+] Creating ReBullet-SIM.sh"
 cat <<EOF > /data/adb/service.d/ReBullet-SIM.sh
@@ -81,7 +86,7 @@ echo "[+] Creating ReBullet-TTL.sh"
 cat <<EOF > /data/adb/service.d/ReBullet-TTL.sh
 #!/system/bin/sh
 
-echo \$(cat /proc/sys/net/ipv4/tcp_available_congestion_control) | grep -qw bbr && echo bbr > /proc/sys/net/ipv4/tcp_congestion_control
+echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
 
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
