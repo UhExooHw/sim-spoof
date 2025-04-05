@@ -9,7 +9,8 @@ echo "1) Kazakhstan"
 echo "2) Uzbekistan"
 echo "3) Kyrgyzstan"
 echo "4) Russia"
-read -p "Enter number (1-4): " COUNTRY_CHOICE
+echo -n "Enter number (1-4): "
+read COUNTRY_CHOICE
 
 case "$COUNTRY_CHOICE" in
   1)
@@ -43,7 +44,8 @@ echo "Select DNS Provider:"
 echo "1) Cloudflare (1.1.1.1)"
 echo "2) Google (8.8.8.8)"
 echo "3) Yandex (77.88.8.88)"
-read -p "Enter number (1-3): " DNS_CHOICE
+echo -n "Enter number (1-3): "
+read DNS_CHOICE
 
 case "$DNS_CHOICE" in
   1) DNS="1.1.1.1" ;;
@@ -57,6 +59,7 @@ esac
 
 mkdir -p /data/adb/service.d
 
+echo "Creating ReBullet-SIM.sh..."
 cat <<EOF > /data/adb/service.d/ReBullet-SIM.sh
 #!/system/bin/sh
 while true; do
@@ -71,6 +74,7 @@ while true; do
 done
 EOF
 
+echo "Creating ReBullet-TTL.sh..."
 cat <<EOF > /data/adb/service.d/ReBullet-TTL.sh
 #!/system/bin/sh
 
@@ -100,7 +104,8 @@ echo "To apply the settings, a reboot is required."
 echo ""
 echo "1) Reboot now"
 echo "2) Reboot later"
-read -p "Choose an option (1-2): " REBOOT_CHOICE
+echo -n "Choose an option (1-2): "
+read REBOOT_CHOICE
 
 case "$REBOOT_CHOICE" in
   1)
