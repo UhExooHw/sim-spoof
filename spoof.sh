@@ -32,26 +32,55 @@ echo "${BOLD}         ReBullet SIM Spoof${RESET}"
 echo "${CYAN}========================================${RESET}"
 echo "${GREEN}Environment checks passed.${RESET}"
 
-# ===[ Country Selection ]===
-echo "Select Country:"
-echo "  1) Switzerland (Swisscom)"
-echo "  2) Kazakhstan (Beeline)"
-echo "  3) Uzbekistan (Beeline)"
-echo "  4) Russia (Beeline)"
-echo "  5) Belarus (MTS)"
-echo "  6) Ukraine (Vodafone)"
-echo -n "${BOLD}Enter number (1-6): ${RESET}"
-read COUNTRY_CHOICE
+# ===[ Operator Selection ]===
+echo "Select Operator:"
+echo "  1) Beeline"
+echo "  2) MTS"
+echo "  3) Megafon"
+echo -n "${BOLD}Enter number (1-3): ${RESET}"
+read OPERATOR_CHOICE
 
-case "$COUNTRY_CHOICE" in
-  1) MCCMNC="22801" ISO="ch" TZ="Europe/Zurich" OPERATOR="Swisscom" ;;
-  2) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline" ;;
-  3) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline" ;;
-  4) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline" ;;
-  5) MCCMNC="25702" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS" ;;
-  6) MCCMNC="25501" ISO="ua" TZ="Europe/Kyiv" OPERATOR="Vodafone" ;;
+case "$OPERATOR_CHOICE" in
+  1)
+    echo "Select Country:"
+    echo "  1) Kazakhstan (Beeline)"
+    echo "  2) Uzbekistan (Beeline)"
+    echo "  3) Russia (Beeline)"
+    echo -n "${BOLD}Enter number (1-3): ${RESET}"
+    read COUNTRY_CHOICE
+    case "$COUNTRY_CHOICE" in
+      1) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline" ;;
+      2) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline" ;;
+      3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline" ;;
+      *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
+    esac
+    ;;
+  2)
+    echo "Select Country:"
+    echo "  1) Belarus (MTS)"
+    echo "  2) Russia (MTS)"
+    echo -n "${BOLD}Enter number (1-2): ${RESET}"
+    read COUNTRY_CHOICE
+    case "$COUNTRY_CHOICE" in
+      1) MCCMNC="25702" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS" ;;
+      2) MCCMNC="25001" ISO="ru" TZ="Europe/Moscow" OPERATOR="MTS" ;;
+      *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
+    esac
+    ;;
+  3)
+    echo "Select Country:"
+    echo "  1) Russia (Megafon)"
+    echo "  2) Tajikistan (Megafon)"
+    echo -n "${BOLD}Enter number (1-2): ${RESET}"
+    read COUNTRY_CHOICE
+    case "$COUNTRY_CHOICE" in
+      1) MCCMNC="25002" ISO="ru" TZ="Europe/Moscow" OPERATOR="Megafon" ;;
+      2) MCCMNC="43603" ISO="tj" TZ="Asia/Dushanbe" OPERATOR="Megafon" ;;
+      *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
+    esac
+    ;;
   *)
-    echo "${RED}Invalid option.${RESET}"
+    echo "${RED}Invalid operator choice.${RESET}"
     exit 1
     ;;
 esac
@@ -88,7 +117,7 @@ while true; do
     resetprop gsm.operator.alpha "$OPERATOR"
     resetprop gsm.sim.operator.alpha "$OPERATOR"
     resetprop persist.sys.timezone $TZ
-    sleep 10
+    sleep 5
 done
 EOF
 
