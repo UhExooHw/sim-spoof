@@ -88,7 +88,7 @@ while true; do
     resetprop gsm.operator.alpha "$OPERATOR"
     resetprop gsm.sim.operator.alpha "$OPERATOR"
     resetprop persist.sys.timezone $TZ
-    sleep 30
+    sleep 10
 done
 EOF
 
