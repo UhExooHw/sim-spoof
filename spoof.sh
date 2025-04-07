@@ -34,30 +34,22 @@ echo "${GREEN}Environment checks passed.${RESET}"
 
 # ===[ Country Selection ]===
 echo "Select Country:"
-echo "  1) China (China Telecom)"
-echo "  2) North Korea (Koryolink)"
-echo "  3) Turkiye (Turkcell)"
-echo "  4) Sweden (Tele2)"
-echo "  5) Finland (Telia)"
-echo "  6) Switzerland (Swisscom)"
-echo "  7) Germany (Vodafone)"
-echo "  8) Uzbekistan (Beeline)"
-echo "  9) United States (T-Mobile)"
-echo " 10) Egypt (Vodafone)"
-echo -n "${BOLD}Enter number (1-10): ${RESET}"
+echo "  1) Switzerland (Swisscom)"
+echo "  2) Kazakhstan (Beeline)"
+echo "  3) Uzbekistan (Beeline)"
+echo "  4) Russia (Beeline)"
+echo "  5) Belarus (MTS)"
+echo "  6) Ukraine (Vodafone)"
+echo -n "${BOLD}Enter number (1-6): ${RESET}"
 read COUNTRY_CHOICE
 
 case "$COUNTRY_CHOICE" in
-  1)  MCCMNC="46012" ISO="cn" TZ="Asia/Shanghai" OPERATOR="China Telecom" ;;
-  2)  MCCMNC="467192" ISO="kp" TZ="Asia/Pyongyang" OPERATOR="Koryolink" ;;
-  3)  MCCMNC="28601" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell" ;;
-  4)  MCCMNC="24014" ISO="se" TZ="Europe/Stockholm" OPERATOR="Tele2" ;;
-  5)  MCCMNC="24491" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia" ;;
-  6)  MCCMNC="22801" ISO="ch" TZ="Europe/Zurich" OPERATOR="Swisscom" ;;
-  7)  MCCMNC="26209" ISO="de" TZ="Europe/Berlin" OPERATOR="Vodafone" ;;
-  8)  MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline" ;;
-  9)  MCCMNC="310010" ISO="us" TZ="America/New_York" OPERATOR="T-Mobile" ;;
- 10)  MCCMNC="60202" ISO="eg" TZ="Africa/Cairo" OPERATOR="Vodafone" ;;
+  1) MCCMNC="22801" ISO="ch" TZ="Europe/Zurich" OPERATOR="Swisscom" ;;
+  2) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline" ;;
+  3) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline" ;;
+  4) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline" ;;
+  5) MCCMNC="25702" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS" ;;
+  6) MCCMNC="25501" ISO="ua" TZ="Europe/Kyiv" OPERATOR="Vodafone" ;;
   *)
     echo "${RED}Invalid option.${RESET}"
     exit 1
@@ -89,13 +81,13 @@ echo "${CYAN}[+] Creating ReBullet-SIM.sh${RESET}"
 cat <<EOF > /data/adb/service.d/ReBullet-SIM.sh
 #!/system/bin/sh
 while true; do
-    resetprop gsm.operator.iso-country $ISO
-    resetprop gsm.sim.operator.iso-country $ISO
-    resetprop gsm.operator.numeric $MCCMNC
-    resetprop gsm.sim.operator.numeric $MCCMNC
-    resetprop gsm.operator.alpha "$OPERATOR"
-    resetprop gsm.sim.operator.alpha "$OPERATOR"
-    resetprop persist.sys.timezone $TZ
+    resetprop gsm.operator.iso-country \$ISO
+    resetprop gsm.sim.operator.iso-country \$ISO
+    resetprop gsm.operator.numeric \$MCCMNC
+    resetprop gsm.sim.operator.numeric \$MCCMNC
+    resetprop gsm.operator.alpha "\$OPERATOR"
+    resetprop gsm.sim.operator.alpha "\$OPERATOR"
+    resetprop persist.sys.timezone \$TZ
     sleep 30
 done
 EOF
@@ -112,8 +104,8 @@ while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; don
 iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
 
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53
 EOF
 
 chmod +x /data/adb/service.d/ReBullet-SIM.sh
