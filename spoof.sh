@@ -33,16 +33,21 @@ echo "${CYAN}========================================${RESET}"
 echo "${GREEN}Environment checks passed.${RESET}"
 
 # ===[ Operator Selection ]===
-echo "Select Operator:"
-echo "  1) Beeline"
-echo "  2) MTS"
-echo "  3) Megafon"
+
+echo ""
+echo "${CYAN}${BOLD}Select Operator:${RESET}"
+echo "  ${GREEN}1) Beeline${RESET}"
+echo "  ${BLUE}2) MTS${RESET}"
+echo "  ${CYAN}3) Megafon${RESET}"
 echo -n "${BOLD}Enter number (1-3): ${RESET}"
 read OPERATOR_CHOICE
 
+echo ""
 case "$OPERATOR_CHOICE" in
   1)
-    echo "Select Country:"
+    echo ""
+echo ""
+echo "${CYAN}${BOLD}Select Country:${RESET}"
     echo "  1) Kazakhstan (Beeline)"
     echo "  2) Uzbekistan (Beeline)"
     echo "  3) Russia (Beeline)"
@@ -87,10 +92,11 @@ esac
 
 # ===[ DNS Selection ]===
 echo ""
-echo "Select DNS Provider:"
-echo "  1) Cloudflare (1.1.1.1)"
-echo "  2) Google (8.8.8.8)"
-echo "  3) Yandex (77.88.8.88)"
+echo ""
+echo "${CYAN}${BOLD}Select DNS Provider:${RESET}"
+echo "  ${GREEN}1) Cloudflare${RESET} (1.1.1.1)"
+echo "  ${BLUE}2) Google${RESET} (8.8.8.8)"
+echo "  ${CYAN}3) Yandex${RESET} (77.88.8.88)"
 echo -n "${BOLD}Enter number (1-3): ${RESET}"
 read DNS_CHOICE
 
