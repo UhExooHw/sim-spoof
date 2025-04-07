@@ -38,15 +38,13 @@ echo ""
 echo "${CYAN}${BOLD}Select Operator:${RESET}"
 echo "  ${GREEN}1) Beeline${RESET}"
 echo "  ${BLUE}2) MTS${RESET}"
-echo "  ${CYAN}3) Megafon${RESET}"
-echo -n "${BOLD}Enter number (1-3): ${RESET}"
+echo -n "${BOLD}Enter number (1-2): ${RESET}"
 read OPERATOR_CHOICE
 
 echo ""
 case "$OPERATOR_CHOICE" in
   1)
     echo ""
-echo ""
 echo "${CYAN}${BOLD}Select Country:${RESET}"
     echo "  1) Kazakhstan (Beeline)"
     echo "  2) Uzbekistan (Beeline)"
@@ -61,7 +59,8 @@ echo "${CYAN}${BOLD}Select Country:${RESET}"
     esac
     ;;
   2)
-    echo "Select Country:"
+    echo ""
+echo "${CYAN}${BOLD}Select Country:${RESET}"
     echo "  1) Belarus (MTS)"
     echo "  2) Russia (MTS)"
     echo -n "${BOLD}Enter number (1-2): ${RESET}"
@@ -72,15 +71,6 @@ echo "${CYAN}${BOLD}Select Country:${RESET}"
       *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
     esac
     ;;
-  3)
-    echo "Select Country:"
-    echo "  1) Russia (Megafon)"
-    echo "  2) Tajikistan (Megafon)"
-    echo -n "${BOLD}Enter number (1-2): ${RESET}"
-    read COUNTRY_CHOICE
-    case "$COUNTRY_CHOICE" in
-      1) MCCMNC="25002" ISO="ru" TZ="Europe/Moscow" OPERATOR="Megafon" ;;
-      2) MCCMNC="43603" ISO="tj" TZ="Asia/Dushanbe" OPERATOR="Megafon" ;;
       *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
     esac
     ;;
@@ -113,7 +103,7 @@ esac
 # ===[ Script Creation ]===
 echo ""
 echo "${CYAN}[+] Creating ReBullet-SIM.sh${RESET}"
-cat <<EOF > /data/adb/service.d/ReBullet-SIM.sh
+cat <<"EOF" > /data/adb/service.d/ReBullet-SIM.sh
 #!/system/bin/sh
 while true; do
     resetprop gsm.operator.iso-country $ISO
@@ -153,7 +143,7 @@ echo "    /data/adb/service.d/ReBullet-SIM.sh"
 echo "    /data/adb/service.d/ReBullet-TTL.sh"
 echo ""
 echo "${CYAN}Support the project on GitHub:${RESET}"
-echo "${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
+echo "${BOLD}${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
 
 # ===[ Reboot Prompt ]===
 echo ""
