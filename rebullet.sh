@@ -12,35 +12,79 @@ if ! cat /proc/sys/net/ipv4/tcp_available_congestion_control | grep -qw bbr; the
     exit 1
 fi
 
+if ! command -v iptables >/dev/null 2>&1; then
+    echo "iptables is not installed or not available. Exiting."
+    exit 1
+fi
+
 echo "======================================"
 echo "         ReBullet SIM Spoof"
 echo "======================================"
 echo "Magisk is installed"
 echo "Kernel supports BBR, continuing..."
+echo "iptables is available"
 echo ""
 
 echo "Select Country:"
-echo "  1) Kazakhstan"
-echo "  2) Uzbekistan"
-echo "  3) Russia"
-echo -n "Enter number (1-3): "
+echo "  1) International Networks (Monaco Telecom)"
+echo "  2) North Korea (Koryolink)"
+echo "  3) Turkiye (Turkcell)"
+echo "  4) Sweden (Tele2)"
+echo "  5) Finland (Telia)"
+echo "  6) Switzerland (Swisscom)"
+echo "  7) Germany (Vodafone)"
+echo "  8) Uzbekistan (Beeline)"
+echo -n "Enter number (1-8): "
 read COUNTRY_CHOICE
 
 case "$COUNTRY_CHOICE" in
   1)
-    MCCMNC="40101"
-    ISO="kz"
-    TZ="Asia/Almaty"
+    MCCMNC="90127"
+    ISO=""
+    TZ="Europe/London"
+    OPERATOR="Monaco Telecom"
     ;;
   2)
+    MCCMNC="467192"
+    ISO="kp"
+    TZ="Asia/Pyongyang"
+    OPERATOR="Koryolink"
+    ;;
+  3)
+    MCCMNC="28601"
+    ISO="tr"
+    TZ="Europe/Istanbul"
+    OPERATOR="Turkcell"
+    ;;
+  4)
+    MCCMNC="24014"
+    ISO="se"
+    TZ="Europe/Stockholm"
+    OPERATOR="Tele2"
+    ;;
+  5)
+    MCCMNC="24491"
+    ISO="fi"
+    TZ="Europe/Helsinki"
+    OPERATOR="Telia"
+    ;;
+  6)
+    MCCMNC="22801"
+    ISO="ch"
+    TZ="Europe/Zurich"
+    OPERATOR="Swisscom"
+    ;;
+  7)
+    MCCMNC="26209"
+    ISO="de"
+    TZ="Europe/Berlin"
+    OPERATOR="Vodafone"
+    ;;
+  8)
     MCCMNC="43404"
     ISO="uz"
     TZ="Asia/Tashkent"
-    ;;
-  3)
-    MCCMNC="25099"
-    ISO="ru"
-    TZ="Europe/Moscow"
+    OPERATOR="Beeline"
     ;;
   *)
     echo "Invalid option."
@@ -75,8 +119,8 @@ while true; do
     resetprop gsm.sim.operator.iso-country $ISO
     resetprop gsm.operator.numeric $MCCMNC
     resetprop gsm.sim.operator.numeric $MCCMNC
-    resetprop gsm.operator.alpha "Beeline"
-    resetprop gsm.sim.operator.alpha "Beeline"
+    resetprop gsm.operator.alpha "$OPERATOR"
+    resetprop gsm.sim.operator.alpha "$OPERATOR"
     resetprop persist.sys.timezone $TZ
     sleep 10
 done
