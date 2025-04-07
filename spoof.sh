@@ -57,7 +57,6 @@ echo "${CYAN}${BOLD}Select Country:${RESET}"
       3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline" ;;
       *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
     esac
-    ;;
   2)
     echo ""
 echo "${CYAN}${BOLD}Select Country:${RESET}"
