@@ -45,7 +45,7 @@ echo ""
 case "$OPERATOR_CHOICE" in
   1)
     echo ""
-echo "${CYAN}${BOLD}Select Country:${RESET}"
+    echo "${CYAN}${BOLD}Select Country:${RESET}"
     echo "  1) Kazakhstan (Beeline)"
     echo "  2) Uzbekistan (Beeline)"
     echo "  3) Russia (Beeline)"
@@ -57,9 +57,10 @@ echo "${CYAN}${BOLD}Select Country:${RESET}"
       3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline" ;;
       *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
     esac
+    ;;
   2)
     echo ""
-echo "${CYAN}${BOLD}Select Country:${RESET}"
+    echo "${CYAN}${BOLD}Select Country:${RESET}"
     echo "  1) Belarus (MTS)"
     echo "  2) Russia (MTS)"
     echo -n "${BOLD}Enter number (1-2): ${RESET}"
@@ -70,17 +71,13 @@ echo "${CYAN}${BOLD}Select Country:${RESET}"
       *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
     esac
     ;;
-      *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
-    esac
-    ;;
   *)
-    echo "${RED}Invalid operator choice.${RESET}"
+    echo "${RED}Invalid option.${RESET}"
     exit 1
     ;;
 esac
 
 # ===[ DNS Selection ]===
-echo ""
 echo ""
 echo "${CYAN}${BOLD}Select DNS Provider:${RESET}"
 echo "  ${GREEN}1) Cloudflare${RESET} (1.1.1.1)"
@@ -93,10 +90,7 @@ case "$DNS_CHOICE" in
   1) DNS="1.1.1.1" ;;
   2) DNS="8.8.8.8" ;;
   3) DNS="77.88.8.88" ;;
-  *)
-    echo "${RED}Invalid option.${RESET}"
-    exit 1
-    ;;
+  *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
 esac
 
 # ===[ Script Creation ]===
