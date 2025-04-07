@@ -96,7 +96,7 @@ esac
 # ===[ Script Creation ]===
 echo ""
 echo "${CYAN}[+] Creating ReBullet-SIM.sh${RESET}"
-cat <<"EOF" > /data/adb/service.d/ReBullet-SIM.sh
+cat <<EOF > /data/adb/service.d/ReBullet-SIM.sh
 #!/system/bin/sh
 while true; do
     resetprop gsm.operator.iso-country $ISO
