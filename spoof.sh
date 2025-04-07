@@ -81,13 +81,13 @@ echo "${CYAN}[+] Creating ReBullet-SIM.sh${RESET}"
 cat <<EOF > /data/adb/service.d/ReBullet-SIM.sh
 #!/system/bin/sh
 while true; do
-    resetprop gsm.operator.iso-country \$ISO
-    resetprop gsm.sim.operator.iso-country \$ISO
-    resetprop gsm.operator.numeric \$MCCMNC
-    resetprop gsm.sim.operator.numeric \$MCCMNC
-    resetprop gsm.operator.alpha "\$OPERATOR"
-    resetprop gsm.sim.operator.alpha "\$OPERATOR"
-    resetprop persist.sys.timezone \$TZ
+    resetprop gsm.operator.iso-country $ISO
+    resetprop gsm.sim.operator.iso-country $ISO
+    resetprop gsm.operator.numeric $MCCMNC
+    resetprop gsm.sim.operator.numeric $MCCMNC
+    resetprop gsm.operator.alpha "$OPERATOR"
+    resetprop gsm.sim.operator.alpha "$OPERATOR"
+    resetprop persist.sys.timezone $TZ
     sleep 30
 done
 EOF
@@ -104,8 +104,8 @@ while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; don
 iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
 
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
 EOF
 
 chmod +x /data/adb/service.d/ReBullet-SIM.sh
