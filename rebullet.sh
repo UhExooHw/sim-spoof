@@ -40,7 +40,7 @@ read COUNTRY_CHOICE
 case "$COUNTRY_CHOICE" in
   1)
     MCCMNC="90127"
-    ISO=""
+    ISO="xx"
     TZ="Europe/London"
     OPERATOR="Monaco Telecom"
     ;;
