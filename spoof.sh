@@ -38,7 +38,8 @@ while true; do
   echo "${CYAN}${BOLD}Select Operator:${RESET}"
   echo "  ${GREEN}1) Beeline${RESET}"
   echo "  ${BLUE}2) MTS${RESET}"
-  echo -n "${BOLD}Enter number (1-2): ${RESET}"
+  echo "  ${CYAN}3) Tele2 (T2)${RESET}"
+  echo -n "${BOLD}Enter number (1-3): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
     1)
@@ -73,6 +74,21 @@ while true; do
         esac
       done
       ;;
+    3)
+      while true; do
+        echo ""
+        echo "${CYAN}${BOLD}Select Country:${RESET}"
+        echo "  1) Russia (T2)"
+        echo "  2) Kazakhstan (Tele2)"
+        echo -n "${BOLD}Enter number (1-2): ${RESET}"
+        read COUNTRY_CHOICE
+        case "$COUNTRY_CHOICE" in
+          1) MCCMNC="25020" ISO="ru" TZ="Europe/Moscow" OPERATOR="T2"; break 2 ;;
+          2) MCCMNC="40177" ISO="kz" TZ="Asia/Almaty" OPERATOR="Tele2"; break 2 ;;
+          *) echo "${RED}Invalid option. Try again.${RESET}" ;;
+        esac
+      done
+      ;;
     *)
       echo "${RED}Invalid option. Try again.${RESET}"
       ;;
@@ -102,13 +118,13 @@ echo "${CYAN}[+] Creating ReBullet-SIM.sh${RESET}"
 cat <<EOF > /data/adb/service.d/ReBullet-SIM.sh
 #!/system/bin/sh
 while true; do
-    resetprop gsm.operator.iso-country $ISO
-    resetprop gsm.sim.operator.iso-country $ISO
-    resetprop gsm.operator.numeric $MCCMNC
-    resetprop gsm.sim.operator.numeric $MCCMNC
-    resetprop gsm.operator.alpha "$OPERATOR"
-    resetprop gsm.sim.operator.alpha "$OPERATOR"
-    resetprop persist.sys.timezone $TZ
+    resetprop gsm.operator.iso-country \$ISO
+    resetprop gsm.sim.operator.iso-country \$ISO
+    resetprop gsm.operator.numeric \$MCCMNC
+    resetprop gsm.sim.operator.numeric \$MCCMNC
+    resetprop gsm.operator.alpha "\$OPERATOR"
+    resetprop gsm.sim.operator.alpha "\$OPERATOR"
+    resetprop persist.sys.timezone \$TZ
     sleep 5
 done
 EOF
@@ -125,8 +141,8 @@ while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; don
 iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
 
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53
 EOF
 
 chmod +x /data/adb/service.d/ReBullet-SIM.sh
@@ -134,7 +150,7 @@ chmod +x /data/adb/service.d/ReBullet-TTL.sh
 
 # ===[ Summary ]===
 echo ""
-echo "${GREEN}[✓] Scripts installed:${RESET}"
+echo "${GREEN}[\u2713] Scripts installed:${RESET}"
 echo "    /data/adb/service.d/ReBullet-SIM.sh"
 echo "    /data/adb/service.d/ReBullet-TTL.sh"
 echo ""
