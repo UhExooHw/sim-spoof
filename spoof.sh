@@ -39,7 +39,9 @@ while true; do
   echo "  ${GREEN}1) Beeline${RESET}"
   echo "  ${BLUE}2) MTS${RESET}"
   echo "  ${CYAN}3) Tele2 (T2)${RESET}"
-  echo -n "${BOLD}Enter number (1-3): ${RESET}"
+  echo "  ${BOLD}4) Megafon${RESET}"
+  echo "  ${BOLD}5) Yota${RESET}"
+  echo -n "${BOLD}Enter number (1-5): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
     1)
@@ -87,6 +89,10 @@ while true; do
         esac
       done
       ;;
+    4)
+      MCCMNC="25002" ISO="ru" TZ="Europe/Moscow" OPERATOR="Megafon"; break ;;
+    5)
+      MCCMNC="25011" ISO="ru" TZ="Europe/Moscow" OPERATOR="Yota"; break ;;
     *)
       echo "${RED}Invalid option. Try again.${RESET}"
       ;;
