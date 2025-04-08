@@ -65,8 +65,7 @@ Reboot manually when ready.
 
 ```bash
 curl -s -o /data/local/tmp/spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/refs/heads/main/spoof.sh \
-&& chmod +x /data/local/tmp/spoof.sh \
-&& echo "[✓] Скрипт загружен. Запустите вручную: sh /data/local/tmp/spoof.sh"
+&& chmod +x /data/local/tmp/spoof.sh 
 ```
 
 ---
