@@ -46,15 +46,13 @@ while true; do
       while true; do
         echo ""
         echo "${CYAN}${BOLD}Select Country:${RESET}"
-        echo "  1) Kazakhstan (Beeline)"
-        echo "  2) Uzbekistan (Beeline)"
-        echo "  3) Russia (Beeline)"
-        echo -n "${BOLD}Enter number (1-3): ${RESET}"
+        echo "  1) Uzbekistan (Beeline)"
+        echo "  2) Russia (Beeline)"
+        echo -n "${BOLD}Enter number (1-2): ${RESET}"
         read COUNTRY_CHOICE
         case "$COUNTRY_CHOICE" in
-          1) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline"; break 2 ;;
-          2) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline"; break 2 ;;
-          3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline"; break 2 ;;
+          1) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline"; break 2 ;;
+          2) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline"; break 2 ;;
           *) echo "${RED}Invalid option. Try again.${RESET}" ;;
         esac
       done
