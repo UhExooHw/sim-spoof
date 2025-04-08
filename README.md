@@ -95,5 +95,3 @@ curl -s -o /data/local/tmp/spoof.sh https://raw.githubusercontent.com/UhExooHw/s
 - Если раздача Wi-Fi через смартфон **платная** — TTL=64 помогает скрыть tethering  
 
 ---
-
-Если хочешь, могу оформить это сразу в `markdown`-файл или предложить автообновление через GitHub Actions.
