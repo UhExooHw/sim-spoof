@@ -33,65 +33,68 @@ echo "${CYAN}========================================${RESET}"
 echo "${GREEN}Environment checks passed.${RESET}"
 
 # ===[ Operator Selection ]===
-
-echo ""
-echo "${CYAN}${BOLD}Select Operator:${RESET}"
-echo "  ${GREEN}1) Beeline${RESET}"
-echo "  ${BLUE}2) MTS${RESET}"
-echo -n "${BOLD}Enter number (1-2): ${RESET}"
-read OPERATOR_CHOICE
-
-echo ""
-case "$OPERATOR_CHOICE" in
-  1)
-    echo ""
-    echo "${CYAN}${BOLD}Select Country:${RESET}"
-    echo "  1) Kazakhstan (Beeline)"
-    echo "  2) Uzbekistan (Beeline)"
-    echo "  3) Russia (Beeline)"
-    echo -n "${BOLD}Enter number (1-3): ${RESET}"
-    read COUNTRY_CHOICE
-    case "$COUNTRY_CHOICE" in
-      1) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline" ;;
-      2) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline" ;;
-      3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline" ;;
-      *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
-    esac
-    ;;
-  2)
-    echo ""
-    echo "${CYAN}${BOLD}Select Country:${RESET}"
-    echo "  1) Belarus (MTS)"
-    echo "  2) Russia (MTS)"
-    echo -n "${BOLD}Enter number (1-2): ${RESET}"
-    read COUNTRY_CHOICE
-    case "$COUNTRY_CHOICE" in
-      1) MCCMNC="25702" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS" ;;
-      2) MCCMNC="25001" ISO="ru" TZ="Europe/Moscow" OPERATOR="MTS" ;;
-      *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
-    esac
-    ;;
-  *)
-    echo "${RED}Invalid option.${RESET}"
-    exit 1
-    ;;
-esac
+while true; do
+  echo ""
+  echo "${CYAN}${BOLD}Select Operator:${RESET}"
+  echo "  ${GREEN}1) Beeline${RESET}"
+  echo "  ${BLUE}2) MTS${RESET}"
+  echo -n "${BOLD}Enter number (1-2): ${RESET}"
+  read OPERATOR_CHOICE
+  case "$OPERATOR_CHOICE" in
+    1)
+      while true; do
+        echo ""
+        echo "${CYAN}${BOLD}Select Country:${RESET}"
+        echo "  1) Kazakhstan (Beeline)"
+        echo "  2) Uzbekistan (Beeline)"
+        echo "  3) Russia (Beeline)"
+        echo -n "${BOLD}Enter number (1-3): ${RESET}"
+        read COUNTRY_CHOICE
+        case "$COUNTRY_CHOICE" in
+          1) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline"; break 2 ;;
+          2) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline"; break 2 ;;
+          3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline"; break 2 ;;
+          *) echo "${RED}Invalid option. Try again.${RESET}" ;;
+        esac
+      done
+      ;;
+    2)
+      while true; do
+        echo ""
+        echo "${CYAN}${BOLD}Select Country:${RESET}"
+        echo "  1) Belarus (MTS)"
+        echo "  2) Russia (MTS)"
+        echo -n "${BOLD}Enter number (1-2): ${RESET}"
+        read COUNTRY_CHOICE
+        case "$COUNTRY_CHOICE" in
+          1) MCCMNC="25702" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS"; break 2 ;;
+          2) MCCMNC="25001" ISO="ru" TZ="Europe/Moscow" OPERATOR="MTS"; break 2 ;;
+          *) echo "${RED}Invalid option. Try again.${RESET}" ;;
+        esac
+      done
+      ;;
+    *)
+      echo "${RED}Invalid option. Try again.${RESET}"
+      ;;
+  esac
+done
 
 # ===[ DNS Selection ]===
-echo ""
-echo "${CYAN}${BOLD}Select DNS Provider:${RESET}"
-echo "  ${GREEN}1) Cloudflare${RESET} (1.1.1.1)"
-echo "  ${BLUE}2) Google${RESET} (8.8.8.8)"
-echo "  ${CYAN}3) Yandex${RESET} (77.88.8.88)"
-echo -n "${BOLD}Enter number (1-3): ${RESET}"
-read DNS_CHOICE
-
-case "$DNS_CHOICE" in
-  1) DNS="1.1.1.1" ;;
-  2) DNS="8.8.8.8" ;;
-  3) DNS="77.88.8.88" ;;
-  *) echo "${RED}Invalid option.${RESET}"; exit 1 ;;
-esac
+while true; do
+  echo ""
+  echo "${CYAN}${BOLD}Select DNS Provider:${RESET}"
+  echo "  ${GREEN}1) Cloudflare${RESET} (1.1.1.1)"
+  echo "  ${BLUE}2) Google${RESET} (8.8.8.8)"
+  echo "  ${CYAN}3) Yandex${RESET} (77.88.8.88)"
+  echo -n "${BOLD}Enter number (1-3): ${RESET}"
+  read DNS_CHOICE
+  case "$DNS_CHOICE" in
+    1) DNS="1.1.1.1"; break ;;
+    2) DNS="8.8.8.8"; break ;;
+    3) DNS="77.88.8.88"; break ;;
+    *) echo "${RED}Invalid option. Try again.${RESET}" ;;
+  esac
+done
 
 # ===[ Script Creation ]===
 echo ""
@@ -139,21 +142,24 @@ echo "${CYAN}Support the project on GitHub:${RESET}"
 echo "${BOLD}${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
 
 # ===[ Reboot Prompt ]===
-echo ""
-echo "${CYAN}Reboot required to apply changes.${RESET}"
-echo "  1) Reboot now"
-echo "  2) Reboot later"
-echo -n "${BOLD}Choose an option (1-2): ${RESET}"
-read REBOOT_CHOICE
-
-case "$REBOOT_CHOICE" in
-  1)
-    reboot
-    ;;
-  2)
-    echo "${GREEN}Reboot manually when ready.${RESET}"
-    ;;
-  *)
-    echo "${RED}Invalid choice. Please reboot manually.${RESET}"
-    ;;
-esac
+while true; do
+  echo ""
+  echo "${CYAN}Reboot required to apply changes.${RESET}"
+  echo "  1) Reboot now"
+  echo "  2) Reboot later"
+  echo -n "${BOLD}Choose an option (1-2): ${RESET}"
+  read REBOOT_CHOICE
+  case "$REBOOT_CHOICE" in
+    1)
+      reboot
+      break
+      ;;
+    2)
+      echo "${GREEN}Reboot manually when ready.${RESET}"
+      break
+      ;;
+    *)
+      echo "${RED}Invalid choice. Try again.${RESET}"
+      ;;
+  esac
+done
