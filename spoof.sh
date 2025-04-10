@@ -54,7 +54,8 @@ while true; do
   echo "  ${BOLD}[8]${RESET} Salt (Switzerland)"
   echo "  ${BOLD}[9]${RESET} Turkcell (Turkey)"
   echo "  ${BOLD}[10]${RESET} Telia (Finland)"
-  echo -n "${BOLD}Enter number (1-10): ${RESET}"
+  echo "  ${BOLD}[11]${RESET} Telekom (Germany)"
+  echo -n "${BOLD}Enter number (1-11): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
     1)
@@ -111,6 +112,7 @@ while true; do
     8) MCCMNC="22803" ISO="ch" TZ="Europe/Zurich" OPERATOR="Salt"; break ;;
     9) MCCMNC="28601" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell"; break ;;
     10) MCCMNC="24491" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
+    11) MCCMNC="26201" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
     *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
   esac
 done
