@@ -10,14 +10,14 @@
 - Android 9+ (API 28)
 - Magisk 20.4+
 - iptables
-- Ядро с TCP BBR (опц.)
+- Ядро с TCP BBR (опционально)
 
 ---
 
 ## 💡 Возможности
 
 - 🌍 Подмена SIM: MCCMNC, ISO оператора
-- 🌍 Подмена часового пояса
+- 🕓 Подмена часового пояса
 - 🔐 Перехват DNS и DoT (DNS over TLS)
 - 🚀 Активация TCP BBR
 - 📶 TTL=64 spoof
@@ -27,20 +27,26 @@
 
 ## 🌐 Поддержка операторов
 
-| Оператор   | Страна        | MCCMNC |
-|------------|---------------|--------|
-| Beeline    | Uzbekistan    | 43404  |
-| Beeline    | Russia        | 25099  |
-| MTS        | Belarus       | 25702  |
-| MTS        | Russia        | 25001  |
-| Tele2      | Russia        | 25020  |
-| Tele2      | Latvia        | 24702  |
-| Megafon    | Russia        | 25002  |
-| Yota       | Russia        | 25011  |
-| A1         | Belarus       | 25701  |
-| life:)     | Belarus       | 25704  |
-| Turkcell   | Turkey        | 28601  |
-| Salt       | Switzerland   | 22803  |
+| Оператор     | Страна         | MCCMNC |
+|--------------|----------------|--------|
+| Beeline      | Uzbekistan     | 43404  |
+| Beeline      | Kazakhstan     | 40101  |
+| Beeline      | Russia         | 25099  |
+| MTS          | Belarus        | 25702  |
+| MTS          | Russia         | 25001  |
+| Tele2        | Russia         | 25020  |
+| Tele2        | Latvia         | 24702  |
+| Tele2        | Sweden         | 24007  |
+| Tele2        | Estonia        | 24803  |
+| Megafon      | Russia         | 25002  |
+| Yota         | Russia         | 25011  |
+| A1           | Belarus        | 25701  |
+| life:)       | Belarus        | 25704  |
+| Salt         | Switzerland    | 22803  |
+| Turkcell     | Turkey         | 28601  |
+| Telia        | Finland        | 24491  |
+| Telekom      | Germany        | 26201  |
+| KPN          | Netherlands    | 20408  |
 
 ---
 
@@ -52,6 +58,7 @@ curl -fsSL -o /data/local/tmp/spoof.sh https://raw.githubusercontent.com/UhExooH
 chmod +x /data/local/tmp/spoof.sh && \
 sh /data/local/tmp/spoof.sh
 ```
+
 ---
 
 ## 🖥 Пример вывода
@@ -75,13 +82,14 @@ Select Mobile Operator:
   [7] life:) (Belarus)
   [8] Salt (Switzerland)
   [9] Turkcell (Turkey)
-Enter number (1-9): 8
+  [10] Telia (Finland)
+  [11] Telekom (Germany)
+  [12] KPN (Netherlands)
 
 Choose DNS Provider:
   [1] Cloudflare (1.1.1.1)
   [2] Google     (8.8.8.8)
   [3] Quad9      (9.9.9.9)
-Enter number (1-3): 1
 
 [+] Creating ReBullet-SIM.sh...
 [+] Creating ReBullet-TTL.sh...
@@ -98,9 +106,9 @@ GitHub: https://github.com/UhExooHw/sim-spoof
 Reboot required to apply changes.
   [1] Reboot now
   [2] Reboot later
-Choose an option (1-2): 2
 You can reboot manually later.
 ```
+
 ---
 
 ## 👤 Автор
