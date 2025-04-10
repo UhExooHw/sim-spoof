@@ -28,6 +28,10 @@
   - Russia (`25002`)
 - **Yota**
   - Russia (`25011`)
+- **A1**
+  - Belarus (`25701`)
+- **life:)**
+  - Belarus (`25704`)
 
 ---
 
@@ -44,8 +48,10 @@ Select Operator:
   3) Tele2 (T2)
   4) Megafon
   5) Yota
+  6) A1 (Belarus)
+  7) life:) (Belarus)
 
-Enter number (1-5): 4
+Enter number (1-7): 6
 
 Select DNS Provider:
   1) Cloudflare (1.1.1.1)
