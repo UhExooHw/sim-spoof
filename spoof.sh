@@ -53,7 +53,7 @@ while true; do
   echo "  ${BOLD}[7]${RESET} life:) (Belarus)"
   echo "  ${BOLD}[8]${RESET} Salt (Switzerland)"
   echo "  ${BOLD}[9]${RESET} Turkcell (Turkey)"
-  echo "  ${BOLD}[9]${RESET} Telia (Finland)"
+  echo "  ${BOLD}[10]${RESET} Telia (Finland)"
   echo -n "${BOLD}Enter number (1-10): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
