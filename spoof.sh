@@ -92,6 +92,7 @@ while true; do
         echo "${CYAN}Select Country:${RESET}"
         echo "  ${GREEN}[1]${RESET} Russia (T2)"
         echo "  ${BLUE}[2]${RESET} Latvia (Tele2)"
+        echo "  ${CYAN}[3]${RESET} Sweden (Tele2)"
         echo -n "${BOLD}Enter number (1-2): ${RESET}"
         read COUNTRY_CHOICE
         case "$COUNTRY_CHOICE" in
