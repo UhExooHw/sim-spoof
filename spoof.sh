@@ -116,10 +116,10 @@ while true; do
   echo -n "${BOLD}Enter number (1-4): ${RESET}"
   read DNS_CHOICE
   case "$DNS_CHOICE" in
-    1) DNS="1.1.1.1"; break ;;
-    2) DNS="8.8.8.8"; break ;;
-    3) DNS="77.88.8.88"; break ;;
-    4) DNS="9.9.9.9"; break ;;
+    1) DNS="1.1.1.1"; DOT_HOST="one.one.one.one"; break ;;
+    2) DNS="8.8.8.8"; DOT_HOST="dns.google"; break ;;
+    3) DNS="77.88.8.88"; DOT_HOST="common.dot.dns.yandex.net"; break ;;
+    4) DNS="9.9.9.9"; DOT_HOST="dns.quad9.net"; break ;;
     *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
   esac
 done
@@ -137,6 +137,8 @@ while true; do
     resetprop gsm.operator.alpha "${OPERATOR}"
     resetprop gsm.sim.operator.alpha "${OPERATOR}"
     resetprop persist.sys.timezone ${TZ}
+    settings put global private_dns_mode hostname
+    settings put global private_dns_specifier "${DOT_HOST}"
     sleep 5
 done
 EOF
@@ -145,16 +147,20 @@ echo "${CYAN}[+] Creating ReBullet-TTL.sh...${RESET}"
 cat > /data/adb/service.d/ReBullet-TTL.sh <<EOF
 #!/system/bin/sh
 
+# Enable BBR if available
 if grep -qw bbr /proc/sys/net/ipv4/tcp_available_congestion_control; then
     echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
 fi
 
+# Flush previous rules
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
-
 iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
+
+# Apply TTL spoof
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
 
+# Redirect DNS
 iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
 iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
 EOF
