@@ -43,7 +43,8 @@ while true; do
   echo "  ${BOLD}5) Yota (Russia)${RESET}"
   echo "  ${BOLD}6) A1 (Belarus)${RESET}"
   echo "  ${BOLD}7) life:) (Belarus)${RESET}"
-  echo -n "${BOLD}Enter number (1-7): ${RESET}"
+  echo "  ${BOLD}8) Turkcell (Turkey)${RESET}"
+  echo -n "${BOLD}Enter number (1-8): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
     1)
@@ -99,6 +100,8 @@ while true; do
       MCCMNC="25701" ISO="by" TZ="Europe/Minsk" OPERATOR="A1"; break ;;
     7)
       MCCMNC="25704" ISO="by" TZ="Europe/Minsk" OPERATOR="life:)"; break ;;
+    8)
+      MCCMNC="28601" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell"; break ;;
     *)
       echo "${RED}Invalid option. Try again.${RESET}"
       ;;
