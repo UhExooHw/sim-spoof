@@ -118,7 +118,7 @@ while true; do
     9) MCCMNC="28601" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell"; break ;;
     10) MCCMNC="24491" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
     11) MCCMNC="26201" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
-    12) MCCMNC="20408" ISO="nl" TZ="Europe/Europe/Amsterdam" OPERATOR="KPN"; break ;;
+    12) MCCMNC="20408" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
     *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
   esac
 done
