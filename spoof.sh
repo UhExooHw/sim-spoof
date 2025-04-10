@@ -93,7 +93,7 @@ while true; do
         echo "  ${GREEN}[1]${RESET} Russia (T2)"
         echo "  ${BLUE}[2]${RESET} Latvia (Tele2)"
         echo "  ${CYAN}[3]${RESET} Sweden (Tele2)"
-        echo -n "${BOLD}Enter number (1-2): ${RESET}"
+        echo -n "${BOLD}Enter number (1-3): ${RESET}"
         read COUNTRY_CHOICE
         case "$COUNTRY_CHOICE" in
           1) MCCMNC="25020" ISO="ru" TZ="Europe/Moscow" OPERATOR="t2"; break 2 ;;
