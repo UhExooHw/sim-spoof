@@ -85,11 +85,26 @@ Select Mobile Operator:
   [10] Telia (Finland)
   [11] Telekom (Germany)
   [12] KPN (Netherlands)
+  [13] Custom (manual input)
+  [0] Exit
+Enter number (0-13): 13
+
+Manual Custom Input:
+MCCMNC: 25099
+ISO (e.g. ru): ru
+TimeZone (e.g. Europe/Moscow): Europe/Moscow
+Operator Name: Beeline
 
 Choose DNS Provider:
   [1] Cloudflare (1.1.1.1)
   [2] Google     (8.8.8.8)
   [3] Quad9      (9.9.9.9)
+  [4] Custom DNS
+  [0] Back
+Enter number (0-4): 4
+
+Enter DNS IP: 1.1.1.1
+Enter DoT hostname: one.one.one.one
 
 [+] Creating ReBullet-SIM.sh...
 [+] Creating ReBullet-TTL.sh...
@@ -106,7 +121,9 @@ GitHub: https://github.com/UhExooHw/sim-spoof
 Reboot required to apply changes.
   [1] Reboot now
   [2] Reboot later
+Choose an option (1-2): 2
 You can reboot manually later.
+
 ```
 
 ---
