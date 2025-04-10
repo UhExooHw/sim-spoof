@@ -58,26 +58,45 @@ curl -s -o /data/local/tmp/spoof.sh \
 ## 🖥 Пример вывода
 
 ```
+╔════════════════════════════════════════╗
+║        ReBullet SIM Spoof Utility      ║
+╚════════════════════════════════════════╝
+
+[•] Checking environment...
 [✓] BBR is supported by the kernel.
 [✓] Environment OK.
 
 Select Mobile Operator:
-  [1] Beeline     [2] MTS
-  [3] Tele2       [4] Megafon
-  [5] Yota        [6] A1
-  [7] life:)      [8] Turkcell
-  [9] Salt
+  [1] Beeline        [2] MTS
+  [3] Tele2 (T2)      [4] Megafon
+  [5] Yota            [6] A1 (Belarus)
+  [7] life:)          [8] Salt
+  [9] Turkcell
+Enter number (1-9): 8
 
-Select DNS Provider:
+Choose DNS Provider:
   [1] Cloudflare (1.1.1.1)
   [2] Google     (8.8.8.8)
   [3] Quad9      (9.9.9.9)
+Enter number (1-3): 1
 
-[✓] Scripts installed:
-    /data/adb/service.d/ReBullet-SIM.sh
-    /data/adb/service.d/ReBullet-TTL.sh
+[+] Creating ReBullet-SIM.sh...
+[+] Creating ReBullet-TTL.sh...
+
+╔══════════════════════════════════════════╗
+║   [✓] Scripts successfully installed!    ║
+║   Loaded on boot via Magisk service.d    ║
+╚══════════════════════════════════════════╝
+
+Location: /data/adb/service.d/ReBullet-*.sh
+
+GitHub: https://github.com/UhExooHw/sim-spoof
 
 Reboot required to apply changes.
+  [1] Reboot now
+  [2] Reboot later
+Choose an option (1-2): 2
+You can reboot manually later.
 ```
 
 ## 👤 Автор
