@@ -112,12 +112,14 @@ while true; do
   echo "  ${GREEN}1) Cloudflare${RESET} (1.1.1.1)"
   echo "  ${BLUE}2) Google${RESET} (8.8.8.8)"
   echo "  ${CYAN}3) Yandex${RESET} (77.88.8.88)"
-  echo -n "${BOLD}Enter number (1-3): ${RESET}"
+  echo "  ${BOLD}4) Quad9${RESET} (9.9.9.9)"
+  echo -n "${BOLD}Enter number (1-4): ${RESET}"
   read DNS_CHOICE
   case "$DNS_CHOICE" in
     1) DNS="1.1.1.1"; break ;;
     2) DNS="8.8.8.8"; break ;;
     3) DNS="77.88.8.88"; break ;;
+    4) DNS="9.9.9.9"; break ;;
     *) echo "${RED}Invalid option. Try again.${RESET}" ;;
   esac
 done
