@@ -80,9 +80,6 @@ Select DNS Provider:
 Reboot required to apply changes.
 ```
 
----
-
 ## 👤 Автор
 
 GitHub: [UhExooHw](https://github.com/UhExooHw)
-```
