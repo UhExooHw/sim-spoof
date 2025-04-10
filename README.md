@@ -46,8 +46,8 @@ Select Operator:
   1) Beeline
   2) MTS
   3) Tele2 (T2)
-  4) Megafon
-  5) Yota
+  4) Megafon (Russia)
+  5) Yota (Russia)
   6) A1 (Belarus)
   7) life:) (Belarus)
 
