@@ -97,6 +97,7 @@ while true; do
         case "$COUNTRY_CHOICE" in
           1) MCCMNC="25020" ISO="ru" TZ="Europe/Moscow" OPERATOR="t2"; break 2 ;;
           2) MCCMNC="24702" ISO="lv" TZ="Europe/Riga" OPERATOR="Tele2"; break 2 ;;
+          3) MCCMNC="24007" ISO="se" TZ="Europe/Stockholm" OPERATOR="Tele2"; break 2 ;;
           *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
         esac
       done
