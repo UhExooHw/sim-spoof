@@ -16,9 +16,12 @@ if [ ! -d /data/adb/service.d ]; then
     exit 1
 fi
 
-if ! cat /proc/sys/net/ipv4/tcp_available_congestion_control | grep -qw bbr; then
-    echo "${RED}Kernel does not support BBR. Exiting.${RESET}"
-    exit 1
+BBR_SUPPORTED=false
+if cat /proc/sys/net/ipv4/tcp_available_congestion_control | grep -qw bbr; then
+    BBR_SUPPORTED=true
+    echo "${GREEN}BBR is supported by the kernel.${RESET}"
+else
+    echo "${RED}BBR is not supported by the kernel. Skipping BBR activation.${RESET}"
 fi
 
 if ! command -v iptables >/dev/null 2>&1; then
@@ -145,10 +148,12 @@ done
 EOF
 
 echo "${CYAN}[+] Creating ReBullet-TTL.sh${RESET}"
-cat <<EOF > /data/adb/service.d/ReBullet-TTL.sh
+cat > /data/adb/service.d/ReBullet-TTL.sh <<EOF
 #!/system/bin/sh
 
-echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+if grep -qw bbr /proc/sys/net/ipv4/tcp_available_congestion_control; then
+    echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+fi
 
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
