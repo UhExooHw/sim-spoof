@@ -55,6 +55,10 @@ curl -s -o /data/local/tmp/spoof.sh \
 
 ---
 
+Вот обновлённый **блок "🖥 Пример вывода"** для твоего `README`, адаптированный под **вертикальный выбор оператора**, как у тебя в скрипте:
+
+---
+
 ## 🖥 Пример вывода
 
 ```
@@ -67,11 +71,15 @@ curl -s -o /data/local/tmp/spoof.sh \
 [✓] Environment OK.
 
 Select Mobile Operator:
-  [1] Beeline        [2] MTS
-  [3] Tele2 (T2)      [4] Megafon
-  [5] Yota            [6] A1 (Belarus)
-  [7] life:)          [8] Salt
-  [9] Turkcell
+  [1] Beeline
+  [2] MTS
+  [3] Tele2 (T2)
+  [4] Megafon (Russia)
+  [5] Yota (Russia)
+  [6] A1 (Belarus)
+  [7] life:) (Belarus)
+  [8] Salt (Switzerland)
+  [9] Turkcell (Turkey)
 Enter number (1-9): 8
 
 Choose DNS Provider:
@@ -98,6 +106,9 @@ Reboot required to apply changes.
 Choose an option (1-2): 2
 You can reboot manually later.
 ```
+---
+
+Если хочешь — могу дополнительно оформить `README` с красивыми маркдаун-рамками, цветами терминала (с ANSI), вставкой скриншота, или добавить ещё инфу (например, по `resetprop`, проверке Magisk и т.п.).
 
 ## 👤 Автор
 
