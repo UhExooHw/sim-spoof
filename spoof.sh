@@ -40,15 +40,16 @@ fi
 
 echo "${GREEN}[✓] Environment OK.${RESET}"
 
-# ===[ Operator Selection ]===
+# # ===[ Operator Selection ]===
 while true; do
   echo ""
   echo "${BOLD}${CYAN}Select Mobile Operator:${RESET}"
   echo "  ${GREEN}[1]${RESET} Beeline        ${BLUE}[2]${RESET} MTS"
   echo "  ${CYAN}[3]${RESET} Tele2 (T2)      ${BOLD}[4]${RESET} Megafon"
   echo "  ${BOLD}[5]${RESET} Yota           ${BOLD}[6]${RESET} A1 (Belarus)"
-  echo "  ${BOLD}[7]${RESET} life:)         ${BOLD}[8]${RESET} Turkcell"
-  echo -n "${BOLD}Enter number (1-8): ${RESET}"
+  echo "  ${BOLD}[7]${RESET} life:)         ${BOLD}[8]${RESET} Salt"
+  echo "  ${BOLD}[9]${RESET} Turkcell"
+  echo -n "${BOLD}Enter number (1-9): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
     1)
