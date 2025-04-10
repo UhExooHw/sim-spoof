@@ -47,10 +47,10 @@
 ## 📦 Установка
 
 ```bash
-curl -s -o /data/local/tmp/spoof.sh \
-  https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/spoof.sh \
-  && chmod +x /data/local/tmp/spoof.sh \
-  && sh /data/local/tmp/spoof.sh
+rm -f /data/local/tmp/spoof.sh && \
+curl -fsSL -o /data/local/tmp/spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/spoof.sh && \
+chmod +x /data/local/tmp/spoof.sh && \
+sh /data/local/tmp/spoof.sh
 ```
 ---
 
