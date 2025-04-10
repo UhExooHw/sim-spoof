@@ -41,7 +41,9 @@ while true; do
   echo "  ${CYAN}3) Tele2 (T2)${RESET}"
   echo "  ${BOLD}4) Megafon${RESET}"
   echo "  ${BOLD}5) Yota${RESET}"
-  echo -n "${BOLD}Enter number (1-5): ${RESET}"
+  echo "  ${BOLD}6) A1 (Belarus)${RESET}"
+  echo "  ${BOLD}7) life:) (Belarus)${RESET}"
+  echo -n "${BOLD}Enter number (1-7): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
     1)
@@ -93,6 +95,10 @@ while true; do
       MCCMNC="25002" ISO="ru" TZ="Europe/Moscow" OPERATOR="Megafon"; break ;;
     5)
       MCCMNC="25011" ISO="ru" TZ="Europe/Moscow" OPERATOR="Yota"; break ;;
+    6)
+      MCCMNC="25701" ISO="by" TZ="Europe/Minsk" OPERATOR="A1"; break ;;
+    7)
+      MCCMNC="25704" ISO="by" TZ="Europe/Minsk" OPERATOR="life:)"; break ;;
     *)
       echo "${RED}Invalid option. Try again.${RESET}"
       ;;
@@ -154,7 +160,7 @@ chmod +x /data/adb/service.d/ReBullet-TTL.sh
 
 # ===[ Summary ]===
 echo ""
-echo "${GREEN}[✓] Scripts installed:${RESET}"
+echo "${GREEN}[\u2713] Scripts installed:${RESET}"
 echo "    /data/adb/service.d/ReBullet-SIM.sh"
 echo "    /data/adb/service.d/ReBullet-TTL.sh"
 echo ""
