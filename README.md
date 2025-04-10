@@ -34,7 +34,7 @@
 | Beeline      | Russia         | 25099  |
 | MTS          | Belarus        | 25702  |
 | MTS          | Russia         | 25001  |
-| T2           | Russia         | 25020  |
+| t2           | Russia         | 25020  |
 | Tele2        | Latvia         | 24702  |
 | Tele2        | Sweden         | 24007  |
 | Tele2        | Estonia        | 24803  |
