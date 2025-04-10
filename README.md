@@ -32,7 +32,8 @@
   - Belarus (`25701`)
 - **life:)**
   - Belarus (`25704`)
-
+- **Turkcell**
+  - Turkey (`25704`)
 ---
 
 ## 💻 Пример работы скрипта
@@ -50,6 +51,7 @@ Select Operator:
   5) Yota (Russia)
   6) A1 (Belarus)
   7) life:) (Belarus)
+  8) Turkcell (Turkey)
 
 Enter number (1-7): 6
 
