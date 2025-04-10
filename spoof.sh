@@ -55,7 +55,8 @@ while true; do
   echo "  ${BOLD}[9]${RESET} Turkcell (Turkey)"
   echo "  ${BOLD}[10]${RESET} Telia (Finland)"
   echo "  ${BOLD}[11]${RESET} Telekom (Germany)"
-  echo -n "${BOLD}Enter number (1-11): ${RESET}"
+  echo "  ${BOLD}[12]${RESET} KPN (Netherlands)"
+  echo -n "${BOLD}Enter number (1-12): ${RESET}"
   read OPERATOR_CHOICE
   case "$OPERATOR_CHOICE" in
     1)
@@ -63,12 +64,14 @@ while true; do
         echo ""
         echo "${CYAN}Select Country:${RESET}"
         echo "  ${GREEN}[1]${RESET} Uzbekistan (Beeline)"
-        echo "  ${BLUE}[2]${RESET} Russia (Beeline)"
-        echo -n "${BOLD}Enter number (1-2): ${RESET}"
+        echo "  ${GREEN}[2]${RESET} Kazakhstan (Beeline)"
+        echo "  ${BLUE}[3]${RESET} Russia (Beeline)"
+        echo -n "${BOLD}Enter number (1-3): ${RESET}"
         read COUNTRY_CHOICE
         case "$COUNTRY_CHOICE" in
           1) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline"; break 2 ;;
-          2) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline"; break 2 ;;
+          2) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline"; break 2 ;;
+          3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline"; break 2 ;;
           *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
         esac
       done
@@ -95,12 +98,14 @@ while true; do
         echo "  ${GREEN}[1]${RESET} Russia (T2)"
         echo "  ${BLUE}[2]${RESET} Latvia (Tele2)"
         echo "  ${CYAN}[3]${RESET} Sweden (Tele2)"
-        echo -n "${BOLD}Enter number (1-3): ${RESET}"
+        echo "  ${CYAN}[4]${RESET} Estonia (Tele2)"
+        echo -n "${BOLD}Enter number (1-4): ${RESET}"
         read COUNTRY_CHOICE
         case "$COUNTRY_CHOICE" in
           1) MCCMNC="25020" ISO="ru" TZ="Europe/Moscow" OPERATOR="t2"; break 2 ;;
           2) MCCMNC="24702" ISO="lv" TZ="Europe/Riga" OPERATOR="Tele2"; break 2 ;;
           3) MCCMNC="24007" ISO="se" TZ="Europe/Stockholm" OPERATOR="Tele2"; break 2 ;;
+          4) MCCMNC="24803" ISO="ee" TZ="Europe/Tallinn" OPERATOR="Tele2"; break 2 ;;
           *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
         esac
       done
@@ -113,6 +118,7 @@ while true; do
     9) MCCMNC="28601" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell"; break ;;
     10) MCCMNC="24491" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
     11) MCCMNC="26201" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
+    12) MCCMNC="20408" ISO="nl" TZ="Europe/Europe/Amsterdam" OPERATOR="KPN"; break ;;
     *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
   esac
 done
