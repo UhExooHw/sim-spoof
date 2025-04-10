@@ -160,7 +160,7 @@ chmod +x /data/adb/service.d/ReBullet-TTL.sh
 
 # ===[ Summary ]===
 echo ""
-echo "${GREEN}[\u2713] Scripts installed:${RESET}"
+echo "${GREEN}[✓] Scripts installed:${RESET}"
 echo "    /data/adb/service.d/ReBullet-SIM.sh"
 echo "    /data/adb/service.d/ReBullet-TTL.sh"
 echo ""
