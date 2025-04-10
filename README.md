@@ -57,6 +57,7 @@ Select DNS Provider:
   1) Cloudflare (1.1.1.1)
   2) Google     (8.8.8.8)
   3) Yandex     (77.88.8.88)
+  4) Quad9      (9.9.9.9)
 
 Enter number (1-3): 2
 
