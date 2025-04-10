@@ -40,7 +40,7 @@ fi
 
 echo "${GREEN}[✓] Environment OK.${RESET}"
 
-# # ===[ Operator Selection ]===
+# ===[ Operator Selection ]===
 while true; do
   echo ""
   echo "${BOLD}${CYAN}Select Mobile Operator:${RESET}"
