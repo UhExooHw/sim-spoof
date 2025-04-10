@@ -86,7 +86,3 @@ Reboot required to apply changes.
 
 GitHub: [UhExooHw](https://github.com/UhExooHw)
 ```
-
----
-
-Хочешь, чтобы я сразу сгенерировал патч и для скрипта — с добавлением Salt?
