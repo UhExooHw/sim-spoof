@@ -111,18 +111,17 @@ while true; do
   echo "${CYAN}Choose DNS Provider:${RESET}"
   echo "  ${GREEN}[1]${RESET} Cloudflare (1.1.1.1)"
   echo "  ${BLUE}[2]${RESET} Google     (8.8.8.8)"
-  echo "  ${CYAN}[3]${RESET} Yandex     (77.88.8.88)"
-  echo "  ${BOLD}[4]${RESET} Quad9      (9.9.9.9)"
-  echo -n "${BOLD}Enter number (1-4): ${RESET}"
+  echo "  ${BOLD}[3]${RESET} Quad9      (9.9.9.9)"
+  echo -n "${BOLD}Enter number (1-3): ${RESET}"
   read DNS_CHOICE
   case "$DNS_CHOICE" in
     1) DNS="1.1.1.1"; DOT_HOST="one.one.one.one"; break ;;
     2) DNS="8.8.8.8"; DOT_HOST="dns.google"; break ;;
-    3) DNS="77.88.8.88"; DOT_HOST="common.dot.dns.yandex.net"; break ;;
-    4) DNS="9.9.9.9"; DOT_HOST="dns.quad9.net"; break ;;
+    3) DNS="9.9.9.9"; DOT_HOST="dns.quad9.net"; break ;;
     *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
   esac
 done
+
 
 # ===[ Script Creation ]===
 echo ""
