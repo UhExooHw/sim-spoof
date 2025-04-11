@@ -38,6 +38,11 @@ if ! command -v iptables >/dev/null 2>&1; then
     exit 1
 fi
 
+if ! command -v ip6tables >/dev/null 2>&1; then
+    echo "${RED}[×] ip6tables not found. Exiting.${RESET}"
+    exit 1
+fi
+
 echo "${GREEN}[✓] Environment OK.${RESET}"
 
 # ===[ Operator & Country Selection ]===
