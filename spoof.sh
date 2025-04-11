@@ -151,18 +151,19 @@ while true; do
   echo "  ${RED}[0]${RESET} Back"
   echo -n "${BOLD}Enter number (0-4): ${RESET}"
   read DNS_CHOICE
-  case "$DNS_CHOICE" in
-    0) exec "$0" ;;
-    1) DNS="1.1.1.1"; DOT_HOST="one.one.one.one"; break ;;
-    2) DNS="8.8.8.8"; DOT_HOST="dns.google"; break ;;
-    3) DNS="9.9.9.9"; DOT_HOST="dns.quad9.net"; break ;;
-    4)
-      echo -n "${BOLD}Enter DNS IP: ${RESET}"; read DNS
-      echo -n "${BOLD}Enter DoT hostname: ${RESET}"; read DOT_HOST
-      break
-      ;;
-    *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
-  esac
+case "$DNS_CHOICE" in
+  0) exec "$0" ;;
+  1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; DOT_HOST="one.one.one.one"; break ;;
+  2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; DOT_HOST="dns.google"; break ;;
+  3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; DOT_HOST="dns.quad9.net"; break ;;
+  4)
+    echo -n "${BOLD}Enter DNS IPv4: ${RESET}"; read DNS
+    echo -n "${BOLD}Enter DNS IPv6 (optional): ${RESET}"; read DNSv6
+    echo -n "${BOLD}Enter DoT hostname: ${RESET}"; read DOT_HOST
+    break
+    ;;
+  *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
+esac
 done
 
 # ===[ Script Creation ]===
@@ -188,34 +189,51 @@ echo "${CYAN}[+] Creating ReBullet-TTL.sh...${RESET}"
 cat > /data/adb/service.d/ReBullet-TTL.sh <<EOF
 #!/system/bin/sh
 
+DNS="${DNS}"
+DNSv6="${DNSv6}"
+
 if grep -qw bbr /proc/sys/net/ipv4/tcp_available_congestion_control; then
     echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
 fi
 
+# IPv6 DNS interception (if supported)
+if command -v ip6tables >/dev/null 2>&1 && [ -n "\$DNSv6" ]; then
+    while ip6tables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
+    while ip6tables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
+
+    ip6tables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination [\$DNSv6]:53 2>/dev/null || \
+    ip6tables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination [\$DNSv6]:53
+
+    ip6tables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination [\$DNSv6]:53 2>/dev/null || \
+    ip6tables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination [\$DNSv6]:53
+fi
+
+# IPv4 DNS interception
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
 iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
 
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53
 
-resetprop -n net.eth0.dns1 ${DNS}
-resetprop -n net.eth0.dns2 ${DNS}
-resetprop -n net.dns1 ${DNS}
-resetprop -n net.dns2 ${DNS}
-resetprop -n net.ppp0.dns1 ${DNS}
-resetprop -n net.ppp0.dns2 ${DNS}
-resetprop -n net.rmnet0.dns1 ${DNS}
-resetprop -n net.rmnet0.dns2 ${DNS}
-resetprop -n net.rmnet1.dns1 ${DNS}
-resetprop -n net.rmnet1.dns2 ${DNS}
-resetprop -n net.rmnet2.dns1 ${DNS}
-resetprop -n net.rmnet2.dns2 ${DNS}
-resetprop -n net.rmnet3.dns1 ${DNS}
-resetprop -n net.rmnet3.dns2 ${DNS}
-resetprop -n net.pdpbr1.dns1 ${DNS}
-resetprop -n net.pdpbr1.dns2 ${DNS}
+# Set DNS properties
+resetprop -n net.eth0.dns1 \$DNS
+resetprop -n net.eth0.dns2 \$DNS
+resetprop -n net.dns1 \$DNS
+resetprop -n net.dns2 \$DNS
+resetprop -n net.ppp0.dns1 \$DNS
+resetprop -n net.ppp0.dns2 \$DNS
+resetprop -n net.rmnet0.dns1 \$DNS
+resetprop -n net.rmnet0.dns2 \$DNS
+resetprop -n net.rmnet1.dns1 \$DNS
+resetprop -n net.rmnet1.dns2 \$DNS
+resetprop -n net.rmnet2.dns1 \$DNS
+resetprop -n net.rmnet2.dns2 \$DNS
+resetprop -n net.rmnet3.dns1 \$DNS
+resetprop -n net.rmnet3.dns2 \$DNS
+resetprop -n net.pdpbr1.dns1 \$DNS
+resetprop -n net.pdpbr1.dns2 \$DNS
 EOF
 
 chmod +x /data/adb/service.d/ReBullet-*.sh
