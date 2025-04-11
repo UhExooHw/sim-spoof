@@ -210,10 +210,10 @@ resetprop -n net.rmnet0.dns1 ${DNS}
 resetprop -n net.rmnet0.dns2 ${DNS}
 resetprop -n net.rmnet1.dns1 ${DNS}
 resetprop -n net.rmnet1.dns2 ${DNS}
-resetprop -n net.rmnet1.dns1 ${DNS}
-resetprop -n net.rmnet1.dns2 ${DNS}
-resetprop -n net.rmnet1.dns1 ${DNS}
-resetprop -n net.rmnet1.dns2 ${DNS}
+resetprop -n net.rmnet2.dns1 ${DNS}
+resetprop -n net.rmnet2.dns2 ${DNS}
+resetprop -n net.rmnet3.dns1 ${DNS}
+resetprop -n net.rmnet3.dns2 ${DNS}
 resetprop -n net.pdpbr1.dns1 ${DNS}
 resetprop -n net.pdpbr1.dns2 ${DNS}
 EOF
