@@ -158,7 +158,7 @@ case "$DNS_CHOICE" in
   3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; DOT_HOST="dns.quad9.net"; break ;;
   4)
     echo -n "${BOLD}Enter DNS IPv4: ${RESET}"; read DNS
-    echo -n "${BOLD}Enter DNS IPv6 (optional): ${RESET}"; read DNSv6
+    echo -n "${BOLD}Enter DNS IPv6: ${RESET}"; read DNSv6
     echo -n "${BOLD}Enter DoT hostname: ${RESET}"; read DOT_HOST
     break
     ;;
