@@ -196,45 +196,37 @@ if grep -qw bbr /proc/sys/net/ipv4/tcp_available_congestion_control; then
     echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
 fi
 
-# IPv6 DNS interception (if supported)
-if command -v ip6tables >/dev/null 2>&1 && [ -n "\$DNSv6" ]; then
-    while ip6tables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
-    while ip6tables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
-
-    ip6tables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination [\$DNSv6]:53 2>/dev/null || \
-    ip6tables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination [\$DNSv6]:53
-
-    ip6tables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination [\$DNSv6]:53 2>/dev/null || \
-    ip6tables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination [\$DNSv6]:53
-fi
-
-# IPv4 DNS interception
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
+while ip6tables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
+while ip6tables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
+
 iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
-
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53
 
-# Set DNS properties
-resetprop -n net.eth0.dns1 \$DNS
-resetprop -n net.eth0.dns2 \$DNS
-resetprop -n net.dns1 \$DNS
-resetprop -n net.dns2 \$DNS
-resetprop -n net.ppp0.dns1 \$DNS
-resetprop -n net.ppp0.dns2 \$DNS
-resetprop -n net.rmnet0.dns1 \$DNS
-resetprop -n net.rmnet0.dns2 \$DNS
-resetprop -n net.rmnet1.dns1 \$DNS
-resetprop -n net.rmnet1.dns2 \$DNS
-resetprop -n net.rmnet2.dns1 \$DNS
-resetprop -n net.rmnet2.dns2 \$DNS
-resetprop -n net.rmnet3.dns1 \$DNS
-resetprop -n net.rmnet3.dns2 \$DNS
-resetprop -n net.pdpbr1.dns1 \$DNS
-resetprop -n net.pdpbr1.dns2 \$DNS
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
+ip6tables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
+ip6tables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
+
+resetprop -n net.eth0.dns1 ${DNS}
+resetprop -n net.eth0.dns2 ${DNS}
+resetprop -n net.dns1 ${DNS}
+resetprop -n net.dns2 ${DNS}
+resetprop -n net.ppp0.dns1 ${DNS}
+resetprop -n net.ppp0.dns2 ${DNS}
+resetprop -n net.rmnet0.dns1 ${DNS}
+resetprop -n net.rmnet0.dns2 ${DNS}
+resetprop -n net.rmnet1.dns1 ${DNS}
+resetprop -n net.rmnet1.dns2 ${DNS}
+resetprop -n net.rmnet2.dns1 ${DNS}
+resetprop -n net.rmnet2.dns2 ${DNS}
+resetprop -n net.rmnet3.dns1 ${DNS}
+resetprop -n net.rmnet3.dns2 ${DNS}
+resetprop -n net.pdpbr1.dns1 ${DNS}
+resetprop -n net.pdpbr1.dns2 ${DNS}
 EOF
+
 
 chmod +x /data/adb/service.d/ReBullet-*.sh
 
