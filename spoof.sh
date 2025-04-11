@@ -171,13 +171,13 @@ echo "${CYAN}[+] Creating ReBullet-SIM.sh...${RESET}"
 cat > /data/adb/service.d/ReBullet-SIM.sh <<EOF
 #!/system/bin/sh
 while true; do
-    resetprop gsm.operator.iso-country ${ISO}
-    resetprop gsm.sim.operator.iso-country ${ISO}
-    resetprop gsm.operator.numeric ${MCCMNC}
-    resetprop gsm.sim.operator.numeric ${MCCMNC}
-    resetprop gsm.operator.alpha "${OPERATOR}"
-    resetprop gsm.sim.operator.alpha "${OPERATOR}"
-    resetprop persist.sys.timezone ${TZ}
+    resetprop -n gsm.operator.iso-country ${ISO}
+    resetprop -n gsm.sim.operator.iso-country ${ISO}
+    resetprop -n gsm.operator.numeric ${MCCMNC}
+    resetprop -n gsm.sim.operator.numeric ${MCCMNC}
+    resetprop -n gsm.operator.alpha "${OPERATOR}"
+    resetprop -n gsm.sim.operator.alpha "${OPERATOR}"
+    resetprop -n persist.sys.timezone ${TZ}
     settings put global private_dns_mode hostname
     settings put global private_dns_specifier "${DOT_HOST}"
     sleep 5
@@ -199,6 +199,23 @@ iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
 iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
 iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
+
+resetprop -n net.eth0.dns1 ${DNS}
+resetprop -n net.eth0.dns2 ${DNS}
+resetprop -n net.dns1 ${DNS}
+resetprop -n net.dns2 ${DNS}
+resetprop -n net.ppp0.dns1 ${DNS}
+resetprop -n net.ppp0.dns2 ${DNS}
+resetprop -n net.rmnet0.dns1 ${DNS}
+resetprop -n net.rmnet0.dns2 ${DNS}
+resetprop -n net.rmnet1.dns1 ${DNS}
+resetprop -n net.rmnet1.dns2 ${DNS}
+resetprop -n net.rmnet1.dns1 ${DNS}
+resetprop -n net.rmnet1.dns2 ${DNS}
+resetprop -n net.rmnet1.dns1 ${DNS}
+resetprop -n net.rmnet1.dns2 ${DNS}
+resetprop -n net.pdpbr1.dns1 ${DNS}
+resetprop -n net.pdpbr1.dns2 ${DNS}
 EOF
 
 chmod +x /data/adb/service.d/ReBullet-*.sh
