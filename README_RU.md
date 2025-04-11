@@ -1,3 +1,10 @@
+<p align="center">
+  🇬🇧 <a href="README.md">English</a> &nbsp;|&nbsp;
+  🇷🇺 <a href="README_RU.md">Русский</a> &nbsp;|&nbsp;
+  🇨🇳 <a href="README_CN.md">简体中文</a> &nbsp;|&nbsp;
+  🇮🇷 <a href="README_IR.md">فارسی</a>
+</p>
+
 # 🚀 ReBullet SIM Spoof Utility
 
 > ⚠️ **Внимание:** Использование скрипта может нарушать законы или условия оператора. Всё — **на ваш страх и риск**.  
