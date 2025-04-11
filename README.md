@@ -10,6 +10,7 @@
 - Android 9+ (API 28)
 - Magisk 20.4+
 - iptables
+- ip6tables
 - Ядро с TCP BBR (опционально)
 
 ---
