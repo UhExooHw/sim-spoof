@@ -186,6 +186,7 @@ while true; do
     resetprop -n persist.sys.timezone ${TZ}
     settings put global private_dns_mode hostname
     settings put global private_dns_specifier "${DOT_HOST}"
+    settings put global auto_time_zone 1
     sleep 5
 done
 EOF
