@@ -207,11 +207,15 @@ while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; don
 while ip6tables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while ip6tables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
 
-iptables -t mangle -D FORWARD -j TTL --ttl-set 64 2>/dev/null
-iptables -t mangle -C FORWARD -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A FORWARD -j TTL --ttl-set 64
+while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
+while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
+while iptables -t mangle -D OUTPUT -j TTL --ttl-set 64 2>/dev/null; do :; done
+while ip6tables -t mangle -D OUTPUT -j HL --hl-set 64 2>/dev/null; do :; done
 
-ip6tables -t mangle -D FORWARD -j HL --hl-set 64 2>/dev/null
-ip6tables -t mangle -C FORWARD -j HL --hl-set 64 2>/dev/null || ip6tables -t mangle -A FORWARD -j HL --hl-set 64
+iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
+ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
+iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
+ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
 
 iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
 iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
