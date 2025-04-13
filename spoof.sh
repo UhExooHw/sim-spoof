@@ -210,6 +210,9 @@ while ip6tables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; do
 iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null
 iptables -t mangle -C POSTROUTING -j TTL --ttl-set 64 2>/dev/null || iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
 
+ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null
+ip6tables -t mangle -C POSTROUTING -j HL --hl-set 64 2>/dev/null || ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
+
 iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
 iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
 ip6tables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
