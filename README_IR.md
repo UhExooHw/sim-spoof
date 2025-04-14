@@ -61,10 +61,10 @@
 ## 📦 نصب
 
 ```bash
-rm -f /data/local/tmp/spoof.sh && \
-curl -fsSL -o /data/local/tmp/spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/spoof.sh && \
-chmod +x /data/local/tmp/spoof.sh && \
-sh /data/local/tmp/spoof.sh
+rm -f /data/local/tmp/script.sh && \
+curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/refs/heads/main/data/local/tmp/script.sh && \
+chmod +x /data/local/tmp/script.sh && \
+sh /data/local/tmp/script.sh
 ```
 
 ---
