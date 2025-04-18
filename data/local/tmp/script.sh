@@ -155,7 +155,7 @@ while true; do
   echo "  ${BOLD}[4]${RESET} Switch      (dns.switch.ch)"
   echo "  ${CYAN}[5]${RESET} Custom DNS"
   echo "  ${RED}[0]${RESET} Back"
-  echo -n "${BOLD}Enter number (0-4): ${RESET}"
+  echo -n "${BOLD}Enter number (0-5): ${RESET}"
   read DNS_CHOICE
 case "$DNS_CHOICE" in
   0) exec "$0" ;;
