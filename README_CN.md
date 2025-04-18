@@ -110,7 +110,7 @@ Choose DNS Provider:
   [4] Switch      (dns.switch.ch)
   [5] Custom DNS
   [0] Back
-Enter number (0-4): 4
+Enter number (0-4): 5
 
 Enter DNS Ipv4: 1.1.1.1
 Enter DNS Ipv6: 2606:4700:4700::1111
