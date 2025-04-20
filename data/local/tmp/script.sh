@@ -149,23 +149,24 @@ done
 while true; do
   echo ""
   echo "${CYAN}Choose DNS Provider:${RESET}"
-  echo "  ${GREEN}[1]${RESET} Cloudflare (1.1.1.1)"
-  echo "  ${BLUE}[2]${RESET} Google (8.8.8.8)"
-  echo "  ${BOLD}[3]${RESET} Quad9 (9.9.9.9)"
-  echo "  ${BOLD}[4]${RESET} Switch (130.59.31.248)"
+  echo "  ${GREEN}[1]${RESET} Cloudflare (one.one.one.one)"
+  echo "  ${BLUE}[2]${RESET} Google     (dns.google)"
+  echo "  ${BOLD}[3]${RESET} Quad9      (dns.quad9.net)"
+  echo "  ${BOLD}[4]${RESET} Switch      (dns.switch.ch)"
   echo "  ${CYAN}[5]${RESET} Custom DNS"
   echo "  ${RED}[0]${RESET} Back"
   echo -n "${BOLD}Enter number (0-5): ${RESET}"
   read DNS_CHOICE
 case "$DNS_CHOICE" in
   0) exec "$0" ;;
-  1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; break ;;
-  2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; break ;;
-  3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; break ;;
-  4) DNS="130.59.31.248"; DNSv6="2001:620:0:ff::2"; break ;;
+  1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; DOT_HOST="one.one.one.one"; break ;;
+  2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; DOT_HOST="dns.google"; break ;;
+  3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; DOT_HOST="dns.quad9.net"; break ;;
+  4) DNS="130.59.31.248"; DNSv6="2001:620:0:ff::2"; DOT_HOST="dns.switch.ch"; break ;;
   5)
     echo -n "${BOLD}Enter DNS IPv4: ${RESET}"; read DNS
     echo -n "${BOLD}Enter DNS IPv6: ${RESET}"; read DNSv6
+    echo -n "${BOLD}Enter DoT hostname: ${RESET}"; read DOT_HOST
     break
     ;;
   *) echo "${RED}[!] Invalid option. Try again.${RESET}" ;;
@@ -185,6 +186,8 @@ while true; do
     resetprop -n gsm.operator.alpha "${OPERATOR}"
     resetprop -n gsm.sim.operator.alpha "${OPERATOR}"
     resetprop -n persist.sys.timezone ${TZ}
+    settings put global private_dns_mode hostname
+    settings put global private_dns_specifier "${DOT_HOST}"
     settings put global auto_time_zone 1
     sleep 5
 done
@@ -238,6 +241,7 @@ resetprop -n net.rmnet3.dns2 ${DNS}
 resetprop -n net.pdpbr1.dns1 ${DNS}
 resetprop -n net.pdpbr1.dns2 ${DNS}
 EOF
+
 
 chmod +x /data/adb/service.d/ReBullet-*.sh
 
