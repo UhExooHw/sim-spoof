@@ -26,7 +26,7 @@
 
 - 🌍 伪装 SIM：MCCMNC、运营商 ISO
 - 🕓 修改时区
-- 🔐 拦截 DNS
+- 🔐 拦截 DNS 和 DoT（DNS over TLS）（IPv4/IPv6）
 - 🚀 启用 TCP BBR
 - 📶 隐藏网络共享功能，防止被运营商识别
 - ⚠️ 绕过基于 SIM 卡国家的地理封锁（如 Google Play、TikTok 等）
@@ -110,7 +110,7 @@ Choose DNS Provider:
   [4] Switch      (dns.switch.ch)
   [5] Custom DNS
   [0] Back
-Enter number (0-5): 5
+Enter number (0-4): 5
 
 Enter DNS Ipv4: 1.1.1.1
 Enter DNS Ipv6: 2606:4700:4700::1111
