@@ -152,7 +152,7 @@ while true; do
   echo "  ${GREEN}[1]${RESET} Cloudflare (one.one.one.one)"
   echo "  ${BLUE}[2]${RESET} Google     (dns.google)"
   echo "  ${BOLD}[3]${RESET} Quad9      (dns.quad9.net)"
-  echo "  ${BOLD}[4]${RESET} Switch      (dns.switch.ch)"
+  echo "  ${BOLD}[4]${RESET} Digitale Gesellschaft      (dns.digitale-gesellschaft.ch)"
   echo "  ${CYAN}[5]${RESET} Custom DNS"
   echo "  ${RED}[0]${RESET} Back"
   echo -n "${BOLD}Enter number (0-5): ${RESET}"
@@ -162,7 +162,7 @@ case "$DNS_CHOICE" in
   1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; DOT_HOST="one.one.one.one"; break ;;
   2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; DOT_HOST="dns.google"; break ;;
   3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; DOT_HOST="dns.quad9.net"; break ;;
-  4) DNS="130.59.31.248"; DNSv6="2001:620:0:ff::2"; DOT_HOST="dns.switch.ch"; break ;;
+  4) DNS="185.95.218.43"; DNSv6="2a05:fc84::43"; DOT_HOST="dns.digitale-gesellschaft.ch"; break ;;
   5)
     echo -n "${BOLD}Enter DNS IPv4: ${RESET}"; read DNS
     echo -n "${BOLD}Enter DNS IPv6: ${RESET}"; read DNSv6
