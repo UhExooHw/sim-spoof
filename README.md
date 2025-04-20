@@ -26,7 +26,7 @@
 
 - 🌍 SIM spoofing: MCCMNC, operator ISO
 - 🕓 Time zone spoofing
-- 🔐 DNS
+- 🔐 DNS and DoT (DNS over TLS) interception (IPv4/IPv6)
 - 🚀 TCP BBR activation
 - 📶 Hide tethering from the carrier
 - ⚠️ Bypass geoblocks in services that detect country by SIM (Google Play, TikTok, etc.)
@@ -110,7 +110,7 @@ Choose DNS Provider:
   [4] Switch      (dns.switch.ch)
   [5] Custom DNS
   [0] Back
-Enter number (0-5): 5
+Enter number (0-4): 5
 
 Enter DNS Ipv4: 1.1.1.1
 Enter DNS Ipv6: 2606:4700:4700::1111
