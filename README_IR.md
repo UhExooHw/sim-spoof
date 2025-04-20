@@ -26,7 +26,7 @@
 
 - 🌍 جعل SIM: مقادیر MCCMNC و کد کشور اپراتور (ISO)
 - 🕓 تنظیم منطقه زمانی جعلی
-- 🔐 رهگیری DNS 
+- 🔐 رهگیری DNS و DoT (DNS over TLS) (برای IPv4/IPv6)
 - 🚀 فعال‌سازی TCP BBR برای بهبود سرعت شبکه
 - 📶 پنهان‌سازی اشتراک‌گذاری اینترنت (تترینگ) از دید اپراتور
 - ⚠️ دور زدن محدودیت‌های جغرافیایی در سرویس‌هایی که کشور را از روی SIM تشخیص می‌دهند (مانند Google Play، TikTok و غیره)
@@ -110,7 +110,7 @@ Choose DNS Provider:
   [4] Switch      (dns.switch.ch)
   [5] Custom DNS
   [0] Back
-Enter number (0-5): 5
+Enter number (0-4): 5
 
 Enter DNS Ipv4: 1.1.1.1
 Enter DNS Ipv6: 2606:4700:4700::1111
