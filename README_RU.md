@@ -107,7 +107,7 @@ Choose DNS Provider:
   [1] Cloudflare (one.one.one.one)
   [2] Google     (dns.google)
   [3] Quad9      (dns.quad9.net)
-  [4] Switch      (dns.switch.ch)
+  [4] SWITCH      (dns.switch.ch)
   [5] Custom DNS
   [0] Back
 Enter number (0-4): 5
