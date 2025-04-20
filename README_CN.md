@@ -26,7 +26,7 @@
 
 - 🌍 伪装 SIM：MCCMNC、运营商 ISO
 - 🕓 修改时区
-- 🔐 拦截 DNS 和 DoT（DNS over TLS）（IPv4/IPv6）
+- 🔐 拦截 DNS
 - 🚀 启用 TCP BBR
 - 📶 隐藏网络共享功能，防止被运营商识别
 - ⚠️ 绕过基于 SIM 卡国家的地理封锁（如 Google Play、TikTok 等）
