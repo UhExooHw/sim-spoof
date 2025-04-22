@@ -26,7 +26,7 @@
 
 - 🌍 جعل SIM: مقادیر MCCMNC و کد کشور اپراتور (ISO)
 - 🕓 تنظیم منطقه زمانی جعلی
-- 🔐 رهگیری DNS و DoT (DNS over TLS) (برای IPv4/IPv6)
+- 🔐 رهگیری DNS (برای IPv4/IPv6)
 - 🚀 فعال‌سازی TCP BBR برای بهبود سرعت شبکه
 - 📶 پنهان‌سازی اشتراک‌گذاری اینترنت (تترینگ) از دید اپراتور
 - ⚠️ دور زدن محدودیت‌های جغرافیایی در سرویس‌هایی که کشور را از روی SIM تشخیص می‌دهند (مانند Google Play، TikTok و غیره)
@@ -114,7 +114,6 @@ Enter number (0-4): 5
 
 Enter DNS Ipv4: 1.1.1.1
 Enter DNS Ipv6: 2606:4700:4700::1111
-Enter DoT hostname: one.one.one.one
 
 [+] Creating ReBullet-SIM.sh...
 [+] Creating ReBullet-TTL.sh...
