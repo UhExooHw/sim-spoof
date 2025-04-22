@@ -114,7 +114,6 @@ Enter number (0-4): 5
 
 Enter DNS Ipv4: 1.1.1.1
 Enter DNS Ipv6: 2606:4700:4700::1111
-Enter DoT hostname: one.one.one.one
 
 [+] Creating ReBullet-SIM.sh...
 [+] Creating ReBullet-TTL.sh...
