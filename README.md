@@ -26,7 +26,7 @@
 
 - 🌍 SIM spoofing: MCCMNC, operator ISO
 - 🕓 Time zone spoofing
-- 🔐 DNS and DoT (DNS over TLS) interception (IPv4/IPv6)
+- 🔐 DNS interception (IPv4/IPv6)
 - 🚀 TCP BBR activation
 - 📶 Hide tethering from the carrier
 - ⚠️ Bypass geoblocks in services that detect country by SIM (Google Play, TikTok, etc.)
