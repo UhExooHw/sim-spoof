@@ -14,11 +14,10 @@
 
 ## ⚙️ Requirements
 
-- Android 9+ (API 28)
+- Android 5.0+ (API 21)
 - Magisk 20.4+
 - iptables
 - ip6tables
-- Kernel with TCP BBR support (optional)
 
 ---
 
