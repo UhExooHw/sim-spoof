@@ -18,7 +18,6 @@
 - Magisk 20.4+
 - iptables
 - ip6tables
-- Ядро с TCP BBR (опционально)
 
 ---
 
