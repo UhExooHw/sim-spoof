@@ -14,6 +14,7 @@
 
 ## ⚙️ Requirements
 
+- Android 5.0+ (API 21)
 - Magisk 20.4+ or KernelSU
 - `iptables` and `ip6tables`
 
@@ -57,10 +58,18 @@
 
 ## 📦 Installation
 
+### Via Terminal
+
 ```bash
 curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && \
 chmod +x /data/local/tmp/script.sh && \
 sh /data/local/tmp/script.sh
+```
+
+### Via ADB
+
+```bash
+adb shell curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && adb shell chmod +x /data/local/tmp/script.sh && adb shell sh /data/local/tmp/script.sh
 ```
 
 ---
