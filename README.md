@@ -1,34 +1,32 @@
 <p align="center">
-  🇬🇧 <a href="README.md">English</a> &nbsp;|&nbsp;
-  🇷🇺 <a href="README_RU.md">Русский</a> &nbsp;|&nbsp;
-  🇨🇳 <a href="README_CN.md">简体中文</a> &nbsp;|&nbsp;
+  🇬🇧 <a href="README.md">English</a> | 
+  🇷🇺 <a href="README_RU.md">Русский</a> | 
+  🇨🇳 <a href="README_CN.md">简体中文</a> | 
   🇮🇷 <a href="README_IR.md">فارسی</a>
 </p>
 
 # 🚀 ReBullet SIM Spoof Utility
 
 > ⚠️ **Warning:** Using this script may violate laws or carrier terms. Use at your **own risk**.  
-> ⚠️ Works with **SIM1 only**. SIM2 is not supported.
+> ⚠️ Supports **SIM1 only**. SIM2 is not supported.
 
 ---
 
 ## ⚙️ Requirements
 
-- Android 5.0+ (API 21)
-- Magisk 20.4+
-- iptables
-- ip6tables
+- Magisk 20.4+ or KernelSU
+- `iptables` and `ip6tables`
 
 ---
 
 ## 💡 Features
 
-- 🌍 SIM spoofing: MCCMNC, operator ISO
-- 🕓 Time zone spoofing
-- 🔐 DNS interception (IPv4/IPv6)
-- 🚀 TCP BBR activation
-- 📶 Hide tethering from the carrier
-- ⚠️ Bypass geoblocks in services that detect country by SIM (Google Play, TikTok, etc.)
+- 🌍 Spoof SIM: MCCMNC, operator ISO
+- 🕓 Spoof time zone
+- 🔐 Intercept DNS (IPv4/IPv6)
+- 🚀 Activate TCP BBR
+- 📶 Hide tethering from carrier
+- ⚠️ Bypass geoblocks (e.g., Google Play, TikTok)
 
 ---
 
@@ -60,8 +58,7 @@
 ## 📦 Installation
 
 ```bash
-rm -f /data/local/tmp/script.sh && \
-curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/refs/heads/main/data/local/tmp/script.sh && \
+curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && \
 chmod +x /data/local/tmp/script.sh && \
 sh /data/local/tmp/script.sh
 ```
@@ -76,60 +73,43 @@ sh /data/local/tmp/script.sh
 ╚════════════════════════════════════════╝
 
 [•] Checking environment...
-[✓] BBR is supported by the kernel.
+[✓] BBR supported.
 [✓] Environment OK.
 
 Select Mobile Operator:
-  [1] Beeline
-  [2] MTS
-  [3] Tele2 (T2)
-  [4] Megafon (Russia)
-  [5] Yota (Russia)
-  [6] A1 (Belarus)
-  [7] life:) (Belarus)
-  [8] Salt (Switzerland)
-  [9] Turkcell (Turkey)
-  [10] Telia (Finland)
-  [11] Telekom (Germany)
-  [12] KPN (Netherlands)
-  [13] Custom (manual input)
-  [0] Exit
+  [1] Beeline  [2] MTS  [3] Tele2
+  [4] Megafon  [5] Yota  [6] A1  [7] life:)
+  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom
+  [12] KPN  [13] Custom  [0] Exit
 Enter number (0-13): 13
 
 Manual Custom Input:
 MCCMNC: 25099
-ISO (e.g. ru): ru
-TimeZone (e.g. Europe/Moscow): Europe/Moscow
-Operator Name: Beeline
+ISO: ru
+TimeZone: Europe/Moscow
+Operator: Beeline
 
 Choose DNS Provider:
-  [1] Cloudflare (one.one.one.one)
-  [2] Google     (dns.google)
-  [3] Quad9      (dns.quad9.net)
-  [4] Custom DNS
-  [0] Back
+  [1] Cloudflare  [2] Google  [3] Quad9  [4] Custom  [0] Back
 Enter number (0-4): 4
 
-Enter DNS Ipv4: 1.1.1.1
-Enter DNS Ipv6: 2606:4700:4700::1111
+DNS IPv4: 1.1.1.1
+DNS IPv6: 2606:4700:4700::1111
 
 [+] Creating ReBullet-SIM.sh...
 [+] Creating ReBullet-TTL.sh...
 
 ╔══════════════════════════════════════════╗
-║   [✓] Scripts successfully installed!    ║
-║   Loaded on boot via Magisk service.d    ║
+║   [✓] Scripts installed! Loaded on boot  ║
 ╚══════════════════════════════════════════╝
 
 Location: /data/adb/service.d/ReBullet-*.sh
-
 GitHub: https://github.com/UhExooHw/sim-spoof
 
-Reboot required to apply changes.
-  [1] Reboot now
-  [2] Reboot later
-Choose an option (1-2): 2
-You can reboot manually later.
+Reboot required.
+  [1] Reboot now  [2] Later
+Choose (1-2): 2
+Reboot manually later.
 ```
 
 ---
