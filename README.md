@@ -53,9 +53,8 @@
 ### Via Terminal
 
 ```bash
-curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && \
-chmod +x /data/local/tmp/script.sh && \
-sh /data/local/tmp/script.sh
+su
+curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && \ chmod +x /data/local/tmp/script.sh && \ sh /data/local/tmp/script.sh
 ```
 
 ### Via ADB
