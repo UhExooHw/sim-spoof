@@ -137,6 +137,7 @@ while true; do
     esac
 done
 
+echo ""
 echo "${CYAN}[+] Creating ReBullet-SIM.sh...${RESET}"
 cat > /data/adb/service.d/ReBullet-SIM.sh <<EOF
 #!/system/bin/sh
@@ -149,6 +150,7 @@ while true; do
     resetprop -n gsm.sim.operator.alpha "${OPERATOR}"
     resetprop -n persist.sys.timezone ${TZ}
     settings put global auto_time_zone 1
+    settings put global private_dns_mode off
     sleep 5
 done
 EOF
@@ -156,46 +158,80 @@ EOF
 echo "${CYAN}[+] Creating ReBullet-TTL.sh...${RESET}"
 cat > /data/adb/service.d/ReBullet-TTL.sh <<EOF
 #!/system/bin/sh
+
 DNS="${DNS}"
 DNSv6="${DNSv6}"
+
 if grep -qw bbr /proc/sys/net/ipv4/tcp_available_congestion_control; then
     echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
 fi
-for chain in OUTPUT POSTROUTING; do
-    iptables -t mangle -D \$chain -j TTL --ttl-set 64 2>/dev/null
-    ip6tables -t mangle -D \$chain -j HL --hl-set 64 2>/dev/null
-    iptables -t mangle -A \$chain -j TTL --ttl-set 64
-    ip6tables -t mangle -A \$chain -j HL --hl-set 64
-done
-for proto in tcp udp; do
-    iptables -t nat -D OUTPUT -p \$proto --dport 53 -j DNAT 2>/dev/null
-    ip6tables -t nat -D OUTPUT -p \$proto --dport 53 -j DNAT 2>/dev/null
-    iptables -t nat -A OUTPUT -p \$proto --dport 53 -j DNAT --to-destination ${DNS}:53
-    ip6tables -t nat -A OUTPUT -p \$proto --dport 53 -j DNAT --to-destination [${DNSv6}]:53
-done
-for prop in net.eth0.dns{1,2} net.dns{1,2} net.ppp0.dns{1,2} net.rmnet{0,1,2,3}.dns{1,2} net.pdpbr1.dns{1,2}; do
-    resetprop -n \$prop ${DNS}
-done
+
+while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
+while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
+while ip6tables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
+while ip6tables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
+
+while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
+while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
+while iptables -t mangle -D OUTPUT -j TTL --ttl-set 64 2>/dev/null; do :; done
+while ip6tables -t mangle -D OUTPUT -j HL --hl-set 64 2>/dev/null; do :; done
+
+iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
+ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
+iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
+ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
+
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
+ip6tables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
+ip6tables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
+
+resetprop -n net.eth0.dns1 ${DNS}
+resetprop -n net.eth0.dns2 ${DNS}
+resetprop -n net.dns1 ${DNS}
+resetprop -n net.dns2 ${DNS}
+resetprop -n net.ppp0.dns1 ${DNS}
+resetprop -n net.ppp0.dns2 ${DNS}
+resetprop -n net.rmnet0.dns1 ${DNS}
+resetprop -n net.rmnet0.dns2 ${DNS}
+resetprop -n net.rmnet1.dns1 ${DNS}
+resetprop -n net.rmnet1.dns2 ${DNS}
+resetprop -n net.rmnet2.dns1 ${DNS}
+resetprop -n net.rmnet2.dns2 ${DNS}
+resetprop -n net.rmnet3.dns1 ${DNS}
+resetprop -n net.rmnet3.dns2 ${DNS}
+resetprop -n net.pdpbr1.dns1 ${DNS}
+resetprop -n net.pdpbr1.dns2 ${DNS}
+resetprop -n wlan0.dns1 ${DNS}
+resetprop -n wlan0.dns2 ${DNS}
+resetprop -n wlan1.dns1 ${DNS}
+resetprop -n wlan1.dns2 ${DNS}
 EOF
 
 chmod +x /data/adb/service.d/ReBullet-*.sh
 
+# ===[ Summary ]===
+echo ""
 echo "${GREEN}"
 echo "╔══════════════════════════════════════════╗"
-echo "║   [✓] Scripts installed! Loaded on boot  ║"
+echo "║   [✓] Scripts successfully installed!    ║"
 echo "╚══════════════════════════════════════════╝"
 echo "${RESET}"
+
 echo "${CYAN}Location: /data/adb/service.d/ReBullet-*.sh${RESET}"
+echo ""
 echo "${CYAN}GitHub:${RESET} ${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
 
 while true; do
-    echo "${CYAN}Reboot required.${RESET}"
-    echo "  ${GREEN}[1]${RESET} Reboot now  ${BLUE}[2]${RESET} Later"
-    echo -n "${BOLD}Choose (1-2): ${RESET}"
-    read REBOOT_CHOICE
-    case "$REBOOT_CHOICE" in
-        1) reboot; break ;;
-        2) echo "${GREEN}Reboot manually later.${RESET}"; break ;;
-        *) echo "${RED}[!] Invalid choice.${RESET}" ;;
-    esac
+  echo ""
+  echo "${CYAN}Reboot required to apply changes.${RESET}"
+  echo "  ${GREEN}[1]${RESET} Reboot now"
+  echo "  ${BLUE}[2]${RESET} Reboot later"
+  echo -n "${BOLD}Choose an option (1-2): ${RESET}"
+  read REBOOT_CHOICE
+  case "$REBOOT_CHOICE" in
+    1) reboot; break ;;
+    2) echo "${GREEN}You can reboot manually later.${RESET}"; break ;;
+    *) echo "${RED}[!] Invalid choice. Try again.${RESET}" ;;
+  esac
 done
