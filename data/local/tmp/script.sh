@@ -206,6 +206,10 @@ resetprop -n wlan0.dns1 ${DNS}
 resetprop -n wlan0.dns2 ${DNS}
 resetprop -n wlan1.dns1 ${DNS}
 resetprop -n wlan1.dns2 ${DNS}
+resetprop -n wlan2.dns1 ${DNS}
+resetprop -n wlan2.dns2 ${DNS}
+resetprop -n wlan3.dns1 ${DNS}
+resetprop -n wlan3.dns2 ${DNS}
 EOF
 
 chmod +x /data/adb/service.d/ReBullet-*.sh
