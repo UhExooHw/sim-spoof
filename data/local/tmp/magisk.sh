@@ -128,13 +128,13 @@ done
         sleep 1
     done
 
-    /data/adb/magisk/resetprop -n gsm.operator.iso-country "$ISO"
-    /data/adb/magisk/resetprop -n gsm.sim.operator.iso-country "$ISO"
-    /data/adb/magisk/resetprop -n gsm.operator.numeric "$MCCMNC"
-    /data/adb/magisk/resetprop -n gsm.sim.operator.numeric "$MCCMNC"
-    /data/adb/magisk/resetprop -n gsm.operator.alpha "$OPERATOR"
-    /data/adb/magisk/resetprop -n gsm.sim.operator.alpha "$OPERATOR"
-    /data/adb/magisk/resetprop -n persist.sys.timezone "$TZ"
+    /product/bin/resetprop -n gsm.operator.iso-country "$ISO"
+    /product/bin/resetprop -n gsm.sim.operator.iso-country "$ISO"
+    /product/bin/resetprop -n gsm.operator.numeric "$MCCMNC"
+    /product/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC"
+    /product/bin/resetprop -n gsm.operator.alpha "$OPERATOR"
+    /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR"
+    /product/bin/resetprop -n persist.sys.timezone "$TZ"
     settings put global auto_time_zone 1
     settings put global private_dns_mode off
 )
@@ -167,30 +167,30 @@ EOF
     iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
         iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
 
-    /data/adb/magisk/resetprop -n net.eth0.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.eth0.dns2 $DNS
-    /data/adb/magisk/resetprop -n net.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.dns2 $DNS
-    /data/adb/magisk/resetprop -n net.ppp0.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.ppp0.dns2 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet0.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet0.dns2 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet1.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet1.dns2 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet2.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet2.dns2 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet3.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.rmnet3.dns2 $DNS
-    /data/adb/magisk/resetprop -n net.pdpbr1.dns1 $DNS
-    /data/adb/magisk/resetprop -n net.pdpbr1.dns2 $DNS
-    /data/adb/magisk/resetprop -n wlan0.dns1 $DNS
-    /data/adb/magisk/resetprop -n wlan0.dns2 $DNS
-    /data/adb/magisk/resetprop -n wlan1.dns1 $DNS
-    /data/adb/magisk/resetprop -n wlan1.dns2 $DNS
-    /data/adb/magisk/resetprop -n wlan2.dns1 $DNS
-    /data/adb/magisk/resetprop -n wlan2.dns2 $DNS
-    /data/adb/magisk/resetprop -n wlan3.dns1 $DNS
-    /data/adb/magisk/resetprop -n wlan3.dns2 $DNS
+    /product/bin/resetprop -n net.eth0.dns1 $DNS
+    /product/bin/resetprop -n net.eth0.dns2 $DNS
+    /product/bin/resetprop -n net.dns1 $DNS
+    /product/bin/resetprop -n net.dns2 $DNS
+    /product/bin/resetprop -n net.ppp0.dns1 $DNS
+    /product/bin/resetprop -n net.ppp0.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet0.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet0.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet1.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet1.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet2.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet2.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet3.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet3.dns2 $DNS
+    /product/bin/resetprop -n net.pdpbr1.dns1 $DNS
+    /product/bin/resetprop -n net.pdpbr1.dns2 $DNS
+    /product/bin/resetprop -n wlan0.dns1 $DNS
+    /product/bin/resetprop -n wlan0.dns2 $DNS
+    /product/bin/resetprop -n wlan1.dns1 $DNS
+    /product/bin/resetprop -n wlan1.dns2 $DNS
+    /product/bin/resetprop -n wlan2.dns1 $DNS
+    /product/bin/resetprop -n wlan2.dns2 $DNS
+    /product/bin/resetprop -n wlan3.dns1 $DNS
+    /product/bin/resetprop -n wlan3.dns2 $DNS
 )
 EOF
 
