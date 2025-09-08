@@ -17,10 +17,10 @@
 
 * 🌍 Spoof SIM: MCCMNC, ISO, operator
 * 🕓 Spoof time zone
-* 🔐 Intercept DNS (IPv4/IPv6)
+* 🔐 Intercept DNS
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
-* ⚠️ Bypass geoblocks (e.g., Google Play, TikTok)
+* ⚠️ Bypass geoblocks (e.g., Google Play, TikTok, Deezer)
 
 ---
 
