@@ -1,4 +1,4 @@
-# 🚀 ReBullet SIM Spoof Utility
+# 🚀 SIM Spoof
 
 > ⚠️ **Warning:** Using this script may violate laws or carrier terms. Use at your **own risk**.  
 > ⚠️ Supports **SIM1 only**. SIM2 is not supported.
