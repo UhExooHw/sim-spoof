@@ -7,7 +7,7 @@
 
 ## ⚙️ Requirements
 
-* KernelSU Next or KernelSU
+* KernelSU
 * Android 12+
 * `iptables` & `ip6tables`
 
