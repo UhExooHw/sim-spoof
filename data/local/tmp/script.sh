@@ -135,7 +135,7 @@ done
     /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
     settings put global auto_time_zone 1
     settings put global private_dns_mode off
-) &
+)
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
@@ -189,7 +189,7 @@ EOF
     /data/adb/ksu/bin/resetprop -n wlan2.dns2 $DNS
     /data/adb/ksu/bin/resetprop -n wlan3.dns1 $DNS
     /data/adb/ksu/bin/resetprop -n wlan3.dns2 $DNS
-) &
+)
 EOF
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
