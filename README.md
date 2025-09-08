@@ -46,22 +46,22 @@
 
 ## 📦 Installation
 
-### SH
+### SH / KSU
 
 ```bash
 su
-/data/adb/ksu/bin/busybox wget -O /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh
-/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/script.sh
-/data/adb/ksu/bin/busybox sh /data/local/tmp/script.sh
+/data/adb/ksu/bin/busybox wget -O /data/local/tmp/ksu.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/ksu.sh
+/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/ksu.sh
+/data/adb/ksu/bin/busybox sh /data/local/tmp/ksu.sh
 ```
 
 ### ADB
 
 ```bash
 adb root
-adb shell /data/adb/ksu/bin/busybox wget -O /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh
-adb shell /data/adb/ksu/bin/busybox chmod +x /data/local/tmp/script.sh
-adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/script.sh
+adb shell /data/adb/ksu/bin/busybox wget -O /data/local/tmp/ksu.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/ksu.sh
+adb shell /data/adb/ksu/bin/busybox chmod +x /data/local/tmp/ksu.sh
+adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/ksu.sh
 ```
 
 ---
