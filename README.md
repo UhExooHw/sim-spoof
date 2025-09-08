@@ -60,8 +60,8 @@ curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExoo
 ### Via ADB
 
 ```bash
-adb root
-adb shell curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && adb shell chmod +x /data/local/tmp/script.sh && adb shell sh /data/local/tmp/script.sh
+.\adb root
+.\adb shell /data/adb/ksu/bin/busybox wget -O /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && .\adb shell chmod +x /data/local/tmp/script.sh && .\adb shell sh /data/local/tmp/script.sh
 ```
 
 ---
