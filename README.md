@@ -70,7 +70,7 @@ adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/script.sh
 
 ```
 ╔════════════════════════╗
-║  ReBullet SIM Spoof    ║
+║      SIM Spoof         ║
 ╚════════════════════════╝
 
 [✓] Environment OK
