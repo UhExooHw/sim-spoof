@@ -8,8 +8,9 @@
 ## ⚙️ Requirements
 
 * KernelSU Next or KernelSU
-* busybox
-* resetprop
+* BusyBox
+* Resetprop
+* Android 12+
 * `iptables` & `ip6tables`
 
 ---
