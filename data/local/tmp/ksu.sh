@@ -27,8 +27,9 @@ while true; do
     /data/adb/ksu/bin/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
     /data/adb/ksu/bin/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
     /data/adb/ksu/bin/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Custom  [0] Exit"
-    /data/adb/ksu/bin/busybox echo -n "Enter number (0-13): "
+    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Airtel"
+    /data/adb/ksu/bin/busybox echo "  [14] Custom  [0] Exit"
+    /data/adb/ksu/bin/busybox echo -n "Enter number (0-14): "
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) /data/adb/ksu/bin/busybox echo "Exiting..."; exit 0 ;;
@@ -86,7 +87,8 @@ while true; do
         10) MCCMNC="24491" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
         11) MCCMNC="26201" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
         12) MCCMNC="20408" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
-        13)
+        13) MCCMNC="40402" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
+        14)
             /data/adb/ksu/bin/busybox echo "Manual Custom Input:"
             /data/adb/ksu/bin/busybox echo -n "MCCMNC: "; read MCCMNC
             /data/adb/ksu/bin/busybox echo -n "ISO: "; read ISO
