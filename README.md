@@ -93,7 +93,7 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 ╚════════════════════════╝
 
 [✓] Environment OK
-Select Mobile Operator: 13
+Select Mobile Operator: 14
 Manual Custom Input:
 MCCMNC: 25099
 ISO: ru
