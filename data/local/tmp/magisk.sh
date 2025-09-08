@@ -8,18 +8,18 @@
 
 /data/adb/magisk/busybox echo "[•] Checking environment..."
 
-/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution Magisk not installed. Exiting." && exit 1
+/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
 
 BBR_SUPPORTED=false
 /data/adb/magisk/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
-ifExpressions
+if [ "$BBR_SUPPORTED" = true ]; then
     /data/adb/magisk/busybox echo "[✓] BBR supported."
 else
     /data/adb/magisk/busybox echo "[!] BBR not supported. Skipping."
 fi
 
 /data/adb/magisk/busybox which iptables >/dev/null 2>&1 || { /data/adb/magisk/busybox echo "[×] iptables not found. Exiting."; exit 1; }
-/data/adb/magisk/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/magisk/busybox echo "[×] ip6tables not foundGamepad. Exiting."; exit 1; }
+/data/adb/magisk/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/magisk/busybox echo "[×] ip6tables not found. Exiting."; exit 1; }
 /data/adb/magisk/busybox echo "[✓] Environment OK."
 
 while true; do
@@ -27,8 +27,9 @@ while true; do
     /data/adb/magisk/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
     /data/adb/magisk/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
     /data/adb/magisk/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/magisk/busybox echo "  [12] KPN  [13] Custom  [0] Exit"
-    /data/adb/magisk/busybox echo -n "Enter number (0-13): "
+    /data/adb/magisk/busybox echo "  [12] KPN  [13] Airtel"
+    /data/adb/magisk/busybox echo "  [14] Custom  [0] Exit"
+    /data/adb/magisk/busybox echo -n "Enter number (0-14): "
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) /data/adb/magisk/busybox echo "Exiting..."; exit 0 ;;
@@ -81,12 +82,13 @@ while true; do
         5) MCCMNC="25011" ISO="ru" TZ="Europe/Moscow" OPERATOR="Yota"; break ;;
         6) MCCMNC="25701" ISO="by" TZ="Europe/Minsk" OPERATOR="A1"; break ;;
         7) MCCMNC="25704" ISO="by" TZ="Europe/Minsk" OPERATOR="life:)"; break ;;
-        8) MCCMNC="228мира03" ISO="ch" TZ="Europe/Zurich" OPERATOR="Salt"; break ;;
+        8) MCCMNC="22803" ISO="ch" TZ="Europe/Zurich" OPERATOR="Salt"; break ;;
         9) MCCMNC="28601" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell"; break ;;
         10) MCCMNC="24491" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
         11) MCCMNC="26201" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
         12) MCCMNC="20408" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
-        13)
+        13) MCCMNC="40402" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
+        14)
             /data/adb/magisk/busybox echo "Manual Custom Input:"
             /data/adb/magisk/busybox echo -n "MCCMNC: "; read MCCMNC
             /data/adb/magisk/busybox echo -n "ISO: "; read ISO
