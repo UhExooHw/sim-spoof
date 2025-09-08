@@ -11,7 +11,7 @@ clear
 
 echo "${CYAN}"
 echo "╔════════════════════════════════════════╗"
-echo "║        ReBullet SIM Spoof Utility      ║"
+echo "║             SIM Spoof Utility          ║"
 echo "╚════════════════════════════════════════╝"
 echo "${RESET}"
 
@@ -29,7 +29,6 @@ if grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control; the
 else
     echo "${RED}[!] BBR not supported. Skipping.${RESET}"
 fi
-
 
 if ! command -v iptables >/dev/null 2>&1; then
     echo "${RED}[×] iptables not found. Exiting.${RESET}"
@@ -139,8 +138,8 @@ while true; do
 done
 
 echo ""
-echo "${CYAN}[+] Creating ReBullet-SIM.sh...${RESET}"
-cat > /data/adb/service.d/ReBullet-SIM.sh <<EOF
+echo "${CYAN}[+] Creating SIM-Spoof.sh...${RESET}"
+cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/system/bin/sh
 while true; do
     resetprop -n gsm.operator.iso-country ${ISO}
@@ -156,8 +155,8 @@ while true; do
 done
 EOF
 
-echo "${CYAN}[+] Creating ReBullet-TTL.sh...${RESET}"
-cat > /data/adb/service.d/ReBullet-TTL.sh <<EOF
+echo "${CYAN}[+] Creating SIM-TTL.sh...${RESET}"
+cat > /data/adb/service.d/SIM-TTL.sh <<EOF
 #!/system/bin/sh
 
 DNS="${DNS}"
@@ -171,11 +170,8 @@ if grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control; the
     fi
 fi
 
-
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
-while ip6tables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
-while ip6tables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
 
 while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
 while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
@@ -189,8 +185,6 @@ ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
 
 iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
 iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
-ip6tables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
-ip6tables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
 
 resetprop -n net.eth0.dns1 ${DNS}
 resetprop -n net.eth0.dns2 ${DNS}
@@ -218,9 +212,8 @@ resetprop -n wlan3.dns1 ${DNS}
 resetprop -n wlan3.dns2 ${DNS}
 EOF
 
-chmod +x /data/adb/service.d/ReBullet-*.sh
+chmod +x /data/adb/service.d/SIM-*.sh
 
-# ===[ Summary ]===
 echo ""
 echo "${GREEN}"
 echo "╔══════════════════════════════════════════╗"
@@ -228,7 +221,7 @@ echo "║   [✓] Scripts successfully installed!    ║"
 echo "╚══════════════════════════════════════════╝"
 echo "${RESET}"
 
-echo "${CYAN}Location: /data/adb/service.d/ReBullet-*.sh${RESET}"
+echo "${CYAN}Location: /data/adb/service.d/SIM-*.sh${RESET}"
 echo ""
 echo "${CYAN}GitHub:${RESET} ${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
 
