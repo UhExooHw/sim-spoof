@@ -1,42 +1,32 @@
 #!/data/adb/ksu/bin/busybox sh
 
-RED="\033[0;31m"
-GREEN="\033[0;32m"
-BLUE="\033[0;34m"
-CYAN="\033[0;36m"
-BOLD="\033[1m"
-RESET="\033[0m"
-
 /data/adb/ksu/bin/busybox clear
 
-/data/adb/ksu/bin/busybox echo "${CYAN}"
-/data/adb/ksu/bin/busybox echo "╔════════════════════════════════════════╗"
-/data/adb/ksu/bin/busybox echo "║             SIM Spoof Utility          ║"
-/data/adb/ksu/bin/busybox echo "╚════════════════════════════════════════╝"
-/data/adb/ksu/bin/busybox echo "${RESET}"
+/data/adb/ksu/bin/busybox echo "SIM Spoof Utility"
+/data/adb/ksu/bin/busybox echo "-------------------"
 
-/data/adb/ksu/bin/busybox echo "${CYAN}[•] Checking environment...${RESET}"
+/data/adb/ksu/bin/busybox echo "[*] Checking environment..."
 
-/data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "${RED}[×] Root solution (Magisk/KernelSU) not installed. Exiting.${RESET}" && exit 1
+/data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[!] Root solution (Magisk/KernelSU) not installed. Exiting." && exit 1
 
 BBR_SUPPORTED=false
 /data/adb/ksu/bin/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
 if [ "$BBR_SUPPORTED" = true ]; then
-    /data/adb/ksu/bin/busybox echo "${GREEN}[✓] BBR supported.${RESET}"
+    /data/adb/ksu/bin/busybox echo "[+] BBR supported."
 else
-    /data/adb/ksu/bin/busybox echo "${RED}[!] BBR not supported. Skipping.${RESET}"
+    /data/adb/ksu/bin/busybox echo "[!] BBR not supported. Skipping."
 fi
 
-/data/adb/ksu/bin/busybox which iptables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "${RED}[×] iptables not found. Exiting.${RESET}"; exit 1; }
+/data/adb/ksu/bin/busybox which iptables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "[!] iptables not found. Exiting."; exit 1; }
 
-/data/adb/ksu/bin/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "${RED}[×] ip6tables not found. Exiting.${RESET}"; exit 1; }
+/data/adb/ksu/bin/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "[!] ip6tables not found. Exiting."; exit 1; }
 
-/data/adb/ksu/bin/busybox echo "${GREEN}[✓] Environment OK.${RESET}"
+/data/adb/ksu/bin/busybox echo "[+] Environment OK."
 
 OPERATOR_CHOICE="$1"
 case "$OPERATOR_CHOICE" in
     0)
-        /data/adb/ksu/bin/busybox echo "${CYAN}Exiting...${RESET}"
+        /data/adb/ksu/bin/busybox echo "Exiting..."
         exit 0
         ;;
     1)
@@ -46,7 +36,8 @@ case "$OPERATOR_CHOICE" in
             2) MCCMNC="40101" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline" ;;
             3) MCCMNC="25099" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline" ;;
             *)
-                /data/adb/ksu/bin/busybox echo "${RED}[×] Invalid country choice for Beeline. Use 1 (Uzbekistan), 2 (Kazakhstan), or 3 (Russia).${RESET}"
+                /data/adb/ksu/bin/busybox echo "[!] Invalid country choice for Beeline. Use 1 (Uzbekistan), 2 (Kazakhstan), or 3 (Russia)."
+                /data/adb/ksu/bin/busybox echo "Example: $0 1 2 1"
                 exit 1
                 ;;
         esac
@@ -57,7 +48,8 @@ case "$OPERATOR_CHOICE" in
             1) MCCMNC="25702" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS" ;;
             2) MCCMNC="25001" ISO="ru" TZ="Europe/Moscow" OPERATOR="MTS" ;;
             *)
-                /data/adb/ksu/bin/busybox echo "${RED}[×] Invalid country choice for MTS. Use 1 (Belarus) or 2 (Russia).${RESET}"
+                /data/adb/ksu/bin/busybox echo "[!] Invalid country choice for MTS. Use 1 (Belarus) or 2 (Russia)."
+                /data/adb/ksu/bin/busybox echo "Example: $0 2 2 1"
                 exit 1
                 ;;
         esac
@@ -70,7 +62,8 @@ case "$OPERATOR_CHOICE" in
             3) MCCMNC="24007" ISO="se" TZ="Europe/Stockholm" OPERATOR="Tele2" ;;
             4) MCCMNC="24803" ISO="ee" TZ="Europe/Tallinn" OPERATOR="Tele2" ;;
             *)
-                /data/adb/ksu/bin/busybox echo "${RED}[×] Invalid country choice for Tele2. Use 1 (Russia), 2 (Latvia), 3 (Sweden), or 4 (Estonia).${RESET}"
+                /data/adb/ksu/bin/busybox echo "[!] Invalid country choice for Tele2. Use 1 (Russia), 2 (Latvia), 3 (Sweden), or 4 (Estonia)."
+                /data/adb/ksu/bin/busybox echo "Example: $0 3 1 1"
                 exit 1
                 ;;
         esac
@@ -86,8 +79,8 @@ case "$OPERATOR_CHOICE" in
     12) MCCMNC="20408" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN" ;;
     13)
         if [ $# -ne 5 ]; then
-            /data/adb/ksu/bin/busybox echo "${RED}[×] Custom option requires 4 arguments: <MCCMNC> <ISO> <TZ> <OPERATOR>.${RESET}"
-            /data/adb/ksu/bin/busybox echo "${RED}Example: $0 13 12345 us America/New_York CustomOperator${RESET}"
+            /data/adb/ksu/bin/busybox echo "[!] Custom option requires 4 arguments: <MCCMNC> <ISO> <TZ> <OPERATOR>."
+            /data/adb/ksu/bin/busybox echo "Example: $0 13 12345 us America/New_York CustomOperator"
             exit 1
         fi
         MCCMNC="$2"
@@ -96,8 +89,8 @@ case "$OPERATOR_CHOICE" in
         OPERATOR="$5"
         ;;
     *)
-        /data/adb/ksu/bin/busybox echo "${RED}[×] Invalid operator choice. Use 0-13.${RESET}"
-        /data/adb/ksu/bin/busybox echo "${RED}Example: $0 1 2 (Beeline, Kazakhstan)${RESET}"
+        /data/adb/ksu/bin/busybox echo "[!] Invalid operator choice. Use 0-13."
+        /data/adb/ksu/bin/busybox echo "Example: $0 1 2 1 (Beeline, Kazakhstan, Cloudflare)"
         exit 1
         ;;
 esac
@@ -109,22 +102,22 @@ case "$DNS_CHOICE" in
     3) DNS="9.9.9.9"; DNSv6="2620:fe::fe" ;;
     4)
         if [ $# -lt 5 ]; then
-            /data/adb/ksu/bin/busybox echo "${RED}[×] Custom DNS requires 2 arguments: <DNS_IPv4> <DNS_IPv6>.${RESET}"
-            /data/adb/ksu/bin/busybox echo "${RED}Example: $0 1 2 4 1.2.3.4 2001:db8::1${RESET}"
+            /data/adb/ksu/bin/busybox echo "[!] Custom DNS requires 2 arguments: <DNS_IPv4> <DNS_IPv6>."
+            /data/adb/ksu/bin/busybox echo "Example: $0 1 2 4 1.2.3.4 2001:db8::1"
             exit 1
         fi
         DNS="$4"
         DNSv6="$5"
         ;;
     *)
-        /data/adb/ksu/bin/busybox echo "${RED}[×] Invalid DNS choice. Use 1 (Cloudflare), 2 (Google), 3 (Quad9), or 4 (Custom).${RESET}"
-        /data/adb/ksu/bin/busybox echo "${RED}Example: $0 1 2 1 (Beeline, Kazakhstan, Cloudflare)${RESET}"
+        /data/adb/ksu/bin/busybox echo "[!] Invalid DNS choice. Use 1 (Cloudflare), 2 (Google), 3 (Quad9), or 4 (Custom)."
+        /data/adb/ksu/bin/busybox echo "Example: $0 1 2 1 (Beeline, Kazakhstan, Cloudflare)"
         exit 1
         ;;
 esac
 
 /data/adb/ksu/bin/busybox echo ""
-/data/adb/ksu/bin/busybox echo "${CYAN}[+] Creating SIM-Spoof.sh...${RESET}"
+/data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 while true; do
@@ -141,46 +134,7 @@ while true; do
 done
 EOF
 
-/data/adb/ksu/bin/busybox echo "${CYAN}[+] Creating SIM-TTL.sh...${RESET}"
-/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
-#!/data/adb/ksu/bin/busybox sh
-
-DNS="${DNS}"
-DNSv6="${DNSv6}"
-
-/data/adb/ksu/bin/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && {
-    /data/adb/ksu/bin/busybox grep -qw bbr2 /proc/sys/net/ipv4/tcp_available_congestion_control && \
-        /data/adb/ksu/bin/busybox echo bbr2 > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null || \
-        /data/adb/ksu/bin/busybox echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
-}
-
-while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
-while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
-
-while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
-while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
-while iptables -t mangle -D OUTPUT -j TTL --ttl-set 64 2>/dev/null; do :; done
-while ip6tables -t mangle -D OUTPUT -j HL --hl-set 64 2>/dev/null; do :; done
-
-iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
-ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
-iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
-ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
-
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
-
-/data/adb/ksu/bin/resetprop -n net.eth0.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.eth0.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.ppp0.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.ppp0.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet0.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet0.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet1.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet1.dns2 ${DNS}
-/data/adb/ksu/bin/busybox echo "${CYAN}[+] Creating SIM-TTL.sh...${RESET}"
+/data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 
@@ -238,15 +192,9 @@ EOF
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
 
 /data/adb/ksu/bin/busybox echo ""
-/data/adb/ksu/bin/busybox echo "${GREEN}"
-/data/adb/ksu/bin/busybox echo "╔══════════════════════════════════════════╗"
-/data/adb/ksu/bin/busybox echo "║   [✓] Scripts successfully installed!    ║"
-/data/adb/ksu/bin/busybox echo "╚══════════════════════════════════════════╝"
-/data/adb/ksu/bin/busybox echo "${RESET}"
-
-/data/adb/ksu/bin/busybox echo "${CYAN}Location: /data/adb/service.d/SIM-*.sh${RESET}"
+/data/adb/ksu/bin/busybox echo "[+] Scripts successfully installed!"
+/data/adb/ksu/bin/busybox echo "Location: /data/adb/service.d/SIM-*.sh"
+/data/adb/ksu/bin/busybox echo "GitHub: https://github.com/UhExooHw/sim-spoof"
 /data/adb/ksu/bin/busybox echo ""
-/data/adb/ksu/bin/busybox echo "${CYAN}GitHub:${RESET} ${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
-/data/adb/ksu/bin/busybox echo ""
-/data/adb/ksu/bin/busybox echo "${CYAN}Reboot required to apply changes.${RESET}"
-/data/adb/ksu/bin/busybox echo "${GREEN}Reboot now by running 'reboot' manually or restart the device later.${RESET}"
+/data/adb/ksu/bin/busybox echo "Reboot required to apply changes."
+/data/adb/ksu/bin/busybox echo "Reboot now by running 'reboot' manually or restart the device later."
