@@ -128,13 +128,13 @@ done
         sleep 1
     done
 
-    /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country ${ISO}
-    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country ${ISO}
-    /data/adb/ksu/bin/resetprop -n gsm.operator.numeric ${MCCMNC}
-    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric ${MCCMNC}
-    /data/adb/ksu/bin/resetprop -n gsm.operator.alpha "${OPERATOR}"
-    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "${OPERATOR}"
-    /data/adb/ksu/bin/resetprop -n persist.sys.timezone ${TZ}
+    /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "ch"
+    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "ch"
+    /data/adb/ksu/bin/resetprop -n gsm.operator.numeric "22803"
+    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "22803"
+    /data/adb/ksu/bin/resetprop -n gsm.operator.alpha "Salt"
+    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "Salt"
+    /data/adb/ksu/bin/resetprop -n persist.sys.timezone "Europe/Zurich"
     settings put global auto_time_zone 1
     settings put global private_dns_mode off
 
@@ -147,66 +147,64 @@ EOF
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
-
 (
+    while [ "$(getprop sys.boot_completed)" != "1" ]; do
+        sleep 1
+    done
 
-while [ "$(getprop sys.boot_completed)" != "1" ]; do
-    sleep 1
-done
+    DNS="1.1.1.1"
+    DNSv6="2606:4700:4700::1111"
 
-DNS="${DNS}"
-DNSv6="${DNSv6}"
+    /data/adb/ksu/bin/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && {
+        /data/adb/ksu/bin/busybox grep -qw bbr2 /proc/sys/net/ipv4/tcp_available_congestion_control && \
+            /data/adb/ksu/bin/busybox echo bbr2 > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null || \
+            /data/adb/ksu/bin/busybox echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+    }
 
-/data/adb/ksu/bin/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && {
-    /data/adb/ksu/bin/busybox grep -qw bbr2 /proc/sys/net/ipv4/tcp_available_congestion_control && \
-        /data/adb/ksu/bin/busybox echo bbr2 > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null || \
-        /data/adb/ksu/bin/busybox echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
-}
+    while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
+    while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
+    while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
+    while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
+    while iptables -t mangle -D OUTPUT -j TTL --ttl-set 64 2>/dev/null; do :; done
+    while ip6tables -t mangle -D OUTPUT -j HL --hl-set 64 2>/dev/null; do :; done
 
-while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
-while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
-while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
-while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
-while iptables -t mangle -D OUTPUT -j TTL --ttl-set 64 2>/dev/null; do :; done
-while ip6tables -t mangle -D OUTPUT -j HL --hl-set 64 2>/dev/null; do :; done
+    iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
+    ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
+    iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
+    ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
+    iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || \
+        iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
+    iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || \
+        iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
 
-iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
-ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
-iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
-ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || \
-    iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || \
-    iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
+    /data/adb/ksu/bin/resetprop -n net.eth0.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.eth0.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.ppp0.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.ppp0.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan0.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan0.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan1.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan1.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan2.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan2.dns2 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan3.dns1 ${DNS}
+    /data/adb/ksu/bin/resetprop -n wlan3.dns2 ${DNS}
 
-/data/adb/ksu/bin/resetprop -n net.eth0.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.eth0.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.ppp0.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.ppp0.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet0.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet0.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet1.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet1.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet2.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet2.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet3.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.rmnet3.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.pdpbr1.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n net.pdpbr1.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan0.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan0.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan1.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan1.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan2.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan2.dns2 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan3.dns1 ${DNS}
-/data/adb/ksu/bin/resetprop -n wlan3.dns2 ${DNS}
-
-while true; do
-    sleep 60
-done
+    while true; do
+        sleep 60
+    done
 ) &
 
 EOF
