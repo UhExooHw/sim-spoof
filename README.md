@@ -41,6 +41,7 @@
 | Telia    | FI         | 24491               |
 | Telekom  | DE         | 26201               |
 | KPN      | NL         | 20408               |
+| Airtel   | IN         | 40402               |
 
 ---
 
