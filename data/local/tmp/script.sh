@@ -123,8 +123,11 @@ done
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
-
 (
+    while [ "$(getprop sys.boot_completed)" != "1" ]; do
+        sleep 1
+    done
+
     /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country ${ISO}
     /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country ${ISO}
     /data/adb/ksu/bin/resetprop -n gsm.operator.numeric ${MCCMNC}
@@ -146,6 +149,11 @@ EOF
 #!/data/adb/ksu/bin/busybox sh
 
 (
+
+while [ "$(getprop sys.boot_completed)" != "1" ]; do
+    sleep 1
+done
+
 DNS="${DNS}"
 DNSv6="${DNSv6}"
 
