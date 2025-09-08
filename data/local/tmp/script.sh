@@ -164,43 +164,41 @@ EOF
     ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
     iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
     ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
-    iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || \
-        iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53
-    iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || \
-        iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53
+    iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
+        iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53
+    iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
+        iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
 
-    /data/adb/ksu/bin/resetprop -n net.eth0.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.eth0.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.ppp0.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.ppp0.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan0.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan0.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan1.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan1.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan2.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan2.dns2 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan3.dns1 \$DNS
-    /data/adb/ksu/bin/resetprop -n wlan3.dns2 \$DNS
+    /data/adb/ksu/bin/resetprop -n net.eth0.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.eth0.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n net.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n net.ppp0.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.ppp0.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan0.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan0.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan1.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan1.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan2.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan2.dns2 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan3.dns1 $DNS
+    /data/adb/ksu/bin/resetprop -n wlan3.dns2 $DNS
 
     while true; do
         sleep 60
     done
 ) &
 EOF
-
-
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
 
