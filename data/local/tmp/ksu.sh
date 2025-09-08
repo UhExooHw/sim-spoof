@@ -137,11 +137,14 @@ done
         /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
         /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
         /data/adb/ksu/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
+
         settings put global auto_time_zone 1
         settings put global private_dns_mode off
+
         sleep 10
     done
-)
+) &
+
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
