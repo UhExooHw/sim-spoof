@@ -6,18 +6,19 @@ BLUE="\033[0;34m"
 CYAN="\033[0;36m"
 BOLD="\033[1m"
 RESET="\033[0m"
-CLEAR="\033c"
 
-$CLEAR
+clear
 
-echo "${CYAN}=============================="
-echo "       SIM Spoof Utility       "
-echo "==============================${RESET}"
+echo "${CYAN}"
+echo "╔════════════════════════════════════════╗"
+echo "║        ReBullet SIM Spoof Utility      ║"
+echo "╚════════════════════════════════════════╝"
+echo "${RESET}"
 
 echo "${CYAN}[•] Checking environment...${RESET}"
 
 if [ ! -d /data/adb/service.d ]; then
-    echo "${RED}[×] Magisk/KernelSU not installed. Exiting.${RESET}"
+    echo "${RED}[×] Root solution (Magisk/KernelSU) not installed. Exiting.${RESET}"
     exit 1
 fi
 
@@ -43,11 +44,11 @@ echo "${GREEN}[✓] Environment OK.${RESET}"
 
 while true; do
     echo "${BOLD}${CYAN}Select Mobile Operator:${RESET}"
-    echo "  ${GREEN}[1]${RESET} Beeline    ${BLUE}[2]${RESET} MTS    ${CYAN}[3]${RESET} Tele2"
-    echo "  ${BOLD}[4]${RESET} Megafon    [5] Yota    [6] A1    [7] life:)"
-    echo "  [8] Salt    [9] Turkcell    [10] Telia    [11] Telekom"
-    echo "  [12] KPN    [13] Jio    [14] Airtel    ${BLUE}[15]${RESET} Custom    ${RED}[0]${RESET} Exit"
-    echo -n "${BOLD}Enter (0-15): ${RESET}"
+    echo "  ${GREEN}[1]${RESET} Beeline  ${BLUE}[2]${RESET} MTS  ${CYAN}[3]${RESET} Tele2"
+    echo "  ${BOLD}[4]${RESET} Megafon  [5] Yota  [6] A1  [7] life:)"
+    echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
+    echo "  [12] KPN  ${BLUE}[13]${RESET} Custom  ${RED}[0]${RESET} Exit"
+    echo -n "${BOLD}Enter number (0-13): ${RESET}"
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) echo "${CYAN}Exiting...${RESET}"; exit 0 ;;
@@ -55,7 +56,7 @@ while true; do
             while true; do
                 echo "${CYAN}Select Country:${RESET}"
                 echo "  ${GREEN}[1]${RESET} Uzbekistan  ${GREEN}[2]${RESET} Kazakhstan  ${BLUE}[3]${RESET} Russia  ${RED}[0]${RESET} Back"
-                echo -n "${BOLD}Enter (0-3): ${RESET}"
+                echo -n "${BOLD}Enter number (0-3): ${RESET}"
                 read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
@@ -70,7 +71,7 @@ while true; do
             while true; do
                 echo "${CYAN}Select Country:${RESET}"
                 echo "  ${GREEN}[1]${RESET} Belarus  ${BLUE}[2]${RESET} Russia  ${RED}[0]${RESET} Back"
-                echo -n "${BOLD}Enter (0-2): ${RESET}"
+                echo -n "${BOLD}Enter number (0-2): ${RESET}"
                 read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
@@ -84,11 +85,11 @@ while true; do
             while true; do
                 echo "${CYAN}Select Country:${RESET}"
                 echo "  ${GREEN}[1]${RESET} Russia  ${BLUE}[2]${RESET} Latvia  ${CYAN}[3]${RESET} Sweden  ${CYAN}[4]${RESET} Estonia  ${RED}[0]${RESET} Back"
-                echo -n "${BOLD}Enter (0-4): ${RESET}"
+                echo -n "${BOLD}Enter number (0-4): ${RESET}"
                 read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
-                    1) MCCMNC="25020" ISO="ru" TZ="Europe/Moscow" OPERATOR="Tele2"; break 2 ;;
+                    1) MCCMNC="25020" ISO="ru" TZ="Europe/Moscow" OPERATOR="t2"; break 2 ;;
                     2) MCCMNC="24702" ISO="lv" TZ="Europe/Riga" OPERATOR="Tele2"; break 2 ;;
                     3) MCCMNC="24007" ISO="se" TZ="Europe/Stockholm" OPERATOR="Tele2"; break 2 ;;
                     4) MCCMNC="24803" ISO="ee" TZ="Europe/Tallinn" OPERATOR="Tele2"; break 2 ;;
@@ -105,9 +106,7 @@ while true; do
         10) MCCMNC="24491" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
         11) MCCMNC="26201" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
         12) MCCMNC="20408" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
-        13) MCCMNC="405865" ISO="in" TZ="Asia/Kolkata" OPERATOR="Jio"; break ;;
-        14) MCCMNC="40590" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
-        15)
+        13)
             echo "${CYAN}Manual Custom Input:${RESET}"
             echo -n "${BOLD}MCCMNC: ${RESET}"; read MCCMNC
             echo -n "${BOLD}ISO: ${RESET}"; read ISO
@@ -122,7 +121,7 @@ done
 while true; do
     echo "${CYAN}Choose DNS Provider:${RESET}"
     echo "  ${GREEN}[1]${RESET} Cloudflare  ${BLUE}[2]${RESET} Google  ${BOLD}[3]${RESET} Quad9  ${CYAN}[4]${RESET} Custom  ${RED}[0]${RESET} Back"
-    echo -n "${BOLD}Enter (0-4): ${RESET}"
+    echo -n "${BOLD}Enter number (0-4): ${RESET}"
     read DNS_CHOICE
     case "$DNS_CHOICE" in
         0) exec "$0" ;;
@@ -139,9 +138,8 @@ while true; do
 done
 
 echo ""
-echo "${CYAN}[+] Installing SIM Spoof scripts...${RESET}"
-
-cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
+echo "${CYAN}[+] Creating ReBullet-SIM.sh...${RESET}"
+cat > /data/adb/service.d/ReBullet-SIM.sh <<EOF
 #!/system/bin/sh
 while true; do
     resetprop -n gsm.operator.iso-country ${ISO}
@@ -157,7 +155,8 @@ while true; do
 done
 EOF
 
-cat > /data/adb/service.d/SIM-TTL.sh <<EOF
+echo "${CYAN}[+] Creating ReBullet-TTL.sh...${RESET}"
+cat > /data/adb/service.d/ReBullet-TTL.sh <<EOF
 #!/system/bin/sh
 
 DNS="${DNS}"
@@ -187,35 +186,56 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2
 ip6tables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
 ip6tables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53 2>/dev/null || ip6tables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination [${DNSv6}]:53
 
-for iface in eth0 ppp0 rmnet0 rmnet1 rmnet2 rmnet3 pdpbr1 wlan0 wlan1 wlan2 wlan3; do
-    resetprop -n net.${iface}.dns1 ${DNS}
-    resetprop -n net.${iface}.dns2 ${DNS}
-done
+resetprop -n net.eth0.dns1 ${DNS}
+resetprop -n net.eth0.dns2 ${DNS}
 resetprop -n net.dns1 ${DNS}
 resetprop -n net.dns2 ${DNS}
-
+resetprop -n net.ppp0.dns1 ${DNS}
+resetprop -n net.ppp0.dns2 ${DNS}
+resetprop -n net.rmnet0.dns1 ${DNS}
+resetprop -n net.rmnet0.dns2 ${DNS}
+resetprop -n net.rmnet1.dns1 ${DNS}
+resetprop -n net.rmnet1.dns2 ${DNS}
+resetprop -n net.rmnet2.dns1 ${DNS}
+resetprop -n net.rmnet2.dns2 ${DNS}
+resetprop -n net.rmnet3.dns1 ${DNS}
+resetprop -n net.rmnet3.dns2 ${DNS}
+resetprop -n net.pdpbr1.dns1 ${DNS}
+resetprop -n net.pdpbr1.dns2 ${DNS}
+resetprop -n wlan0.dns1 ${DNS}
+resetprop -n wlan0.dns2 ${DNS}
+resetprop -n wlan1.dns1 ${DNS}
+resetprop -n wlan1.dns2 ${DNS}
+resetprop -n wlan2.dns1 ${DNS}
+resetprop -n wlan2.dns2 ${DNS}
+resetprop -n wlan3.dns1 ${DNS}
+resetprop -n wlan3.dns2 ${DNS}
 EOF
 
-chmod +x /data/adb/service.d/SIM-*.sh
+chmod +x /data/adb/service.d/ReBullet-*.sh
 
+# ===[ Summary ]===
 echo ""
-echo "${GREEN}=============================="
-echo "   [✓] Scripts installed!"
-echo "==============================${RESET}"
+echo "${GREEN}"
+echo "╔══════════════════════════════════════════╗"
+echo "║   [✓] Scripts successfully installed!    ║"
+echo "╚══════════════════════════════════════════╝"
+echo "${RESET}"
 
-echo "${CYAN}Location: /data/adb/service.d/SIM-*.sh${RESET}"
-echo "${CYAN}GitHub: ${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
+echo "${CYAN}Location: /data/adb/service.d/ReBullet-*.sh${RESET}"
+echo ""
+echo "${CYAN}GitHub:${RESET} ${BLUE}https://github.com/UhExooHw/sim-spoof${RESET}"
 
 while true; do
   echo ""
   echo "${CYAN}Reboot required to apply changes.${RESET}"
   echo "  ${GREEN}[1]${RESET} Reboot now"
   echo "  ${BLUE}[2]${RESET} Reboot later"
-  echo -n "${BOLD}Choose (1-2): ${RESET}"
+  echo -n "${BOLD}Choose an option (1-2): ${RESET}"
   read REBOOT_CHOICE
   case "$REBOOT_CHOICE" in
     1) reboot; break ;;
     2) echo "${GREEN}You can reboot manually later.${RESET}"; break ;;
-    *) echo "${RED}[!] Invalid choice.${RESET}" ;;
+    *) echo "${RED}[!] Invalid choice. Try again.${RESET}" ;;
   esac
 done
