@@ -7,7 +7,7 @@
 
 ## ⚙️ Requirements
 
-* KernelSU
+* KernelSU / Magisk (Comming soon)
 * Android 12+
 * `iptables` & `ip6tables`
 
