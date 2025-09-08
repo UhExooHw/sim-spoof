@@ -19,9 +19,7 @@ else
 fi
 
 /data/adb/ksu/bin/busybox which iptables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "[×] iptables not found. Exiting."; exit 1; }
-
 /data/adb/ksu/bin/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "[×] ip6tables not found. Exiting."; exit 1; }
-
 /data/adb/ksu/bin/busybox echo "[✓] Environment OK."
 
 while true; do
@@ -121,7 +119,7 @@ done
 
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
-/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
+/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<'EOF'
 #!/data/adb/ksu/bin/busybox sh
 (
     while [ "$(getprop sys.boot_completed)" != "1" ]; do
@@ -145,7 +143,7 @@ done
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
-/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
+/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<'EOF'
 #!/data/adb/ksu/bin/busybox sh
 (
     while [ "$(getprop sys.boot_completed)" != "1" ]; do
@@ -206,7 +204,6 @@ EOF
         sleep 60
     done
 ) &
-
 EOF
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
