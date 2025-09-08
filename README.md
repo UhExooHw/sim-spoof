@@ -2,8 +2,8 @@
 
 # 🚀 SIM Spoof
 
-> ⚠️ **Warning:** May violate laws or carrier rules. Use at **your own risk**.
-> ⚠️ Supports **SIM1 only**.
+* ⚠️ **Warning:** May violate laws or carrier rules. Use at **your own risk**.
+* ⚠️ Supports **SIM1 only**.
 
 ---
 
