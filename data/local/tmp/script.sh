@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/data/adb/ksu/bin/busybox sh
 
 RED="\033[0;31m"
 GREEN="\033[0;32m"
@@ -40,7 +40,7 @@ while true; do
     /data/adb/ksu/bin/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
     /data/adb/ksu/bin/busybox echo "  [12] KPN  ${BLUE}[13]${RESET} Custom  ${RED}[0]${RESET} Exit"
     /data/adb/ksu/bin/busybox echo -n "${BOLD}Enter number (0-13): ${RESET}"
-    /data/adb/ksu/bin/busybox read OPERATOR_CHOICE
+    read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) /data/adb/ksu/bin/busybox echo "${CYAN}Exiting...${RESET}"; exit 0 ;;
         1)
@@ -48,7 +48,7 @@ while true; do
                 /data/adb/ksu/bin/busybox echo "${CYAN}Select Country:${RESET}"
                 /data/adb/ksu/bin/busybox echo "  ${GREEN}[1]${RESET} Uzbekistan  ${GREEN}[2]${RESET} Kazakhstan  ${BLUE}[3]${RESET} Russia  ${RED}[0]${RESET} Back"
                 /data/adb/ksu/bin/busybox echo -n "${BOLD}Enter number (0-3): ${RESET}"
-                /data/adb/ksu/bin/busybox read COUNTRY_CHOICE
+                read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
                     1) MCCMNC="43404" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline"; break 2 ;;
@@ -63,7 +63,7 @@ while true; do
                 /data/adb/ksu/bin/busybox echo "${CYAN}Select Country:${RESET}"
                 /data/adb/ksu/bin/busybox echo "  ${GREEN}[1]${RESET} Belarus  ${BLUE}[2]${RESET} Russia  ${RED}[0]${RESET} Back"
                 /data/adb/ksu/bin/busybox echo -n "${BOLD}Enter number (0-2): ${RESET}"
-                /data/adb/ksu/bin/busybox read COUNTRY_CHOICE
+                read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
                     1) MCCMNC="25702" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS"; break 2 ;;
@@ -77,7 +77,7 @@ while true; do
                 /data/adb/ksu/bin/busybox echo "${CYAN}Select Country:${RESET}"
                 /data/adb/ksu/bin/busybox echo "  ${GREEN}[1]${RESET} Russia  ${BLUE}[2]${RESET} Latvia  ${CYAN}[3]${RESET} Sweden  ${CYAN}[4]${RESET} Estonia  ${RED}[0]${RESET} Back"
                 /data/adb/ksu/bin/busybox echo -n "${BOLD}Enter number (0-4): ${RESET}"
-                /data/adb/ksu/bin/busybox read COUNTRY_CHOICE
+                read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
                     1) MCCMNC="25020" ISO="ru" TZ="Europe/Moscow" OPERATOR="t2"; break 2 ;;
@@ -99,10 +99,10 @@ while true; do
         12) MCCMNC="20408" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
         13)
             /data/adb/ksu/bin/busybox echo "${CYAN}Manual Custom Input:${RESET}"
-            /data/adb/ksu/bin/busybox echo -n "${BOLD}MCCMNC: ${RESET}"; /data/adb/ksu/bin/busybox read MCCMNC
-            /data/adb/ksu/bin/busybox echo -n "${BOLD}ISO: ${RESET}"; /data/adb/ksu/bin/busybox read ISO
-            /data/adb/ksu/bin/busybox echo -n "${BOLD}TimeZone: ${RESET}"; /data/adb/ksu/bin/busybox read TZ
-            /data/adb/ksu/bin/busybox echo -n "${BOLD}Operator: ${RESET}"; /data/adb/ksu/bin/busybox read OPERATOR
+            /data/adb/ksu/bin/busybox echo -n "${BOLD}MCCMNC: ${RESET}"; read MCCMNC
+            /data/adb/ksu/bin/busybox echo -n "${BOLD}ISO: ${RESET}"; read ISO
+            /data/adb/ksu/bin/busybox echo -n "${BOLD}TimeZone: ${RESET}"; read TZ
+            /data/adb/ksu/bin/busybox echo -n "${BOLD}Operator: ${RESET}"; read OPERATOR
             break
             ;;
         *) /data/adb/ksu/bin/busybox echo "${RED}[!] Invalid option.${RESET}" ;;
@@ -113,15 +113,15 @@ while true; do
     /data/adb/ksu/bin/busybox echo "${CYAN}Choose DNS Provider:${RESET}"
     /data/adb/ksu/bin/busybox echo "  ${GREEN}[1]${RESET} Cloudflare  ${BLUE}[2]${RESET} Google  ${BOLD}[3]${RESET} Quad9  ${CYAN}[4]${RESET} Custom  ${RED}[0]${RESET} Back"
     /data/adb/ksu/bin/busybox echo -n "${BOLD}Enter number (0-4): ${RESET}"
-    /data/adb/ksu/bin/busybox read DNS_CHOICE
+    read DNS_CHOICE
     case "$DNS_CHOICE" in
         0) exec "$0" ;;
         1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; break ;;
         2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; break ;;
         3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; break ;;
         4)
-            /data/adb/ksu/bin/busybox echo -n "${BOLD}DNS IPv4: ${RESET}"; /data/adb/ksu/bin/busybox read DNS
-            /data/adb/ksu/bin/busybox echo -n "${BOLD}DNS IPv6: ${RESET}"; /data/adb/ksu/bin/busybox read DNSv6
+            /data/adb/ksu/bin/busybox echo -n "${BOLD}DNS IPv4: ${RESET}"; read DNS
+            /data/adb/ksu/bin/busybox echo -n "${BOLD}DNS IPv6: ${RESET}"; read DNSv6
             break
             ;;
         *) /data/adb/ksu/bin/busybox echo "${RED}[!] Invalid option.${RESET}" ;;
@@ -131,7 +131,7 @@ done
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "${CYAN}[+] Creating SIM-Spoof.sh...${RESET}"
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
-#!/system/bin/sh
+#!/data/adb/ksu/bin/busybox sh
 while true; do
     /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country ${ISO}
     /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country ${ISO}
@@ -148,7 +148,7 @@ EOF
 
 /data/adb/ksu/bin/busybox echo "${CYAN}[+] Creating SIM-TTL.sh...${RESET}"
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
-#!/system/bin/sh
+#!/data/adb/ksu/bin/busybox sh
 
 DNS="${DNS}"
 DNSv6="${DNSv6}"
@@ -220,7 +220,7 @@ while true; do
     /data/adb/ksu/bin/busybox echo "  ${GREEN}[1]${RESET} Reboot now"
     /data/adb/ksu/bin/busybox echo "  ${BLUE}[2]${RESET} Reboot later"
     /data/adb/ksu/bin/busybox echo -n "${BOLD}Choose an option (1-2): ${RESET}"
-    /data/adb/ksu/bin/busybox read REBOOT_CHOICE
+    read REBOOT_CHOICE
     case "$REBOOT_CHOICE" in
         1) reboot; break ;;
         2) /data/adb/ksu/bin/busybox echo "${GREEN}You can reboot manually later.${RESET}"; break ;;
