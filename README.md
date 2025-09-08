@@ -47,11 +47,13 @@
 
 ## 📦 Installation
 
-### Terminal
+### SH
 
 ```bash
 su
-curl -fsSL -o /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh && chmod +x /data/local/tmp/script.sh && sh /data/local/tmp/script.sh
+/data/adb/ksu/bin/busybox wget -O /data/local/tmp/script.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/script.sh
+/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/script.sh
+/data/adb/ksu/bin/busybox sh /data/local/tmp/script.sh
 ```
 
 ### ADB
