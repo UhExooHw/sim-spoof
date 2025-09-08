@@ -59,9 +59,9 @@ su
 
 ```bash
 su
-/data/adb/ksu/bin/busybox wget -O /data/local/tmp/magisk.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/magisk.sh
-/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/magisk.sh
-/data/adb/ksu/bin/busybox sh /data/local/tmp/magisk.sh
+/data/adb/magisk/busybox wget -O /data/local/tmp/magisk.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/magisk.sh
+/data/adb/magisk/busybox chmod +x /data/local/tmp/magisk.sh
+/data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 ```
 
 ### ADB / KSU
@@ -77,9 +77,9 @@ adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/ksu.sh
 
 ```bash
 adb root
-adb shell /data/adb/ksu/bin/busybox wget -O /data/local/tmp/magisk.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/magisk.sh
-adb shell /data/adb/ksu/bin/busybox chmod +x /data/local/tmp/magisk.sh
-adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/magisk.sh
+adb shell /data/adb/magisk/busybox wget -O /data/local/tmp/magisk.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/magisk.sh
+adb shell /data/adb/magisk/busybox chmod +x /data/local/tmp/magisk.sh
+adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 ```
 
 ---
