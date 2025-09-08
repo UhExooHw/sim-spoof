@@ -1,4 +1,4 @@
-#!/data/adb/ksu/bin/busybox sh
+#!/system/bin/sh
 
 RED="\033[0;31m"
 GREEN="\033[0;32m"
@@ -115,7 +115,7 @@ while true; do
     /data/adb/ksu/bin/busybox echo -n "${BOLD}Enter number (0-4): ${RESET}"
     /data/adb/ksu/bin/busybox read DNS_CHOICE
     case "$DNS_CHOICE" in
-        0) /data/adb/ksu/bin/busybox exec "$0" ;;
+        0) exec "$0" ;;
         1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; break ;;
         2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; break ;;
         3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; break ;;
@@ -131,7 +131,7 @@ done
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "${CYAN}[+] Creating SIM-Spoof.sh...${RESET}"
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
-#!/data/adb/ksu/bin/busybox sh
+#!/system/bin/sh
 while true; do
     /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country ${ISO}
     /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country ${ISO}
@@ -148,7 +148,7 @@ EOF
 
 /data/adb/ksu/bin/busybox echo "${CYAN}[+] Creating SIM-TTL.sh...${RESET}"
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
-#!/data/adb/ksu/bin/busybox sh
+#!/system/bin/sh
 
 DNS="${DNS}"
 DNSv6="${DNSv6}"
