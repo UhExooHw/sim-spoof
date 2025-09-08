@@ -7,7 +7,7 @@
 
 ## ⚙️ Requirements
 
-- Magisk 20.4+ or KernelSU
+- KernelSU Next or KernelSU
 - `iptables` and `ip6tables`
 
 ---
