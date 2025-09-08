@@ -127,19 +127,15 @@ while [ "$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-sleep 10
-
-while true; do
-    /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
-    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
-    /data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMN,$MCCMN"
-    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
-    /data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
-    /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-    /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
-    settings put global auto_time_zone 1
-    settings put global private_dns_mode off
-    sleep 10
+/data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
+/data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMN,$MCCMN"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
+/data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
+settings put global auto_time_zone 1
+settings put global private_dns_mode off
 done
 EOF
 
