@@ -135,10 +135,6 @@ done
     /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
     settings put global auto_time_zone 1
     settings put global private_dns_mode off
-
-    while true; do
-        sleep 60
-    done
 ) &
 EOF
 
@@ -193,10 +189,6 @@ EOF
     /data/adb/ksu/bin/resetprop -n wlan2.dns2 $DNS
     /data/adb/ksu/bin/resetprop -n wlan3.dns1 $DNS
     /data/adb/ksu/bin/resetprop -n wlan3.dns2 $DNS
-
-    while true; do
-        sleep 60
-    done
 ) &
 EOF
 
