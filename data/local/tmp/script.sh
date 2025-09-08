@@ -171,10 +171,30 @@ iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination ${DNS}:53 2
 iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53 2>/dev/null || \
     iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination ${DNS}:53
 
-for iface in eth0 ppp0 rmnet0 rmnet1 rmnet2 rmnet3 pdpbr1 wlan0 wlan1 wlan2 wlan3; do
-    /data/adb/ksu/bin/resetprop -n net.${iface}.dns1 ${DNS}
-    /data/adb/ksu/bin/resetprop -n net.${iface}.dns2 ${DNS}
-done
+/data/adb/ksu/bin/resetprop -n net.eth0.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.eth0.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.ppp0.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.ppp0.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet0.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet0.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet1.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet1.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet2.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet2.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet3.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.rmnet3.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.pdpbr1.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n net.pdpbr1.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan0.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan0.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan1.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan1.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan2.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan2.dns2 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan3.dns1 ${DNS}
+/data/adb/ksu/bin/resetprop -n wlan3.dns2 ${DNS}
 
 while true; do
     sleep 60
