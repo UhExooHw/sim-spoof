@@ -55,7 +55,7 @@ su
 /data/adb/ksu/bin/busybox sh /data/local/tmp/ksu.sh
 ```
 
-### ADB
+### ADB / KSU
 
 ```bash
 adb root
