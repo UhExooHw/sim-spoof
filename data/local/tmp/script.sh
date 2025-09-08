@@ -23,12 +23,13 @@ if [ ! -d /data/adb/service.d ]; then
 fi
 
 BBR_SUPPORTED=false
-if grep -qw bbr /proc/sys/net/ipv4/tcp_available_congestion_control; then
+if grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control; then
     BBR_SUPPORTED=true
     echo "${GREEN}[✓] BBR supported.${RESET}"
 else
     echo "${RED}[!] BBR not supported. Skipping.${RESET}"
 fi
+
 
 if ! command -v iptables >/dev/null 2>&1; then
     echo "${RED}[×] iptables not found. Exiting.${RESET}"
@@ -162,9 +163,14 @@ cat > /data/adb/service.d/ReBullet-TTL.sh <<EOF
 DNS="${DNS}"
 DNSv6="${DNSv6}"
 
-if grep -qw bbr /proc/sys/net/ipv4/tcp_available_congestion_control; then
-    echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+if grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control; then
+    if grep -qw bbr2 /proc/sys/net/ipv4/tcp_available_congestion_control; then
+        echo bbr2 > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+    else
+        echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+    fi
 fi
+
 
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
