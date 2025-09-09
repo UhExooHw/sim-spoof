@@ -123,27 +123,34 @@ done
 /data/adb/magisk/busybox echo "[+] Creating SIM-Spoof.sh..."
 /data/adb/magisk/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/magisk/busybox sh
-(
-    while [ "\$(getprop sys.boot_completed)" != "1" ]; do
-        sleep 1
-    done
+while [ "\$(getprop sys.boot_completed)" != "1" ]; do
+     sleep 1
+done
 
-    /product/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
-    /product/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
-    /product/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
-    /product/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
-    /product/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
-    /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-    /product/bin/resetprop -n persist.sys.timezone "$TZ"
-    settings put global auto_time_zone 1
-    settings put global private_dns_mode off
-)
+MCC=\$(echo "$MCCMNC" | /product/bin/resetprop cut -c1-3)
+MNC=\$(echo "$MCCMNC" | /product/bin/resetprop cut -c4-)
+
+/product/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
+/product/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
+/product/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
+/product/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
+/product/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
+/product/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
+/product/bin/resetprop -n debug.tracing.mcc "$MCC"
+/product/bin/resetprop -n debug.tracing.mnc "$MNC"
+/product/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
+/product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
+/product/bin/resetprop -n persist.sys.timezone "$TZ"
+/product/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
+/product/bin/resetprop -n gsm.current.phone-type "1,1"
+
+settings put global auto_time_zone 1
+settings put global private_dns_mode off
 EOF
 
 /data/adb/magisk/busybox echo "[+] Creating SIM-TTL.sh..."
 /data/adb/magisk/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
 #!/data/adb/magisk/busybox sh
-(
     while [ "\$(getprop sys.boot_completed)" != "1" ]; do
         sleep 1
     done
@@ -191,7 +198,6 @@ EOF
     /product/bin/resetprop -n wlan2.dns2 $DNS
     /product/bin/resetprop -n wlan3.dns1 $DNS
     /product/bin/resetprop -n wlan3.dns2 $DNS
-)
 EOF
 
 /data/adb/magisk/busybox chmod +x /data/adb/service.d/SIM-*.sh
