@@ -125,36 +125,27 @@ done
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
-
-while [ "$(getprop sys.boot_completed)" != "1" ]; do
+while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-(
-    while true; do
-        /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
-        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
-        /data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n debug.tracing.mcc "$MCC"
-        /data/adb/ksu/bin/resetprop -n debug.tracing.mnc "$MNC"
-        /data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
-        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-        /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
-        /data/adb/ksu/bin/resetprop -n gsm.operator.isroaming "false,false"
-        settings put global auto_time_zone 1
-        settings put global private_dns_mode off
-        settings put global non_persistent_mac_randomization_force_enabled 1
-        settings put global restricted_networking_mode 0
-        settings put secure tethering_allow_vpn_upstreams 0
-
-        sleep 60
-    done
-) &
-
-exit 0
+/data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
+/data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n debug.tracing.mcc "$MCC"
+/data/adb/ksu/bin/resetprop -n debug.tracing.mnc "$MNC"
+/data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
+/data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
+/data/adb/ksu/bin/resetprop -n gsm.operator.isroaming "false,false"
+settings put global auto_time_zone 1
+settings put global private_dns_mode off
+settings put global non_persistent_mac_randomization_force_enabled 1
+settings put global restricted_networking_mode 0
+settings put secure tethering_allow_vpn_upstreams 0
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
