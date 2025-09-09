@@ -145,7 +145,7 @@ settings put global auto_time_zone 1
 settings put global private_dns_mode off
 settings put global non_persistent_mac_randomization_force_enabled 1
 settings put global restricted_networking_mode 0
-settings put secure tethering_allow_vpn_upstreams 0
+settings put secure tethering_allow_vpn_upstreams 1
 EOF
 
 /data/adb/magisk/busybox echo "[+] Creating SIM-TTL.sh..."
