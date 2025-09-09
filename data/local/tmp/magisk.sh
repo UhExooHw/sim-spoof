@@ -8,7 +8,7 @@
 
 /data/adb/magisk/busybox echo "[•] Checking environment..."
 
-/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution Magisk not installed. Exiting." && exit 1
+/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
 
 BBR_SUPPORTED=false
 /data/adb/magisk/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
@@ -119,24 +119,6 @@ while true; do
             ;;
         *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
     esac
-
-while true; do
-    /data/adb/magisk/busybox echo "Choose DNS Provider:"
-    /data/adb/magisk/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9  [4] Custom  [0] Back"
-    /data/adb/magisk/busybox echo -n "Enter number (0-4): "
-    read DNS_CHOICE
-    case "$DNS_CHOICE" in
-        0) exec "$0" ;;
-        1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; break ;;
-        2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; break ;;
-        3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; break ;;
-        4)
-            /data/adb/magisk/busybox echo -n "DNS IPv4: "; read DNS
-            /data/adb/magisk/busybox echo -n "DNS IPv6: "; read DNSv6
-            break
-            ;;
-        *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
-    esac
 done
 
 /data/adb/magisk/busybox echo ""
@@ -144,7 +126,7 @@ done
 /data/adb/magisk/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/magisk/busybox sh
 while [ "\$(getprop sys.boot_completed)" != "1" ]; do
-     sleep 1
+    sleep 1
 done
 
 /product/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
@@ -158,9 +140,6 @@ done
 /product/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n persist.sys.timezone "$TZ"
-/product/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
-/product/bin/resetprop -n gsm.current.phone-type "1,1"
-
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
 EOF
@@ -168,53 +147,53 @@ EOF
 /data/adb/magisk/busybox echo "[+] Creating SIM-TTL.sh..."
 /data/adb/magisk/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
 #!/data/adb/magisk/busybox sh
-    while [ "\$(getprop sys.boot_completed)" != "1" ]; do
-        sleep 1
-    done
+while [ "\$(getprop sys.boot_completed)" != "1" ]; do
+    sleep 1
+done
 
-    DNS="$DNS"
-    DNSv6="$DNSv6"
+DNS="$DNS"
+DNSv6="$DNSv6"
 
-    while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
-    while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
-    while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
-    while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
-    while iptables -t mangle -D OUTPUT -j TTL --ttl-set 64 2>/dev/null; do :; done
-    while ip6tables -t mangle -D OUTPUT -j HL --hl-set 64 2>/dev/null; do :; done
+while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
+while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
+while iptables -t mangle -D POSTROUTING -j TTL --ttl-set 64 2>/dev/null; do :; done
+while ip6tables -t mangle -D POSTROUTING -j HL --hl-set 64 2>/dev/null; do :; done
+while iptables -t mangle -D OUTPUT -j TTL --ttl-set 64 2>/dev/null; do :; done
+while ip6tables -t mangle -D OUTPUT -j HL --hl-set 64 2>/dev/null; do :; done
 
-    iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
-    ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
-    iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
-    ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
-    iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
-        iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53
-    iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
-        iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
+iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
+ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
+iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
+ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
+    iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
+    iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
 
-    /product/bin/resetprop -n net.eth0.dns1 $DNS
-    /product/bin/resetprop -n net.eth0.dns2 $DNS
-    /product/bin/resetprop -n net.dns1 $DNS
-    /product/bin/resetprop -n net.dns2 $DNS
-    /product/bin/resetprop -n net.ppp0.dns1 $DNS
-    /product/bin/resetprop -n net.ppp0.dns2 $DNS
-    /product/bin/resetprop -n net.rmnet0.dns1 $DNS
-    /product/bin/resetprop -n net.rmnet0.dns2 $DNS
-    /product/bin/resetprop -n net.rmnet1.dns1 $DNS
-    /product/bin/resetprop -n net.rmnet1.dns2 $DNS
-    /product/bin/resetprop -n net.rmnet2.dns1 $DNS
-    /product/bin/resetprop -n net.rmnet2.dns2 $DNS
-    /product/bin/resetprop -n net.rmnet3.dns1 $DNS
-    /product/bin/resetprop -n net.rmnet3.dns2 $DNS
-    /product/bin/resetprop -n net.pdpbr1.dns1 $DNS
-    /product/bin/resetprop -n net.pdpbr1.dns2 $DNS
-    /product/bin/resetprop -n wlan0.dns1 $DNS
-    /product/bin/resetprop -n wlan0.dns2 $DNS
-    /product/bin/resetprop -n wlan1.dns1 $DNS
-    /product/bin/resetprop -n wlan1.dns2 $DNS
-    /product/bin/resetprop -n wlan2.dns1 $DNS
-    /product/bin/resetprop -n wlan2.dns2 $DNS
-    /product/bin/resetprop -n wlan3.dns1 $DNS
-    /product/bin/resetprop -n wlan3.dns2 $DNS
+/product/bin/resetprop -n net.eth0.dns1 $DNS
+/product/bin/resetprop -n net.eth0.dns2 $DNS
+/product/bin/resetprop -n net.dns1 $DNS
+/product/bin/resetprop -n net.dns2 $DNS
+/product/bin/resetprop -n net.ppp0.dns1 $DNS
+/product/bin/resetprop -n net.ppp0.dns2 $DNS
+/product/bin/resetprop -n net.rmnet0.dns1 $DNS
+/product/bin/resetprop -n net.rmnet0.dns2 $DNS
+/product/bin/resetprop -n net.rmnet1.dns1 $DNS
+/product/bin/resetprop -n net.rmnet1.dns2 $DNS
+/product/bin/resetprop -n net.rmnet2.dns1 $DNS
+/product/bin/resetprop -n net.rmnet2.dns2 $DNS
+/product/bin/resetprop -n net.rmnet3.dns1 $DNS
+/product/bin/resetprop -n net.rmnet3.dns2 $DNS
+/product/bin/resetprop -n net.pdpbr1.dns1 $DNS
+/product/bin/resetprop -n net.pdpbr1.dns2 $DNS
+/product/bin/resetprop -n wlan0.dns1 $DNS
+/product/bin/resetprop -n wlan0.dns2 $DNS
+/product/bin/resetprop -n wlan1.dns1 $DNS
+/product/bin/resetprop -n wlan1.dns2 $DNS
+/product/bin/resetprop -n wlan2.dns1 $DNS
+/product/bin/resetprop -n wlan2.dns2 $DNS
+/product/bin/resetprop -n wlan3.dns1 $DNS
+/product/bin/resetprop -n wlan3.dns2 $DNS
 EOF
 
 /data/adb/magisk/busybox chmod +x /data/adb/service.d/SIM-*.sh
