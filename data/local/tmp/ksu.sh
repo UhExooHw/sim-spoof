@@ -140,6 +140,7 @@ done
 /data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
 /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
 /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
+/data/adb/ksu/bin/resetprop -n gsm.operator.isroaming "false,false"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
 EOF
