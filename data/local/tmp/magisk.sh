@@ -8,7 +8,7 @@
 
 /data/adb/magisk/busybox echo "[•] Checking environment..."
 
-/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
+/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution Magisk not installed. Exiting." && exit 1
 
 BBR_SUPPORTED=false
 /data/adb/magisk/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
@@ -135,7 +135,6 @@ done
     /product/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
     /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
     /product/bin/resetprop -n persist.sys.timezone "$TZ"
-    /product/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
     settings put global auto_time_zone 1
     settings put global private_dns_mode off
 )
