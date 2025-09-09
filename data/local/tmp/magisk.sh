@@ -147,9 +147,6 @@ while [ "\$(getprop sys.boot_completed)" != "1" ]; do
      sleep 1
 done
 
-MCC=\$(echo "$MCCMNC" | /product/bin/resetprop cut -c1-3)
-MNC=\$(echo "$MCCMNC" | /product/bin/resetprop cut -c4-)
-
 /product/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
 /product/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
 /product/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
