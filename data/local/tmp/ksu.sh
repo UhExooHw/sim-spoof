@@ -1,72 +1,72 @@
-#!/data/adb/ksu/bin/busybox sh
+#!/data/adb/magisk/busybox sh
 
-/data/adb/ksu/bin/busybox clear
+/data/adb/magisk/busybox clear
 
-/data/adb/ksu/bin/busybox echo "========================================="
-/data/adb/ksu/bin/busybox echo "         SIM Spoof Utility          "
-/data/adb/ksu/bin/busybox echo "========================================="
+/data/adb/magisk/busybox echo "========================================="
+/data/adb/magisk/busybox echo "         SIM Spoof Utility          "
+/data/adb/magisk/busybox echo "========================================="
 
-/data/adb/ksu/bin/busybox echo "[•] Checking environment..."
+/data/adb/magisk/busybox echo "[•] Checking environment..."
 
-/data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
+/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
 
 BBR_SUPPORTED=false
-/data/adb/ksu/bin/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
+/data/adb/magisk/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
 if [ "$BBR_SUPPORTED" = true ]; then
-    /data/adb/ksu/bin/busybox echo "[✓] BBR supported."
+    /data/adb/magisk/busybox echo "[✓] BBR supported."
 else
-    /data/adb/ksu/bin/busybox echo "[!] BBR not supported. Skipping."
+    /data/adb/magisk/busybox echo "[!] BBR not supported. Skipping."
 fi
 
-/data/adb/ksu/bin/busybox which iptables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "[×] iptables not found. Exiting."; exit 1; }
-/data/adb/ksu/bin/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "[×] ip6tables not found. Exiting."; exit 1; }
-/data/adb/ksu/bin/busybox echo "[✓] Environment OK."
+/data/adb/magisk/busybox which iptables >/dev/null 2>&1 || { /data/adb/magisk/busybox echo "[×] iptables not found. Exiting."; exit 1; }
+/data/adb/magisk/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/magisk/busybox echo "[×] ip6tables not found. Exiting."; exit 1; }
+/data/adb/magisk/busybox echo "[✓] Environment OK."
 
 while true; do
-    /data/adb/ksu/bin/busybox echo "Select Mobile Operator:"
-    /data/adb/ksu/bin/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
-    /data/adb/ksu/bin/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
-    /data/adb/ksu/bin/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Airtel"
-    /data/adb/ksu/bin/busybox echo "  [14] Custom  [0] Exit"
-    /data/adb/ksu/bin/busybox echo -n "Enter number (0-14): "
+    /data/adb/magisk/busybox echo "Select Mobile Operator:"
+    /data/adb/magisk/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
+    /data/adb/magisk/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
+    /data/adb/magisk/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
+    /data/adb/magisk/busybox echo "  [12] KPN  [13] Airtel"
+    /data/adb/magisk/busybox echo "  [14] Custom  [0] Exit"
+    /data/adb/magisk/busybox echo -n "Enter number (0-14): "
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
-        0) /data/adb/ksu/bin/busybox echo "Exiting..."; exit 0 ;;
+        0) /data/adb/magisk/busybox echo "Exiting..."; exit 0 ;;
         1)
             while true; do
-                /data/adb/ksu/bin/busybox echo "Select Country:"
-                /data/adb/ksu/bin/busybox echo "  [1] Uzbekistan  [2] Kazakhstan  [3] Russia  [0] Back"
-                /data/adb/ksu/bin/busybox echo -n "Enter number (0-3): "
+                /data/adb/magisk/busybox echo "Select Country:"
+                /data/adb/magisk/busybox echo "  [1] Uzbekistan  [2] Kazakhstan  [3] Russia  [0] Back"
+                /data/adb/magisk/busybox echo -n "Enter number (0-3): "
                 read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
                     1) MCCMNC="43404" MCC="434" MNC="04" ISO="uz" TZ="Asia/Tashkent" OPERATOR="Beeline"; break 2 ;;
                     2) MCCMNC="40101" MCC="401" MNC="01" ISO="kz" TZ="Asia/Almaty" OPERATOR="Beeline"; break 2 ;;
                     3) MCCMNC="25099" MCC="250" MNC="99" ISO="ru" TZ="Europe/Moscow" OPERATOR="Beeline"; break 2 ;;
-                    *) /data/adb/ksu/bin/busybox echo "[!] Invalid option." ;;
+                    *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
                 esac
             done
             ;;
         2)
             while true; do
-                /data/adb/ksu/bin/busybox echo "Select Country:"
-                /data/adb/ksu/bin/busybox echo "  [1] Belarus  [2] Russia  [0] Back"
-                /data/adb/ksu/bin/busybox echo -n "Enter number (0-2): "
+                /data/adb/magisk/busybox echo "Select Country:"
+                /data/adb/magisk/busybox echo "  [1] Belarus  [2] Russia  [0] Back"
+                /data/adb/magisk/busybox echo -n "Enter number (0-2): "
                 read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
                     1) MCCMNC="25702" MCC="257" MNC="02" ISO="by" TZ="Europe/Minsk" OPERATOR="MTS"; break 2 ;;
                     2) MCCMNC="25001" MCC="250" MNC="01" ISO="ru" TZ="Europe/Moscow" OPERATOR="MTS"; break 2 ;;
-                    *) /data/adb/ksu/bin/busybox echo "[!] Invalid option." ;;
+                    *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
                 esac
             done
             ;;
         3)
             while true; do
-                /data/adb/ksu/bin/busybox echo "Select Country:"
-                /data/adb/ksu/bin/busybox echo "  [1] Russia  [2] Latvia  [3] Sweden  [4] Estonia  [0] Back"
-                /data/adb/ksu/bin/busybox echo -n "Enter number (0-4): "
+                /data/adb/magisk/busybox echo "Select Country:"
+                /data/adb/magisk/busybox echo "  [1] Russia  [2] Latvia  [3] Sweden  [4] Estonia  [0] Back"
+                /data/adb/magisk/busybox echo -n "Enter number (0-4): "
                 read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
@@ -74,7 +74,7 @@ while true; do
                     2) MCCMNC="24702" MCC="247" MNC="02" ISO="lv" TZ="Europe/Riga" OPERATOR="Tele2"; break 2 ;;
                     3) MCCMNC="24007" MCC="240" MNC="07" ISO="se" TZ="Europe/Stockholm" OPERATOR="Tele2"; break 2 ;;
                     4) MCCMNC="24803" MCC="248" MNC="03" ISO="ee" TZ="Europe/Tallinn" OPERATOR="Tele2"; break 2 ;;
-                    *) /data/adb/ksu/bin/busybox echo "[!] Invalid option." ;;
+                    *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
                 esac
             done
             ;;
@@ -89,23 +89,23 @@ while true; do
         12) MCCMNC="20408" MCC="204" MNC="08" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
         13) MCCMNC="40402" MCC="404" MNC="02" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
         14)
-            /data/adb/ksu/bin/busybox echo "Manual Custom Input:"
-            /data/adb/ksu/bin/busybox echo -n "MCCMNC: "; read MCCMNC
-            /data/adb/ksu/bin/busybox echo -n "MCC: "; read MCC
-            /data/adb/ksu/bin/busybox echo -n "MNC: "; read MNC
-            /data/adb/ksu/bin/busybox echo -n "ISO: "; read ISO
-            /data/adb/ksu/bin/busybox echo -n "TimeZone: "; read TZ
-            /data/adb/ksu/bin/busybox echo -n "Operator: "; read OPERATOR
+            /data/adb/magisk/busybox echo "Manual Custom Input:"
+            /data/adb/magisk/busybox echo -n "MCCMNC: "; read MCCMNC
+            /data/adb/magisk/busybox echo -n "MCC: "; read MCC
+            /data/adb/magisk/busybox echo -n "MNC: "; read MNC
+            /data/adb/magisk/busybox echo -n "ISO: "; read ISO
+            /data/adb/magisk/busybox echo -n "TimeZone: "; read TZ
+            /data/adb/magisk/busybox echo -n "Operator: "; read OPERATOR
             break
             ;;
-        *) /data/adb/ksu/bin/busybox echo "[!] Invalid option." ;;
+        *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
     esac
 done
 
 while true; do
-    /data/adb/ksu/bin/busybox echo "Choose DNS Provider:"
-    /data/adb/ksu/bin/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9  [4] Custom  [0] Back"
-    /data/adb/ksu/bin/busybox echo -n "Enter number (0-4): "
+    /data/adb/magisk/busybox echo "Choose DNS Provider:"
+    /data/adb/magisk/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9  [4] Custom  [0] Back"
+    /data/adb/magisk/busybox echo -n "Enter number (0-4): "
     read DNS_CHOICE
     case "$DNS_CHOICE" in
         0) exec "$0" ;;
@@ -113,49 +113,71 @@ while true; do
         2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; break ;;
         3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; break ;;
         4)
-            /data/adb/ksu/bin/busybox echo -n "DNS IPv4: "; read DNS
-            /data/adb/ksu/bin/busybox echo -n "DNS IPv6: "; read DNSv6
+            /data/adb/magisk/busybox echo -n "DNS IPv4: "; read DNS
+            /data/adb/magisk/busybox echo -n "DNS IPv6: "; read DNSv6
             break
             ;;
-        *) /data/adb/ksu/bin/busybox echo "[!] Invalid option." ;;
+        *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
+    esac
+
+while true; do
+    /data/adb/magisk/busybox echo "Choose DNS Provider:"
+    /data/adb/magisk/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9  [4] Custom  [0] Back"
+    /data/adb/magisk/busybox echo -n "Enter number (0-4): "
+    read DNS_CHOICE
+    case "$DNS_CHOICE" in
+        0) exec "$0" ;;
+        1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; break ;;
+        2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; break ;;
+        3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; break ;;
+        4)
+            /data/adb/magisk/busybox echo -n "DNS IPv4: "; read DNS
+            /data/adb/magisk/busybox echo -n "DNS IPv6: "; read DNSv6
+            break
+            ;;
+        *) /data/adb/magisk/busybox echo "[!] Invalid option." ;;
     esac
 done
 
-/data/adb/ksu/bin/busybox echo ""
-/data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
-/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
+/data/adb/magisk/busybox echo ""
+/data/adb/magisk/busybox echo "[+] Creating SIM-Spoof.sh..."
+/data/adb/magisk/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 
-while [ "\$(getprop sys.boot_completed)" != "1" ]; do
-     sleep 1
+while [ "$(getprop sys.boot_completed)" != "1" ]; do
+    sleep 1
 done
 
-/data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
-/data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
-/data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n debug.tracing.mcc "$MCC"
-/data/adb/ksu/bin/resetprop -n debug.tracing.mnc "$MNC"
-/data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
-/data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-/data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
-/data/adb/ksu/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
-/data/adb/ksu/bin/resetprop -n gsm.current.phone-type "1,1"
-    
-settings put global auto_time_zone 1
-settings put global private_dns_mode off
+(
+    while true; do
+        /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
+        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
+        /data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
+        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
+        /data/adb/ksu/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
+        /data/adb/ksu/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
+        /data/adb/ksu/bin/resetprop -n debug.tracing.mcc "$MCC"
+        /data/adb/ksu/bin/resetprop -n debug.tracing.mnc "$MNC"
+        /data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
+        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
+        /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
+        /data/adb/ksu/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
+        /data/adb/ksu/bin/resetprop -n gsm.current.phone-type "1,1"
 
+        settings put global auto_time_zone 1
+        settings put global private_dns_mode off
+
+        sleep 5
+    done
+) &
 EOF
 
-/data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
-/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
-#!/data/adb/ksu/bin/busybox sh
+/data/adb/magisk/busybox echo "[+] Creating SIM-TTL.sh..."
+/data/adb/magisk/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
+#!/data/adb/magisk/busybox sh
     while [ "\$(getprop sys.boot_completed)" != "1" ]; do
         sleep 1
     done
-
 
     DNS="$DNS"
     DNSv6="$DNSv6"
@@ -176,53 +198,53 @@ EOF
     iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
         iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
 
-    /data/adb/ksu/bin/resetprop -n net.eth0.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.eth0.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n net.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n net.ppp0.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.ppp0.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet0.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet1.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet2.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.rmnet3.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n net.pdpbr1.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan0.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan0.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan1.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan1.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan2.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan2.dns2 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan3.dns1 $DNS
-    /data/adb/ksu/bin/resetprop -n wlan3.dns2 $DNS
+    /product/bin/resetprop -n net.eth0.dns1 $DNS
+    /product/bin/resetprop -n net.eth0.dns2 $DNS
+    /product/bin/resetprop -n net.dns1 $DNS
+    /product/bin/resetprop -n net.dns2 $DNS
+    /product/bin/resetprop -n net.ppp0.dns1 $DNS
+    /product/bin/resetprop -n net.ppp0.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet0.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet0.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet1.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet1.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet2.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet2.dns2 $DNS
+    /product/bin/resetprop -n net.rmnet3.dns1 $DNS
+    /product/bin/resetprop -n net.rmnet3.dns2 $DNS
+    /product/bin/resetprop -n net.pdpbr1.dns1 $DNS
+    /product/bin/resetprop -n net.pdpbr1.dns2 $DNS
+    /product/bin/resetprop -n wlan0.dns1 $DNS
+    /product/bin/resetprop -n wlan0.dns2 $DNS
+    /product/bin/resetprop -n wlan1.dns1 $DNS
+    /product/bin/resetprop -n wlan1.dns2 $DNS
+    /product/bin/resetprop -n wlan2.dns1 $DNS
+    /product/bin/resetprop -n wlan2.dns2 $DNS
+    /product/bin/resetprop -n wlan3.dns1 $DNS
+    /product/bin/resetprop -n wlan3.dns2 $DNS
 EOF
 
-/data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
+/data/adb/magisk/busybox chmod +x /data/adb/service.d/SIM-*.sh
 
-/data/adb/ksu/bin/busybox echo ""
-/data/adb/ksu/bin/busybox echo "=========================================="
-/data/adb/ksu/bin/busybox echo "   [✓] Scripts successfully installed!    "
-/data/adb/ksu/bin/busybox echo "=========================================="
+/data/adb/magisk/busybox echo ""
+/data/adb/magisk/busybox echo "=========================================="
+/data/adb/magisk/busybox echo "   [✓] Scripts successfully installed!    "
+/data/adb/magisk/busybox echo "=========================================="
 
-/data/adb/ksu/bin/busybox echo "Location: /data/adb/service.d/SIM-*.sh"
-/data/adb/ksu/bin/busybox echo ""
-/data/adb/ksu/bin/busybox echo "GitHub: https://github.com/UhExooHw/sim-spoof"
+/data/adb/magisk/busybox echo "Location: /data/adb/service.d/SIM-*.sh"
+/data/adb/magisk/busybox echo ""
+/data/adb/magisk/busybox echo "GitHub: https://github.com/UhExooHw/sim-spoof"
 
 while true; do
-    /data/adb/ksu/bin/busybox echo ""
-    /data/adb/ksu/bin/busybox echo "Reboot required to apply changes."
-    /data/adb/ksu/bin/busybox echo "  [1] Reboot now"
-    /data/adb/ksu/bin/busybox echo "  [2] Reboot later"
-    /data/adb/ksu/bin/busybox echo -n "Choose an option (1-2): "
+    /data/adb/magisk/busybox echo ""
+    /data/adb/magisk/busybox echo "Reboot required to apply changes."
+    /data/adb/magisk/busybox echo "  [1] Reboot now"
+    /data/adb/magisk/busybox echo "  [2] Reboot later"
+    /data/adb/magisk/busybox echo -n "Choose an option (1-2): "
     read REBOOT_CHOICE
     case "$REBOOT_CHOICE" in
         1) reboot; break ;;
-        2) /data/adb/ksu/bin/busybox echo "You can reboot manually later."; break ;;
-        *) /data/adb/ksu/bin/busybox echo "[!] Invalid choice. Try again." ;;
+        2) /data/adb/magisk/busybox echo "You can reboot manually later."; break ;;
+        *) /data/adb/magisk/busybox echo "[!] Invalid choice. Try again." ;;
     esac
 done
