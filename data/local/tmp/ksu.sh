@@ -143,7 +143,6 @@ done
 /data/adb/ksu/bin/resetprop -n gsm.operator.isroaming "false,false"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
-settings put global private_dns_mode off
 settings put global non_persistent_mac_randomization_force_enabled 1
 settings put global restricted_networking_mode 0
 EOF
