@@ -130,22 +130,21 @@ while [ "$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-        /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
-        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
-        /data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
-        /data/adb/ksu/bin/resetprop -n debug.tracing.mcc "$MCC"
-        /data/adb/ksu/bin/resetprop -n debug.tracing.mnc "$MNC"
-        /data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
-        /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-        /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
-        /data/adb/ksu/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
-        /data/adb/ksu/bin/resetprop -n gsm.current.phone-type "1,1"
-
-        settings put global auto_time_zone 1
-        settings put global private_dns_mode off
+/data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
+/data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
+/data/adb/ksu/bin/resetprop -n debug.tracing.mcc "$MCC"
+/data/adb/ksu/bin/resetprop -n debug.tracing.mnc "$MNC"
+/data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
+/data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
+/data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
+/data/adb/ksu/bin/resetprop -n gsm.sim.state "LOADED,LOADED"
+/data/adb/ksu/bin/resetprop -n gsm.current.phone-type "1,1"
+settings put global auto_time_zone 1
+settings put global private_dns_mode off
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
