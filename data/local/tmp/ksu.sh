@@ -130,8 +130,6 @@ while [ "$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-(
-    while true; do
         /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
         /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
         /data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
@@ -148,10 +146,6 @@ done
 
         settings put global auto_time_zone 1
         settings put global private_dns_mode off
-
-        sleep 5
-    done
-) &
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
