@@ -140,6 +140,7 @@ done
 /product/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n persist.sys.timezone "$TZ"
+/product/bin/resetprop -n gsm.operator.isroaming "false,false"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
 EOF
