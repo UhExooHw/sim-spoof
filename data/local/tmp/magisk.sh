@@ -143,6 +143,8 @@ done
 /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n persist.sys.timezone "$TZ"
 /product/bin/resetprop -n gsm.operator.isroaming "false,false"
+/product/bin/resetprop -n sys.wifitracing.started "0"
+/product/bin/resetprop -n persist.vendor.wifienhancelog "0"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
 settings put global non_persistent_mac_randomization_force_enabled 1
