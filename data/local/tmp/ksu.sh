@@ -179,7 +179,7 @@ done
 
 while true; do
     /data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh
-    sleep 10
+    sleep 5
 done
 EOF
 
