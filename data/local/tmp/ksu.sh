@@ -127,6 +127,52 @@ while true; do
     esac
 done
 
+while true; do
+    /data/adb/ksu/bin/busybox echo "Choose IMEI Option for SIM 1 and SIM 2:"
+    /data/adb/ksu/bin/busybox echo "[1] Generate Random IMEI for both SIMs"
+    /data/adb/ksu/bin/busybox echo "[2] Enter Manual IMEI for both SIMs"
+    /data/adb/ksu/bin/busybox echo "[0] Back"
+    /data/adb/ksu/bin/busybox echo -n "Enter number (0-2): "
+    read IMEI_CHOICE
+    case "$IMEI_CHOICE" in
+        0) exec "$0" ;;
+        1)
+            RBI1=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
+            TAC1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+            SERIAL1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+            CHECK_DIGIT1=$(/data/adb/ksu/bin/busybox printf "%01d" $((RANDOM % 10)))
+            IMEI1="${RBI1}${TAC1}${SERIAL1}${CHECK_DIGIT1}"
+            RBI2=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
+            TAC2=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+            SERIAL2=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+            CHECK_DIGIT2=$(/data/adb/ksu/bin/busybox printf "%01d" $((RANDOM % 10)))
+            IMEI2="${RBI2}${TAC2}${SERIAL2}${CHECK_DIGIT2}"
+            /data/adb/ksu/bin/busybox echo "[✓] Generated IMEI for SIM 1: $IMEI1"
+            /data/adb/ksu/bin/busybox echo "[✓] Generated IMEI for SIM 2: $IMEI2"
+            break
+            ;;
+        2)
+            /data/adb/ksu/bin/busybox echo -n "Enter 15-digit IMEI for SIM 1: "
+            read IMEI1
+            if [ ${#IMEI1} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI1" : '^[0-9]\{15\}$' >/dev/null; then
+                /data/adb/ksu/bin/busybox echo "[✓] Manual IMEI for SIM 1: $IMEI1"
+            else
+                /data/adb/ksu/bin/busybox echo "[!] Invalid IMEI for SIM 1. Must be 15 digits."
+                continue
+            fi
+            /data/adb/ksu/bin/busybox echo -n "Enter 15-digit IMEI for SIM 2: "
+            read IMEI2
+            if [ ${#IMEI2} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI2" : '^[0-9]\{15\}$' >/dev/null; then
+                /data/adb/ksu/bin/busybox echo "[✓] Manual IMEI for SIM 2: $IMEI2"
+                break
+            else
+                /data/adb/ksu/bin/busybox echo "[!] Invalid IMEI for SIM 2. Must be 15 digits."
+            fi
+            ;;
+        *) /data/adb/ksu/bin/busybox echo "[!] Invalid option." ;;
+    esac
+done
+
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
@@ -149,6 +195,9 @@ done
 /data/adb/ksu/bin/resetprop -n gsm.operator.isroaming "false,false"
 /data/adb/ksu/bin/resetprop -n sys.wifitracing.started "0"
 /data/adb/ksu/bin/resetprop -n persist.vendor.wifienhancelog "0"
+/data/adb/ksu/bin/resetprop -n persist.vendor.radio.imei  "$IMEI1"
+/data/adb/ksu/bin/resetprop -n persist.vendor.radio.imei1 "$IMEI1"
+/data/adb/ksu/bin/resetprop -n persist.vendor.radio.imei2 "$IMEI2"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
 settings put global non_persistent_mac_randomization_force_enabled 1
