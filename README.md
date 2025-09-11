@@ -103,4 +103,12 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 
 GitHub: [UhExooHw](https://github.com/UhExooHw)
 
+** Copyright 2006, Google Inc.
+** Copyright 2016-2025 The LineageOS Project
+
+---
+
+## 📄 License
+This project is licensed under the [Apache License 2.0](LICENSE).
+
 ---
