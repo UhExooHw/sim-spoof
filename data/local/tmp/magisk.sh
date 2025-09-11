@@ -10,12 +10,13 @@
 
 /data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution Magisk not installed. Exiting." && exit 1
 
-BBR_SUPPORTED=false
-/data/adb/magisk/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
-if [ "$BBR_SUPPORTED" = true ]; then
-    /data/adb/magisk/busybox echo "[✓] BBR supported."
+BBR_ALGORITHM=""
+/data/adb/magisk/busybox grep -qw 'bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_ALGORITHM="bbr2"
+/data/adb/magisk/busybox grep -qw 'bbr' /proc/sys/net/ipv4/tcp_available_congestion_control && [ -z "$BBR_ALGORITHM" ] && BBR_ALGORITHM="bbr"
+if [ -n "$BBR_ALGORITHM" ]; then
+    /data/adb/magisk/busybox echo "[✓] $BBR_ALGORITHM supported."
 else
-    /data/adb/magisk/busybox echo "[!] BBR not supported. Skipping."
+    /data/adb/magisk/busybox echo "[!] BBR/BBR2 not supported. Skipping."
 fi
 
 /data/adb/magisk/busybox which iptables >/dev/null 2>&1 || { /data/adb/magisk/busybox echo "[×] iptables not found. Exiting."; exit 1; }
@@ -104,7 +105,7 @@ done
 
 while true; do
     /data/adb/magisk/busybox echo "Choose DNS Provider:"
-    /data/adb/magisk/busybox echo "[1] Cloudflare  [2] Google  [3] Quad9" 
+    /data/adb/magisk/busybox echo "[1] Cloudflare  [2] Google  [3] Quad9"
     /data/adb/magisk/busybox echo "[4] Yandex  [5] Custom  [0] Back"
     /data/adb/magisk/busybox echo -n "Enter number (0-5): "
     read DNS_CHOICE
@@ -173,8 +174,13 @@ while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
+BBR_ALGORITHM="$BBR_ALGORITHM"
 DNS="$DNS"
 DNSv6="$DNSv6"
+
+if [ -n "$BBR_ALGORITHM" ]; then
+    /data/adb/magisk/busybox echo $BBR_ALGORITHM > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+fi
 
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
@@ -187,35 +193,35 @@ iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
 ip6tables -t mangle -A POSTROUTING -j HL --hl-set 64
 iptables -t mangle -A OUTPUT -j TTL --ttl-set 64
 ip6tables -t mangle -A OUTPUT -j HL --hl-set 64
-iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
-    iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination $DNS:53
-iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/dev/null || \
-    iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53
+iptables -t nat -C OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || \
+    iptables -t nat -I OUTPUT -p tcp --dport 53 -j DNAT --to-destination \$DNS:53
+iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>/dev/null || \
+    iptables -t nat -I OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53
 
-/product/bin/resetprop -n net.eth0.dns1 $DNS
-/product/bin/resetprop -n net.eth0.dns2 $DNS
-/product/bin/resetprop -n net.dns1 $DNS
-/product/bin/resetprop -n net.dns2 $DNS
-/product/bin/resetprop -n net.ppp0.dns1 $DNS
-/product/bin/resetprop -n net.ppp0.dns2 $DNS
-/product/bin/resetprop -n net.rmnet0.dns1 $DNS
-/product/bin/resetprop -n net.rmnet0.dns2 $DNS
-/product/bin/resetprop -n net.rmnet1.dns1 $DNS
-/product/bin/resetprop -n net.rmnet1.dns2 $DNS
-/product/bin/resetprop -n net.rmnet2.dns1 $DNS
-/product/bin/resetprop -n net.rmnet2.dns2 $DNS
-/product/bin/resetprop -n net.rmnet3.dns1 $DNS
-/product/bin/resetprop -n net.rmnet3.dns2 $DNS
-/product/bin/resetprop -n net.pdpbr1.dns1 $DNS
-/product/bin/resetprop -n net.pdpbr1.dns2 $DNS
-/product/bin/resetprop -n wlan0.dns1 $DNS
-/product/bin/resetprop -n wlan0.dns2 $DNS
-/product/bin/resetprop -n wlan1.dns1 $DNS
-/product/bin/resetprop -n wlan1.dns2 $DNS
-/product/bin/resetprop -n wlan2.dns1 $DNS
-/product/bin/resetprop -n wlan2.dns2 $DNS
-/product/bin/resetprop -n wlan3.dns1 $DNS
-/product/bin/resetprop -n wlan3.dns2 $DNS
+/product/bin/resetprop -n net.eth0.dns1 \$DNS
+/product/bin/resetprop -n net.eth0.dns2 \$DNS
+/product/bin/resetprop -n net.dns1 \$DNS
+/product/bin/resetprop -n net.dns2 \$DNS
+/product/bin/resetprop -n net.ppp0.dns1 \$DNS
+/product/bin/resetprop -n net.ppp0.dns2 \$DNS
+/product/bin/resetprop -n net.rmnet0.dns1 \$DNS
+/product/bin/resetprop -n net.rmnet0.dns2 \$DNS
+/product/bin/resetprop -n net.rmnet1.dns1 \$DNS
+/product/bin/resetprop -n net.rmnet1.dns2 \$DNS
+/product/bin/resetprop -n net.rmnet2.dns1 \$DNS
+/product/bin/resetprop -n net.rmnet2.dns2 \$DNS
+/product/bin/resetprop -n net.rmnet3.dns1 \$DNS
+/product/bin/resetprop -n net.rmnet3.dns2 \$DNS
+/product/bin/resetprop -n net.pdpbr1.dns1 \$DNS
+/product/bin/resetprop -n net.pdpbr1.dns2 \$DNS
+/product/bin/resetprop -n wlan0.dns1 \$DNS
+/product/bin/resetprop -n wlan0.dns2 \$DNS
+/product/bin/resetprop -n wlan1.dns1 \$DNS
+/product/bin/resetprop -n wlan1.dns2 \$DNS
+/product/bin/resetprop -n wlan2.dns1 \$DNS
+/product/bin/resetprop -n wlan2.dns2 \$DNS
+/product/bin/resetprop -n wlan3.dns1 \$DNS
+/product/bin/resetprop -n wlan3.dns2 \$DNS
 EOF
 
 /data/adb/magisk/busybox chmod +x /data/adb/service.d/SIM-*.sh
