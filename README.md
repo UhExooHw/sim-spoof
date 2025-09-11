@@ -43,7 +43,7 @@
 | Telekom  | DE         | 26201               |
 | KPN      | NL         | 20408               |
 | Airtel   | IN         | 40402               |
-| KL．M    | KP         | 46706               |
+| Kyivstar  | UA         | 25503               |
 
 ---
 
