@@ -179,7 +179,7 @@ DNS="$DNS"
 DNSv6="$DNSv6"
 
 if [ -n "$BBR_ALGORITHM" ]; then
-    echo $BBR_ALGORITHM > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+    /data/adb/ksu/bin/busybox echo $BBR_ALGORITHM > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
 fi
 
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
