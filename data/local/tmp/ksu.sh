@@ -159,7 +159,7 @@ done
 while true; do
     /data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh
     sleep 10
-done &
+done
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
