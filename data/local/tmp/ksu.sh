@@ -181,8 +181,6 @@ while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-NEW_ANDROID_ID=$(/data/adb/ksu/bin/busybox hexdump -n8 -ve '/1 "%02x"' /dev/urandom)
-
 /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
 /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
 /data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
@@ -209,7 +207,7 @@ settings put global bug_report 0
 settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
-settings put secure android_id "$NEW_ANDROID_ID"
+settings put secure android_id "$(/data/adb/ksu/bin/busybox hexdump -n8 -e '/8 \"%016x\"' /dev/urandom)"
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
