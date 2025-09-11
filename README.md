@@ -45,6 +45,7 @@
 | Airtel   | IN         | 40402               |
 | Kyivstar  | UA         | 25503               |
 | Test (Debug)     | AQ           | 00101               |
+| Irancell      | IR         | 43235               |
 
 ---
 
