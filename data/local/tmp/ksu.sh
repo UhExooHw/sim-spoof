@@ -200,9 +200,13 @@ done
 /data/adb/ksu/bin/resetprop -n persist.vendor.radio.imei2 "$IMEI2"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
+settings put global development_settings_enabled 1
 settings put global non_persistent_mac_randomization_force_enabled 1
 settings put global restricted_networking_mode 0
+settings put global bug_report 0
+settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
+settings put secure bluetooth_name Android
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
@@ -274,6 +278,20 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>
 /data/adb/ksu/bin/resetprop -n wlan2.dns2 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns1 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns2 \$DNS
+
+if [ -s /data/data/com.google.android.gms/shared_prefs/adid_settings.xml ]; then
+    NEW_ADID=$(hexdump -n16 -e "/4 \"%08x\" /2 \"-%04x\" /2 \"-%04x\" /2 \"-%04x\" /2 \"-%04x\" /4 \"%08x\"" /dev/urandom)
+    rnd=$(hexdump -n2 -e "/2 \"%4u\n\"" /dev/urandom)
+    byte9_val=$(( (rnd % 4) + 8 ))
+    [ $byte9_val -eq 10 ] && byte9_val="a"
+    [ $byte9_val -eq 11 ] && byte9_val="b"
+    NEW_ADID=$(echo "$NEW_ADID" | sed -e "s/./4/15" -e "s/./$byte9_val/20")
+
+    /data/adb/ksu/bin/busybox sed -ri "s#<string name=\"adid_key\">[^<]+</string>#<string name=\"adid_key\">$NEW_ADID</string>#" /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
+    /data/adb/ksu/bin/busybox sed -ri "s#<string name=\"fake_adid_key\">[^<]*</string>#<string name=\"fake_adid_key\">$NEW_ADID</string>#" /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
+    /data/adb/ksu/bin/busybox sed -ri "s#<int name=\"adid_reset_count\" value=\"[0-9]+\"/>#<int name=\"adid_reset_count\" value=\"1\"/>#" /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
+fi
+
 EOF
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
