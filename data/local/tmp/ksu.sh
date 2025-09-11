@@ -154,7 +154,7 @@ EOF
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Service.sh..."
 /data/adb/ksu/bin/busybox cat > /data/local/tmp/SIM-Service.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
-/data/adb/ksu/bin/busybox watch -n 10 /data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh
+/data/adb/ksu/bin/busybox watch -n 10 "/data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh" >/dev/null 2>&1
 EOF
 
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-TTL.sh..."
