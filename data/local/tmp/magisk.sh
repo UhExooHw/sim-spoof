@@ -28,9 +28,9 @@ while true; do
     /data/adb/magisk/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
     /data/adb/magisk/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
     /data/adb/magisk/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/magisk/busybox echo "  [12] KPN  [13] Airtel"
-    /data/adb/magisk/busybox echo "  [14] Custom  [0] Exit"
-    /data/adb/magisk/busybox echo -n "Enter number (0-14): "
+    /data/adb/magisk/busybox echo "  [12] KPN  [13] Airtel  [14] Kyivstar   [15] Test"
+    /data/adb/magisk/busybox echo "  [16] Custom  [0] Exit"
+    /data/adb/magisk/busybox echo -n "Enter number (0-16): "
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) /data/adb/magisk/busybox echo "Exiting..."; exit 0 ;;
@@ -71,7 +71,7 @@ while true; do
                 read COUNTRY_CHOICE
                 case "$COUNTRY_CHOICE" in
                     0) break ;;
-                    1) MCCMNC="25020" MCC="250" MNC="20" ISO="ru" TZ="Europe/Moscow" OPERATOR="t2"; break 2 ;;
+                    1) MCCMNC="25020" MCC="250" MNC="20" ISO="ru" TZ="Europe/Moscow" OPERATOR="Tele2 RU"; break 2 ;;
                     2) MCCMNC="24702" MCC="247" MNC="02" ISO="lv" TZ="Europe/Riga" OPERATOR="Tele2"; break 2 ;;
                     3) MCCMNC="24007" MCC="240" MNC="07" ISO="se" TZ="Europe/Stockholm" OPERATOR="Tele2"; break 2 ;;
                     4) MCCMNC="24803" MCC="248" MNC="03" ISO="ee" TZ="Europe/Tallinn" OPERATOR="Tele2"; break 2 ;;
@@ -81,15 +81,17 @@ while true; do
             ;;
         4) MCCMNC="25002" MCC="250" MNC="02" ISO="ru" TZ="Europe/Moscow" OPERATOR="Megafon"; break ;;
         5) MCCMNC="25011" MCC="250" MNC="11" ISO="ru" TZ="Europe/Moscow" OPERATOR="Yota"; break ;;
-        6) MCCMNC="25701" MCC="257" MNC="01" ISO="by" TZ="Europe/Minsk" OPERATOR="A1"; break ;;
+        6) MCCMNC="25701" MCC="257" MNC="01" ISO="by" TZ="Europe/Minsk" OPERATOR="Velcom"; break ;;
         7) MCCMNC="25704" MCC="257" MNC="04" ISO="by" TZ="Europe/Minsk" OPERATOR="life:)"; break ;;
         8) MCCMNC="22803" MCC="228" MNC="03" ISO="ch" TZ="Europe/Zurich" OPERATOR="Salt"; break ;;
         9) MCCMNC="28601" MCC="286" MNC="01" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell"; break ;;
-        10) MCCMNC="24491" MCC="244" MNC="91" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
+        10) MCCMNC="24491" MCC="244" MNC="91" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Tele Finland"; break ;;
         11) MCCMNC="26201" MCC="262" MNC="01" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
         12) MCCMNC="20408" MCC="204" MNC="08" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
         13) MCCMNC="40402" MCC="404" MNC="02" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
-        14)
+        14) MCCMNC="25503" MCC="255" MNC="03" ISO="ua" TZ="Europe/Kyiv" OPERATOR="Kyivstar"; break ;;
+        15) MCCMNC="00101" MCC="001" MNC="01" ISO="aq" TZ="Antarctica/Palmer" OPERATOR="Test"; break ;;
+        16)
             /data/adb/magisk/busybox echo "Manual Custom Input:"
             /data/adb/magisk/busybox echo -n "MCCMNC: "; read MCCMNC
             /data/adb/magisk/busybox echo -n "MCC: "; read MCC
