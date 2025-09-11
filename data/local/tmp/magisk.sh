@@ -8,7 +8,7 @@
 
 /data/adb/magisk/busybox echo "[•] Checking environment..."
 
-/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
+/data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution Magisk not installed. Exiting." && exit 1
 
 BBR_SUPPORTED=false
 /data/adb/magisk/busybox grep -Eqw 'bbr|bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_SUPPORTED=true
@@ -104,15 +104,16 @@ done
 
 while true; do
     /data/adb/magisk/busybox echo "Choose DNS Provider:"
-    /data/adb/magisk/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9  [4] Custom  [0] Back"
-    /data/adb/magisk/busybox echo -n "Enter number (0-4): "
+    /data/adb/magisk/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9   [4] Yandex  [5] Custom  [0] Back"
+    /data/adb/magisk/busybox echo -n "Enter number (0-5): "
     read DNS_CHOICE
     case "$DNS_CHOICE" in
         0) exec "$0" ;;
         1) DNS="1.1.1.1"; DNSv6="2606:4700:4700::1111"; break ;;
         2) DNS="8.8.8.8"; DNSv6="2001:4860:4860::8888"; break ;;
         3) DNS="9.9.9.9"; DNSv6="2620:fe::fe"; break ;;
-        4)
+        4) DNS="77.88.8.8"; DNSv6="2a02:6b8::feed:0ff"; break ;;
+        5)
             /data/adb/magisk/busybox echo -n "DNS IPv4: "; read DNS
             /data/adb/magisk/busybox echo -n "DNS IPv6: "; read DNSv6
             break
