@@ -18,6 +18,7 @@
 * 🌍 Spoof SIM: MCCMNC, ISO, operator
 * 🕓 Spoof time zone
 * 📶 Spoof imei
+* 🔐 Spoof Advertising ID
 * 🔐 Intercept DNS
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
