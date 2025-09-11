@@ -90,7 +90,7 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 * Magisk/KernelSU module
 * More operators
 * IMEI Spoof
-* Android ID Spoof
+* Android ID / advertisement id Spoof
 * Dual SIM support
 
 ---
