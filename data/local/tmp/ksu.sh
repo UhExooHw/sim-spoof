@@ -156,7 +156,7 @@ EOF
 #!/data/adb/ksu/bin/busybox sh
 while true; do
     /data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh
-    /data/adb/ksu/bin/busybox sleep 10
+    sleep 10
 done &
 EOF
 
