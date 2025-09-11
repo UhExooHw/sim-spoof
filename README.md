@@ -89,10 +89,11 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 ## TODO
 * Magisk/KernelSU module
 * More operators
-* Imei
+* imei
 * Android ID
 * Advertisement ID
 * Dual SIM support
+* DNS over TLS support
 
 ---
 
