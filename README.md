@@ -1,7 +1,7 @@
 # 🚀 SIM Spoof
 
 * ⚠️ **Warning:** May violate laws or carrier rules. Use at **your own risk**.
-* ⚠️ Supports **SIM1 only**.
+* ⚠️ Supports **devices with only 1 SIM card in the SIM1 slot**.
 
 ---
 
@@ -91,6 +91,7 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 * More operators
 * IMEI Spoof
 * Android ID Spoof
+* Dual SIM support
 
 ---
 
