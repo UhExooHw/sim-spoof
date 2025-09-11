@@ -35,11 +35,11 @@
 | Tele2    | LV, SE, EE | 24702, 24007, 24803 |
 | Megafon  | RU         | 25002               |
 | Yota     | RU         | 25011               |
-| A1       | BY         | 25701               |
-| life:)   | BY         | 25704               |
+| Velcom   | BY         | 25701               |
+| Life:)   | BY         | 25704               |
 | Salt     | CH         | 22803               |
 | Turkcell | TR         | 28601               |
-| Telia    | FI         | 24491               |
+| Tele Finland    | FI         | 24491               |
 | Telekom  | DE         | 26201               |
 | KPN      | NL         | 20408               |
 | Airtel   | IN         | 40402               |
