@@ -10,6 +10,7 @@
 
 /data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
 
+NEW_ANDROID_ID=$(/data/adb/ksu/bin/busybox hexdump -n8 -e '/8 "%016x"' /dev/urandom)
 BBR_ALGORITHM=""
 /data/adb/ksu/bin/busybox grep -qw 'bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_ALGORITHM="bbr2"
 /data/adb/ksu/bin/busybox grep -qw 'bbr' /proc/sys/net/ipv4/tcp_available_congestion_control && [ -z "$BBR_ALGORITHM" ] && BBR_ALGORITHM="bbr"
@@ -207,7 +208,7 @@ settings put global bug_report 0
 settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
-settings put secure android_id "$(/data/adb/ksu/bin/busybox hexdump -n8 -e '/8 \"%016x\"' /dev/urandom)"
+settings put secure android_id "$NEW_ANDROID_ID"
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
