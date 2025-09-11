@@ -147,12 +147,12 @@ settings put global non_persistent_mac_randomization_force_enabled 1
 settings put global restricted_networking_mode 0
 settings put secure tethering_allow_vpn_upstreams 1
 
-/data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-service.sh &
+/data/adb/ksu/bin/busybox sh /data/local/tmp/SIM-Service.sh &
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Service.sh..."
-/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-service.sh <<EOF
+/data/adb/ksu/bin/busybox cat > /data/local/tmp/SIM-Service.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 /data/adb/ksu/bin/busybox watch -n 10 /data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh
 EOF
@@ -210,6 +210,7 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/
 EOF
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
+/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/SIM-*.sh
 
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "=========================================="
