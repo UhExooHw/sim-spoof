@@ -88,6 +88,8 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 ## TODO
 * Magisk/KernelSU module
 * More operators
+* IMEI Spoof
+* Android ID Spoof
 
 ---
 
