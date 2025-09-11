@@ -28,9 +28,9 @@ while true; do
     /data/adb/ksu/bin/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
     /data/adb/ksu/bin/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
     /data/adb/ksu/bin/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Airtel"
-    /data/adb/ksu/bin/busybox echo "  [14] Custom  [0] Exit"
-    /data/adb/ksu/bin/busybox echo -n "Enter number (0-14): "
+    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Airtel [14] KL．M"
+    /data/adb/ksu/bin/busybox echo "  [15] Custom  [0] Exit"
+    /data/adb/ksu/bin/busybox echo -n "Enter number (0-15): "
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) /data/adb/ksu/bin/busybox echo "Exiting..."; exit 0 ;;
@@ -81,15 +81,16 @@ while true; do
             ;;
         4) MCCMNC="25002" MCC="250" MNC="02" ISO="ru" TZ="Europe/Moscow" OPERATOR="Megafon"; break ;;
         5) MCCMNC="25011" MCC="250" MNC="11" ISO="ru" TZ="Europe/Moscow" OPERATOR="Yota"; break ;;
-        6) MCCMNC="25701" MCC="257" MNC="01" ISO="by" TZ="Europe/Minsk" OPERATOR="A1"; break ;;
+        6) MCCMNC="25701" MCC="257" MNC="01" ISO="by" TZ="Europe/Minsk" OPERATOR="Velcom"; break ;;
         7) MCCMNC="25704" MCC="257" MNC="04" ISO="by" TZ="Europe/Minsk" OPERATOR="life:)"; break ;;
         8) MCCMNC="22803" MCC="228" MNC="03" ISO="ch" TZ="Europe/Zurich" OPERATOR="Salt"; break ;;
         9) MCCMNC="28601" MCC="286" MNC="01" ISO="tr" TZ="Europe/Istanbul" OPERATOR="Turkcell"; break ;;
-        10) MCCMNC="24491" MCC="244" MNC="91" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Telia"; break ;;
+        10) MCCMNC="24491" MCC="244" MNC="91" ISO="fi" TZ="Europe/Helsinki" OPERATOR="Tele Finland"; break ;;
         11) MCCMNC="26201" MCC="262" MNC="01" ISO="de" TZ="Europe/Berlin" OPERATOR="Telekom"; break ;;
         12) MCCMNC="20408" MCC="204" MNC="08" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
         13) MCCMNC="40402" MCC="404" MNC="02" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
-        14)
+        14) MCCMNC="40402" MCC="467" MNC="06" ISO="kp" TZ="Asia/Pyongyang" OPERATOR="KL．M"; break ;;
+        15)
             /data/adb/ksu/bin/busybox echo "Manual Custom Input:"
             /data/adb/ksu/bin/busybox echo -n "MCCMNC: "; read MCCMNC
             /data/adb/ksu/bin/busybox echo -n "MCC: "; read MCC
