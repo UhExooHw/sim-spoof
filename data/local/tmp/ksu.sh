@@ -207,7 +207,9 @@ settings put global bug_report 0
 settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
-settings put secure android_id $(/data/adb/ksu/bin/busybox hexdump -n8 -e '/8 "%016x"' /dev/urandom | tr -d '\n')
+
+NEW_ANDROID_ID=$(hexdump -n8 -e '/8 "%016x"' /dev/urandom)
+settings put secure android_id $NEW_ANDROID_ID
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
