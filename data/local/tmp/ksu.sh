@@ -28,7 +28,7 @@ while true; do
     /data/adb/ksu/bin/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
     /data/adb/ksu/bin/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
     /data/adb/ksu/bin/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Airtel [14] KL．M"
+    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Airtel  [14] KL．M"
     /data/adb/ksu/bin/busybox echo "  [15] Custom  [0] Exit"
     /data/adb/ksu/bin/busybox echo -n "Enter number (0-15): "
     read OPERATOR_CHOICE
