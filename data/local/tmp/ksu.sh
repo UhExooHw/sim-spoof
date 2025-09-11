@@ -152,6 +152,10 @@ EOF
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Service.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Service.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
+while [ "\$(getprop sys.boot_completed)" != "1" ]; do
+    sleep 1
+done
+
 while true; do
     /data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh
     sleep 10
