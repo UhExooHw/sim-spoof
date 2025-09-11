@@ -104,7 +104,8 @@ done
 
 while true; do
     /data/adb/magisk/busybox echo "Choose DNS Provider:"
-    /data/adb/magisk/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9   [4] Yandex  [5] Custom  [0] Back"
+    /data/adb/magisk/busybox echo "[1] Cloudflare  [2] Google  [3] Quad9" 
+    /data/adb/magisk/busybox echo "[4] Yandex  [5] Custom  [0] Back"
     /data/adb/magisk/busybox echo -n "Enter number (0-5): "
     read DNS_CHOICE
     case "$DNS_CHOICE" in
