@@ -90,7 +90,7 @@ while true; do
         12) MCCMNC="20408" MCC="204" MNC="08" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
         13) MCCMNC="40402" MCC="404" MNC="02" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
         14) MCCMNC="25503" MCC="255" MNC="03" ISO="ua" TZ="Europe/Kyiv" OPERATOR="Kyivstar"; break ;;
-        15) MCCMNC="00101" MCC="001" MNC="01" ISO="aq" TZ="Antarctica/Vostok" OPERATOR="Test"; break ;;
+        15) MCCMNC="00101" MCC="001" MNC="01" ISO="aq" TZ="Antarctica/Palmer" OPERATOR="Test"; break ;;
         16) MCCMNC="43235" MCC="432" MNC="35" ISO="ir" TZ="Asia/Tehran" OPERATOR="Irancell"; break ;;
         17)
             /data/adb/ksu/bin/busybox echo "Manual Custom Input:"
@@ -181,13 +181,7 @@ while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-generate_android_id() {
-    NEW_ANDROID_ID=$(hexdump -n8 -e '/8 "%016x"' /dev/urandom 2>/dev/null)
-    [ -z "$NEW_ANDROID_ID" ] || [ "$NEW_ANDROID_ID" = "0000000000000000" ] && return 1
-    echo "$NEW_ANDROID_ID"
-}
-
-NEW_ANDROID_ID=$(generate_android_id)
+NEW_ANDROID_ID=$(hexdump -n8 -e '/8 "%016x"' /dev/urandom)
 
 /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
 /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
@@ -288,11 +282,10 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>
 /data/adb/ksu/bin/resetprop -n wlan3.dns1 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns2 \$DNS
 
-sleep 15
-
-/data/adb/ksu/bin/busybox sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
+sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
        -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
        /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
+
 EOF
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
