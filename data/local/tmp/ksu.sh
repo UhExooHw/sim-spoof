@@ -279,6 +279,8 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>
 /data/adb/ksu/bin/resetprop -n wlan3.dns1 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns2 \$DNS
 
+sleep 15
+
 /data/adb/ksu/bin/busybox sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
        -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
        /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
