@@ -44,6 +44,7 @@
 | KPN      | NL         | 20408               |
 | Airtel   | IN         | 40402               |
 | Kyivstar  | UA         | 25503               |
+| Test     |            | 00101               |
 
 ---
 
