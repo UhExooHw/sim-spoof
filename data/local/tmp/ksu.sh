@@ -104,7 +104,8 @@ done
 
 while true; do
     /data/adb/ksu/bin/busybox echo "Choose DNS Provider:"
-    /data/adb/ksu/bin/busybox echo "  [1] Cloudflare  [2] Google  [3] Quad9   [4] Yandex  [5] Custom  [0] Back"
+    /data/adb/ksu/bin/busybox echo "[1] Cloudflare  [2] Google  [3] Quad9"
+    /data/adb/ksu/bin/busybox echo "[4] Yandex  [5] Custom  [0] Back"
     /data/adb/ksu/bin/busybox echo -n "Enter number (0-5): "
     read DNS_CHOICE
     case "$DNS_CHOICE" in
