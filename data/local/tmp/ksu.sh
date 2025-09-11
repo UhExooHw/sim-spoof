@@ -211,7 +211,6 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination $DNS:53 2>/
 EOF
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
-/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/SIM-*.sh
 
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "=========================================="
