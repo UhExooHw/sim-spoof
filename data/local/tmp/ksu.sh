@@ -125,27 +125,48 @@ done
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
-while [ "\$(getprop sys.boot_completed)" != "1" ]; do
+
+while [ "$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-/data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
-/data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
-/data/adb/ksu/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
-/data/adb/ksu/bin/resetprop -n debug.tracing.mcc "$MCC"
-/data/adb/ksu/bin/resetprop -n debug.tracing.mnc "$MNC"
-/data/adb/ksu/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
-/data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-/data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
-/data/adb/ksu/bin/resetprop -n gsm.operator.isroaming "false,false"
-settings put global auto_time_zone 1
-settings put global private_dns_mode off
-settings put global non_persistent_mac_randomization_force_enabled 1
-settings put global restricted_networking_mode 0
-settings put secure tethering_allow_vpn_upstreams 1
+setprop_if_diff() {
+    local prop=$1
+    local value=$2
+    current=$(/data/adb/ksu/bin/getprop "$prop")
+    if [ "$current" != "$value" ]; then
+        /data/adb/ksu/bin/resetprop -n "$prop" "$value"
+    fi
+}
+
+setprop_if_diff "gsm.operator.iso-country" "$ISO,$ISO"
+setprop_if_diff "gsm.sim.operator.iso-country" "$ISO,$ISO"
+setprop_if_diff "gsm.operator.numeric" "$MCCMNC,$MCCMNC"
+setprop_if_diff "gsm.sim.operator.numeric" "$MCCMNC,$MCCMNC"
+setprop_if_diff "ril.mcc.mnc0" "$MCCMNC,$MCCMNC"
+setprop_if_diff "ril.mcc.mnc1" "$MCCMNC,$MCCMNC"
+setprop_if_diff "debug.tracing.mcc" "$MCC"
+setprop_if_diff "debug.tracing.mnc" "$MNC"
+setprop_if_diff "gsm.operator.alpha" "$OPERATOR,$OPERATOR"
+setprop_if_diff "gsm.sim.operator.alpha" "$OPERATOR,$OPERATOR"
+setprop_if_diff "persist.sys.timezone" "$TZ"
+setprop_if_diff "gsm.operator.isroaming" "false,false"
+
+set_setting_if_diff() {
+    local ns=$1
+    local key=$2
+    local value=$3
+    current=$(settings get "$ns" "$key")
+    if [ "$current" != "$value" ]; then
+        settings put "$ns" "$key" "$value"
+    fi
+}
+
+set_setting_if_diff global auto_time_zone 1
+set_setting_if_diff global private_dns_mode "off"
+set_setting_if_diff global non_persistent_mac_randomization_force_enabled 1
+set_setting_if_diff global restricted_networking_mode 0
+set_setting_if_diff secure tethering_allow_vpn_upstreams 1
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
