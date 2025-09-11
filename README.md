@@ -86,8 +86,8 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 ---
 
 ## TODO
-Magisk/KernelSU module
-Solve the problem that the system may overwrite the parameters back to the default values.
+* Magisk/KernelSU module
+* Solve the problem that the system may overwrite the parameters back to the default values.
 
 ---
 
