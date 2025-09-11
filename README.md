@@ -85,26 +85,9 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 
 ---
 
-## 🖥 Example
-
-```
-╔════════════════════════╗
-║      SIM Spoof         ║
-╚════════════════════════╝
-
-[✓] Environment OK
-Select Mobile Operator: 14
-Manual Custom Input:
-MCCMNC: 25099
-ISO: ru
-TimeZone: Europe/Moscow
-Operator: Beeline
-Choose DNS: 4
-DNS IPv4: 1.1.1.1
-DNS IPv6: 2606:4700:4700::1111
-[✓] Scripts installed. Boot load enabled.
-Reboot required: 1) Now 2) Later
-```
+## TODO
+Magisk/KernelSU module
+Solve the problem that the system may overwrite the parameters back to the default values.
 
 ---
 
