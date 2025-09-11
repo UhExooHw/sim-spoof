@@ -17,6 +17,7 @@
 
 * 🌍 Spoof SIM: MCCMNC, ISO, operator
 * 🕓 Spoof time zone
+* 📶 Spoof imei
 * 🔐 Intercept DNS
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
@@ -91,9 +92,6 @@ adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 
 ## TODO
 * Magisk/KernelSU module
-* imei
-* Android ID
-* Advertisement ID
 * Dual SIM support
 
 ---
