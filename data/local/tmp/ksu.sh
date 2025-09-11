@@ -143,6 +143,8 @@ done
 /data/adb/ksu/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
 /data/adb/ksu/bin/resetprop -n persist.sys.timezone "$TZ"
 /data/adb/ksu/bin/resetprop -n gsm.operator.isroaming "false,false"
+/data/adb/ksu/bin/resetprop -n sys.wifitracing.started "0"
+/data/adb/ksu/bin/resetprop -n persist.vendor.wifienhancelog "0"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
 settings put global non_persistent_mac_randomization_force_enabled 1
