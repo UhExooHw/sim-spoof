@@ -148,6 +148,20 @@ settings put global restricted_networking_mode 0
 settings put secure tethering_allow_vpn_upstreams 1
 EOF
 
+/data/adb/magisk/busybox echo ""
+/data/adb/magisk/busybox echo "[+] Creating SIM-Service.sh..."
+/data/adb/magisk/busybox cat > /data/adb/service.d/SIM-Service.sh <<EOF
+#!/data/adb/magisk/busybox sh
+while [ "\$(getprop sys.boot_completed)" != "1" ]; do
+    sleep 1
+done
+
+while true; do
+    /data/adb/magisk/busybox sh /data/adb/service.d/SIM-Spoof.sh
+    sleep 5
+done
+EOF
+
 /data/adb/magisk/busybox echo "[+] Creating SIM-TTL.sh..."
 /data/adb/magisk/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
 #!/data/adb/magisk/busybox sh
