@@ -146,13 +146,11 @@ settings put global private_dns_mode off
 settings put global non_persistent_mac_randomization_force_enabled 1
 settings put global restricted_networking_mode 0
 settings put secure tethering_allow_vpn_upstreams 1
-
-/data/adb/ksu/bin/busybox sh /data/local/tmp/SIM-Service.sh &
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Service.sh..."
-/data/adb/ksu/bin/busybox cat > /data/local/tmp/SIM-Service.sh <<EOF
+/data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Service.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 while true; do
     /data/adb/ksu/bin/busybox sh /data/adb/service.d/SIM-Spoof.sh
