@@ -154,7 +154,7 @@ while true; do
         2)
             /data/adb/ksu/bin/busybox echo -n "Enter 15-digit IMEI for SIM 1: "
             read IMEI1
-            if [ ${#IMEI1} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI1" : '^[0-9]\{15\}$' >/dev/null; then
+            if [ ${#IMEI1} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI1" : '[0-9]\{15\}$' >/dev/null; then
                 /data/adb/ksu/bin/busybox echo "[✓] Manual IMEI for SIM 1: $IMEI1"
             else
                 /data/adb/ksu/bin/busybox echo "[!] Invalid IMEI for SIM 1. Must be 15 digits."
@@ -162,7 +162,7 @@ while true; do
             fi
             /data/adb/ksu/bin/busybox echo -n "Enter 15-digit IMEI for SIM 2: "
             read IMEI2
-            if [ ${#IMEI2} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI2" : '^[0-9]\{15\}$' >/dev/null; then
+            if [ ${#IMEI2} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI2" : '[0-9]\{15\}$' >/dev/null; then
                 /data/adb/ksu/bin/busybox echo "[✓] Manual IMEI for SIM 2: $IMEI2"
                 break
             else
