@@ -25,12 +25,12 @@ fi
 
 while true; do
     /data/adb/ksu/bin/busybox echo "Select Mobile Operator:"
-    /data/adb/ksu/bin/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
-    /data/adb/ksu/bin/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
-    /data/adb/ksu/bin/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/ksu/bin/busybox echo "  [12] KPN  [13] Airtel  [14] Kyivstar   [15] Test"
-    /data/adb/ksu/bin/busybox echo "  [16] Custom  [0] Exit"
-    /data/adb/ksu/bin/busybox echo -n "Enter number (0-16): "
+    /data/adb/ksu/bin/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2   [4] Megafon"
+    /data/adb/ksu/bin/busybox echo "  [5] Yota  [6] A1  [7] life:)   [8] Salt"
+    /data/adb/ksu/bin/busybox echo "  [9] Turkcell  [10] Telia  [11] Telekom   [12] KPN"
+    /data/adb/ksu/bin/busybox echo "  [13] Airtel  [14] Kyivstar  [15] Test   [16] Irancell"
+    /data/adb/ksu/bin/busybox echo "  [17] Custom  [0] Exit"
+    /data/adb/ksu/bin/busybox echo -n "Enter number (0-17): "
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) /data/adb/ksu/bin/busybox echo "Exiting..."; exit 0 ;;
@@ -91,7 +91,8 @@ while true; do
         13) MCCMNC="40402" MCC="404" MNC="02" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
         14) MCCMNC="25503" MCC="255" MNC="03" ISO="ua" TZ="Europe/Kyiv" OPERATOR="Kyivstar"; break ;;
         15) MCCMNC="00101" MCC="001" MNC="01" ISO="aq" TZ="Antarctica/Palmer" OPERATOR="Test"; break ;;
-        16)
+        16) MCCMNC="43235" MCC="432" MNC="35" ISO="ir" TZ="Asia/Tehran" OPERATOR="Irancell"; break ;;
+        17)
             /data/adb/ksu/bin/busybox echo "Manual Custom Input:"
             /data/adb/ksu/bin/busybox echo -n "MCCMNC: "; read MCCMNC
             /data/adb/ksu/bin/busybox echo -n "MCC: "; read MCC
