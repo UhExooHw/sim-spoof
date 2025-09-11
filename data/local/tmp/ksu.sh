@@ -181,7 +181,7 @@ while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 1
 done
 
-NEW_ANDROID_ID=$(/data/adb/ksu/bin/busybox hexdump -n8 -e '/8 "%016x"' /dev/urandom)
+NEW_ANDROID_ID=$(/data/adb/ksu/bin/busybox hexdump -n8 -ve '/1 "%02x"' /dev/urandom)
 
 /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
 /data/adb/ksu/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
