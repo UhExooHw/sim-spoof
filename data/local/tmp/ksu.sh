@@ -208,7 +208,6 @@ settings put global bug_report 0
 settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
-settings put secure android_id "$NEW_ANDROID_ID"
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
@@ -280,6 +279,8 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>
 /data/adb/ksu/bin/resetprop -n wlan2.dns2 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns1 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns2 \$DNS
+
+settings put secure android_id "$NEW_ANDROID_ID"
 
 sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
        -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
