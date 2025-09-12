@@ -9,7 +9,7 @@
 /data/adb/magisk/busybox echo "[•] Checking environment..."
 
 /data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution Magisk not installed. Exiting." && exit 1
-/data/adb/magisk/busybox test ! -d /data/adb/modules/systemless-hosts-KernelSU-module/system/etc && /data/adb/magisk/busybox echo "[×] Systemless hosts module directory not found. Exiting." && exit 1
+/data/adb/magisk/busybox test ! -d /data/adb/modules/bindhosts/system/etc && /data/adb/magisk/busybox echo "[×] Bindhosts hosts not installed. Exiting." && exit 1
 
 NEW_ANDROID_ID=$(/data/adb/magisk/busybox hexdump -n8 -ve '/1 "%02x"' /dev/urandom)
 BBR_ALGORITHM=""
@@ -130,7 +130,7 @@ while true; do
 done
 
 /data/adb/magisk/busybox echo "[•] Downloading hosts file..."
-/data/adb/magisk/busybox wget -O /data/adb/modules/systemless-hosts-KernelSU-module/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts || { /data/adb/magisk/busybox echo "[×] Failed to download hosts file."; exit 1; }
+/data/adb/magisk/busybox wget -O /data/adb/modules/bindhosts/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts || { /data/adb/magisk/busybox echo "[×] Failed to download hosts file."; exit 1; }
 
 RBI1=$(/data/adb/magisk/busybox printf "%02d" $((RANDOM % 100)))
 TAC1=$(/data/adb/magisk/busybox printf "%06d" $((RANDOM % 1000000)))
