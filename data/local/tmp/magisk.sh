@@ -165,7 +165,7 @@ done
 /product/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n ro.cdma.home.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-/product/bin/resetprop -n ro.carrier.name "$OPERATOR"
+/product/bin/resetprop -n ro.carrier.name "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n persist.sys.timezone "$TZ"
 /product/bin/resetprop -n gsm.operator.isroaming "false,false"
 /product/bin/resetprop -n sys.wifitracing.started "0"
