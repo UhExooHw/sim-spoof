@@ -10,6 +10,7 @@
 
 /data/adb/magisk/busybox test ! -d /data/adb/service.d && /data/adb/magisk/busybox echo "[×] Root solution Magisk not installed. Exiting." && exit 1
 
+NEW_ANDROID_ID=$(/data/adb/magisk/busybox hexdump -n8 -ve '/1 "%02x"' /dev/urandom)
 BBR_ALGORITHM=""
 /data/adb/magisk/busybox grep -qw 'bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_ALGORITHM="bbr2"
 /data/adb/magisk/busybox grep -qw 'bbr' /proc/sys/net/ipv4/tcp_available_congestion_control && [ -z "$BBR_ALGORITHM" ] && BBR_ALGORITHM="bbr"
@@ -25,12 +26,12 @@ fi
 
 while true; do
     /data/adb/magisk/busybox echo "Select Mobile Operator:"
-    /data/adb/magisk/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2"
-    /data/adb/magisk/busybox echo "  [4] Megafon  [5] Yota  [6] A1  [7] life:)"
-    /data/adb/magisk/busybox echo "  [8] Salt  [9] Turkcell  [10] Telia  [11] Telekom"
-    /data/adb/magisk/busybox echo "  [12] KPN  [13] Airtel  [14] Kyivstar   [15] Test"
-    /data/adb/magisk/busybox echo "  [16] Custom  [0] Exit"
-    /data/adb/magisk/busybox echo -n "Enter number (0-16): "
+    /data/adb/magisk/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2   [4] Megafon"
+    /data/adb/magisk/busybox echo "  [5] Yota  [6] Velcom  [7] Life:)   [8] Salt"
+    /data/adb/magisk/busybox echo "  [9] Turkcell  [10] Tele Finland  [11] Telekom   [12] KPN"
+    /data/adb/magisk/busybox echo "  [13] Airtel  [14] Kyivstar  [15] Test   [16] Irancell"
+    /data/adb/magisk/busybox echo "  [17] Custom  [0] Exit"
+    /data/adb/magisk/busybox echo -n "Enter number (0-17): "
     read OPERATOR_CHOICE
     case "$OPERATOR_CHOICE" in
         0) /data/adb/magisk/busybox echo "Exiting..."; exit 0 ;;
@@ -91,7 +92,8 @@ while true; do
         13) MCCMNC="40402" MCC="404" MNC="02" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
         14) MCCMNC="25503" MCC="255" MNC="03" ISO="ua" TZ="Europe/Kyiv" OPERATOR="Kyivstar"; break ;;
         15) MCCMNC="00101" MCC="001" MNC="01" ISO="aq" TZ="Antarctica/Palmer" OPERATOR="Test"; break ;;
-        16)
+        16) MCCMNC="43235" MCC="432" MNC="35" ISO="ir" TZ="Asia/Tehran" OPERATOR="Irancell"; break ;;
+        17)
             /data/adb/magisk/busybox echo "Manual Custom Input:"
             /data/adb/magisk/busybox echo -n "MCCMNC: "; read MCCMNC
             /data/adb/magisk/busybox echo -n "MCC: "; read MCC
@@ -126,6 +128,17 @@ while true; do
     esac
 done
 
+RBI1=$(/data/adb/magisk/busybox printf "%02d" $((RANDOM % 100)))
+TAC1=$(/data/adb/magisk/busybox printf "%06d" $((RANDOM % 1000000)))
+SERIAL1=$(/data/adb/magisk/busybox printf "%06d" $((RANDOM % 1000000)))
+CHECK_DIGIT1=$(/data/adb/magisk/busybox printf "%01d" $((RANDOM % 10)))
+IMEI1="${RBI1}${TAC1}${SERIAL1}${CHECK_DIGIT1}"
+RBI2=$(/data/adb/magisk/busybox printf "%02d" $((RANDOM % 100)))
+TAC2=$(/data/adb/magisk/busybox printf "%06d" $((RANDOM % 1000000)))
+SERIAL2=$(/data/adb/magisk/busybox printf "%06d" $((RANDOM % 1000000)))
+CHECK_DIGIT2=$(/data/adb/magisk/busybox printf "%01d" $((RANDOM % 10)))
+IMEI2="${RBI2}${TAC2}${SERIAL2}${CHECK_DIGIT2}"
+
 /data/adb/magisk/busybox echo ""
 /data/adb/magisk/busybox echo "[+] Creating SIM-Spoof.sh..."
 /data/adb/magisk/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
@@ -148,11 +161,25 @@ done
 /product/bin/resetprop -n gsm.operator.isroaming "false,false"
 /product/bin/resetprop -n sys.wifitracing.started "0"
 /product/bin/resetprop -n persist.vendor.wifienhancelog "0"
+/product/bin/resetprop -n persist.vendor.radio.imei  "$IMEI1"
+/product/bin/resetprop -n persist.vendor.radio.imei1 "$IMEI1"
+/product/bin/resetprop -n persist.vendor.radio.imei2 "$IMEI2"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
+settings put global development_settings_enabled 1
 settings put global non_persistent_mac_randomization_force_enabled 1
 settings put global restricted_networking_mode 0
+settings put global bug_report 0
+settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
+settings put secure bluetooth_name Android
+settings put secure android_id $NEW_ANDROID_ID
+
+/data/adb/magisk/busybox sed -i "s#value=\"[a-zA-Z0-9]*\"#value=\"$NEW_ANDROID_ID\"#g" /data/system/users/0/settings_ssaid.xml
+/data/adb/magisk/busybox sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
+       -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
+       /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
+
 EOF
 
 /data/adb/magisk/busybox echo ""
