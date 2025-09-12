@@ -12,7 +12,7 @@
 * KernelSU / Magisk (experimental)
 * Android 12+
 * `iptables` & `ip6tables`
-* [StevenBlack integration](https://github.com/symbuzzer/systemless-hosts-KernelSU-module)
+* [systemless hosts KernelSU module](https://github.com/symbuzzer/systemless-hosts-KernelSU-module)
 
 ---
 
