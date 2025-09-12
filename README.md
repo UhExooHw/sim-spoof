@@ -3,6 +3,8 @@
 * ⚠️ **Warning:** May violate laws or carrier rules. Use at **your own risk**.
 * ⚠️ Supports **devices with only 1 SIM card in the SIM1 slot**.
 
+Вот английская версия обновлённого раздела **Requirements**:
+
 ---
 
 ## ⚙️ Requirements
@@ -10,8 +12,14 @@
 * KernelSU / Magisk (experimental)
 * Android 12+
 * `iptables` & `ip6tables`
+* [StevenBlack integration](https://github.com/symbuzzer/systemless-hosts-KernelSU-module)
 
 ---
+
+Если хочешь, могу сразу вставить это в твой полный README на английском.
+
+
+Если хочешь, могу сразу вставить это в твой исходный README с сохранением всех остальных секций.
 
 ## 💡 Features
 
@@ -21,6 +29,7 @@
 * 🔐 Spoof Advertising ID
 * 🔐 Spoof Android ID
 * 🔐 Intercept DNS
+* 🔐 Adblock
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
 * 📶 Hide roaming
