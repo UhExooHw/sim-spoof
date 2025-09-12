@@ -10,7 +10,7 @@
 * KernelSU / Magisk (experimental) / APatch (experimental)
 * Android 12+
 * `iptables` & `ip6tables`
-* [bindhosts](https://github.com/bindhosts/bindhosts)
+* [Systemless Hosts](https://github.com/gloeyisk/systemless-hosts)
 
 ---
 
