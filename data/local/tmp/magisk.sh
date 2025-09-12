@@ -157,16 +157,20 @@ done
 /product/bin/resetprop -n gsm.sim.operator.iso-country "$ISO,$ISO"
 /product/bin/resetprop -n gsm.operator.numeric "$MCCMNC,$MCCMNC"
 /product/bin/resetprop -n gsm.sim.operator.numeric "$MCCMNC,$MCCMNC"
+/product/bin/resetprop -n ro.cdma.home.operator.numeric "$MCCMNC,$MCCMNC"
 /product/bin/resetprop -n ril.mcc.mnc0 "$MCCMNC,$MCCMNC"
 /product/bin/resetprop -n ril.mcc.mnc1 "$MCCMNC,$MCCMNC"
 /product/bin/resetprop -n debug.tracing.mcc "$MCC"
 /product/bin/resetprop -n debug.tracing.mnc "$MNC"
 /product/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
+/product/bin/resetprop -n ro.cdma.home.operator.alpha "$OPERATOR,$OPERATOR"
 /product/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
+/product/bin/resetprop -n ro.carrier.name "$OPERATOR"
 /product/bin/resetprop -n persist.sys.timezone "$TZ"
 /product/bin/resetprop -n gsm.operator.isroaming "false,false"
 /product/bin/resetprop -n sys.wifitracing.started "0"
 /product/bin/resetprop -n persist.vendor.wifienhancelog "0"
+/product/bin/resetprop -n ro.com.android.dataroaming "0"
 /product/bin/resetprop -n persist.vendor.radio.imei  "$IMEI1"
 /product/bin/resetprop -n persist.vendor.radio.imei1 "$IMEI1"
 /product/bin/resetprop -n persist.vendor.radio.imei2 "$IMEI2"
@@ -197,7 +201,7 @@ done
 
 while true; do
     /data/adb/magisk/busybox sh /data/adb/service.d/SIM-Spoof.sh
-    sleep 5
+    sleep 10
 done
 EOF
 
