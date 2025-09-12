@@ -175,8 +175,8 @@ settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
 settings put secure android_id $NEW_ANDROID_ID
 
-sed -i "s#value=\"[a-zA-Z0-9]*\"#value=\"$NEW_ANDROID_ID\"#g" /data/system/users/0/settings_ssaid.xml
-sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
+/data/adb/ksu/bin/busybox sed -i "s#value=\"[a-zA-Z0-9]*\"#value=\"$NEW_ANDROID_ID\"#g" /data/system/users/0/settings_ssaid.xml
+/data/adb/ksu/bin/busybox sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
        -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
        /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
 
