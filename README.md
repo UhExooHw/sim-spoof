@@ -113,7 +113,7 @@ adb shell /data/adb/ap/bin/busybox sh /data/local/tmp/apatch.sh
 ---
 
 ## TODO
-* Magisk/KernelSU module
+* Magisk/KernelSU/APatch module
 * Dual SIM support
 
 ---
