@@ -132,6 +132,8 @@ done
 /data/adb/ksu/bin/busybox echo "[•] Downloading hosts file..."
 /data/adb/ksu/bin/busybox wget -O /data/adb/modules/systemless-hosts/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
+rm /data/system/users/0/settings_ssaid.xml
+
 RBI1=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
 TAC1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
 SERIAL1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
@@ -179,7 +181,6 @@ settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
 settings put secure android_id $NEW_ANDROID_ID
 
-/data/adb/ksu/bin/busybox sed -i "s/\([vV][aA][lL][uU][eE]=\"\)\([0-9a-fA-F]\{16\}\)\(\"\)/\1$(hexdump -n 8 -e '\"%02x\"' /dev/urandom | tr -d '\n')\3/g; s/\([dD][eE][fF][aA][uU][lL][tT][vV][aA][lL][uU][eE]=\"\)\([0-9a-fA-F]\{16\}\)\(\"\)/\1$(hexdump -n 8 -e '\"%02x\"' /dev/urandom | tr -d '\n')\3/g" settings_ssaid.xml
 /data/adb/ksu/bin/busybox sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
        -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
        /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
