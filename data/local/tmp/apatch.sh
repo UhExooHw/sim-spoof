@@ -165,7 +165,7 @@ done
 /data/adb/ap/bin/resetprop -n gsm.operator.alpha "$OPERATOR,$OPERATOR"
 /data/adb/ap/bin/resetprop -n ro.cdma.home.operator.alpha "$OPERATOR,$OPERATOR"
 /data/adb/ap/bin/resetprop -n gsm.sim.operator.alpha "$OPERATOR,$OPERATOR"
-/data/adb/ap/bin/resetprop -n ro.carrier.name "$OPERATOR"
+/data/adb/ap/bin/resetprop -n ro.carrier.name "$OPERATOR,$OPERATOR"
 /data/adb/ap/bin/resetprop -n persist.sys.timezone "$TZ"
 /data/adb/ap/bin/resetprop -n gsm.operator.isroaming "false,false"
 /data/adb/ap/bin/resetprop -n sys.wifitracing.started "0"
