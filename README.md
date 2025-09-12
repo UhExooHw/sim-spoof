@@ -74,6 +74,15 @@ su
 /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
 ```
 
+### SH / APatch
+
+```bash
+su
+/data/adb/ap/bin/busybox wget -O /data/local/tmp/apatch.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/apatch.sh
+/data/adb/ap/bin/busybox chmod +x /data/local/tmp/apatch.sh
+/data/adb/ap/bin/busybox sh /data/local/tmp/apatch.sh
+```
+
 ### ADB / KSU
 
 ```bash
@@ -90,6 +99,15 @@ adb root
 adb shell /data/adb/magisk/busybox wget -O /data/local/tmp/magisk.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/magisk.sh
 adb shell /data/adb/magisk/busybox chmod +x /data/local/tmp/magisk.sh
 adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
+```
+
+### ADB / APatch
+
+```bash
+adb root
+adb shell /data/adb/ap/bin/busybox wget -O /data/local/tmp/apatch.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/apatch.sh
+adb shell /data/adb/ap/bin/busybox chmod +x /data/local/tmp/apatch.sh
+adb shell /data/adb/ap/bin/busybox sh /data/local/tmp/apatch.sh
 ```
 
 ---
