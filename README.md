@@ -24,7 +24,7 @@
 * 🔐 Spoof Advertising ID
 * 🔐 Spoof Android ID
 * 🔐 Intercept DNS
-* 🔐 Adblock
+* 🔐 [StevenBlack integration](https://github.com/StevenBlack/hosts)
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
 * 📶 Hide roaming
