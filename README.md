@@ -3,8 +3,6 @@
 * ⚠️ **Warning:** May violate laws or carrier rules. Use at **your own risk**.
 * ⚠️ Supports **devices with only 1 SIM card in the SIM1 slot**.
 
-Вот английская версия обновлённого раздела **Requirements**:
-
 ---
 
 ## ⚙️ Requirements
