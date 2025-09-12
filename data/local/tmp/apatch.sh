@@ -9,7 +9,7 @@
 /data/adb/ap/bin/busybox echo "[•] Checking environment..."
 
 /data/adb/ap/bin/busybox test ! -d /data/adb/service.d && /data/adb/ap/bin/busybox echo "[×] Root solution APatch not installed. Exiting." && exit 1
-/data/adb/ap/bin/busybox test ! -d /data/adb/modules/bindhosts/system/etc && /data/adb/ap/bin/busybox echo "[×] Bindhosts hosts not installed. Exiting." && exit 1
+/data/adb/ap/bin/busybox test ! -d /data/adb/modules/systemless-hosts/system/etc && /data/adb/ap/bin/busybox echo "[×] Systemless-hosts not installed. Exiting." && exit 1
 
 NEW_ANDROID_ID=$(/data/adb/ap/bin/busybox hexdump -n8 -ve '/1 "%02x"' /dev/urandom)
 BBR_ALGORITHM=""
@@ -130,7 +130,7 @@ while true; do
 done
 
 /data/adb/ap/bin/busybox echo "[•] Downloading hosts file..."
-/data/adb/ap/bin/busybox wget -O /data/adb/modules/bindhosts/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts || { /data/adb/ap/bin/busybox echo "[×] Failed to download hosts file."; exit 1; }
+/data/adb/ap/bin/busybox wget -O /data/adb/modules/systemless-hosts/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
 RBI1=$(/data/adb/ap/bin/busybox printf "%02d" $((RANDOM % 100)))
 TAC1=$(/data/adb/ap/bin/busybox printf "%06d" $((RANDOM % 1000000)))
