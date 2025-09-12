@@ -130,7 +130,7 @@ while true; do
 done
 
 /data/adb/ksu/bin/busybox echo "[•] Downloading hosts file..."
-/data/adb/ksu/bin/busybox wget -O /data/adb/modules/systemless-hosts/system/etc https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+/data/adb/ksu/bin/busybox wget -O /data/adb/modules/systemless-hosts/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
 RBI1=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
 TAC1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
