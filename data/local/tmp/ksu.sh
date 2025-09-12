@@ -91,7 +91,7 @@ while true; do
         12) MCCMNC="20408" MCC="204" MNC="08" ISO="nl" TZ="Europe/Amsterdam" OPERATOR="KPN"; break ;;
         13) MCCMNC="40402" MCC="404" MNC="02" ISO="in" TZ="Asia/Kolkata" OPERATOR="Airtel"; break ;;
         14) MCCMNC="25503" MCC="255" MNC="03" ISO="ua" TZ="Europe/Kyiv" OPERATOR="Kyivstar"; break ;;
-        15) MCCMNC="00101" MCC="001" MNC="01" ISO="aq" TZ="Antarctica/Palmer" OPERATOR="Test"; break ;;
+        15) MCCMNC="00101" MCC="001" MNC="01" ISO="aq" TZ="Antarctica/Vostok" OPERATOR="Test"; break ;;
         16) MCCMNC="43235" MCC="432" MNC="35" ISO="ir" TZ="Asia/Tehran" OPERATOR="Irancell"; break ;;
         17)
             /data/adb/ksu/bin/busybox echo "Manual Custom Input:"
