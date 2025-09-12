@@ -27,8 +27,8 @@ fi
 while true; do
     /data/adb/ksu/bin/busybox echo "Select Mobile Operator:"
     /data/adb/ksu/bin/busybox echo "  [1] Beeline  [2] MTS  [3] Tele2   [4] Megafon"
-    /data/adb/ksu/bin/busybox echo "  [5] Yota  [6] A1  [7] life:)   [8] Salt"
-    /data/adb/ksu/bin/busybox echo "  [9] Turkcell  [10] Telia  [11] Telekom   [12] KPN"
+    /data/adb/ksu/bin/busybox echo "  [5] Yota  [6] Velcom  [7] Life:)   [8] Salt"
+    /data/adb/ksu/bin/busybox echo "  [9] Turkcell  [10] Tele Finland  [11] Telekom   [12] KPN"
     /data/adb/ksu/bin/busybox echo "  [13] Airtel  [14] Kyivstar  [15] Test   [16] Irancell"
     /data/adb/ksu/bin/busybox echo "  [17] Custom  [0] Exit"
     /data/adb/ksu/bin/busybox echo -n "Enter number (0-17): "
@@ -128,51 +128,16 @@ while true; do
     esac
 done
 
-while true; do
-    /data/adb/ksu/bin/busybox echo "Choose IMEI Option for SIM 1 and SIM 2:"
-    /data/adb/ksu/bin/busybox echo "[1] Generate Random IMEI for both SIMs"
-    /data/adb/ksu/bin/busybox echo "[2] Enter Manual IMEI for both SIMs"
-    /data/adb/ksu/bin/busybox echo "[0] Back"
-    /data/adb/ksu/bin/busybox echo -n "Enter number (0-2): "
-    read IMEI_CHOICE
-    case "$IMEI_CHOICE" in
-        0) exec "$0" ;;
-        1)
-            RBI1=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
-            TAC1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
-            SERIAL1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
-            CHECK_DIGIT1=$(/data/adb/ksu/bin/busybox printf "%01d" $((RANDOM % 10)))
-            IMEI1="${RBI1}${TAC1}${SERIAL1}${CHECK_DIGIT1}"
-            RBI2=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
-            TAC2=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
-            SERIAL2=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
-            CHECK_DIGIT2=$(/data/adb/ksu/bin/busybox printf "%01d" $((RANDOM % 10)))
-            IMEI2="${RBI2}${TAC2}${SERIAL2}${CHECK_DIGIT2}"
-            /data/adb/ksu/bin/busybox echo "[✓] Generated IMEI for SIM 1: $IMEI1"
-            /data/adb/ksu/bin/busybox echo "[✓] Generated IMEI for SIM 2: $IMEI2"
-            break
-            ;;
-        2)
-            /data/adb/ksu/bin/busybox echo -n "Enter 15-digit IMEI for SIM 1: "
-            read IMEI1
-            if [ ${#IMEI1} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI1" : '[0-9]\{15\}$' >/dev/null; then
-                /data/adb/ksu/bin/busybox echo "[✓] Manual IMEI for SIM 1: $IMEI1"
-            else
-                /data/adb/ksu/bin/busybox echo "[!] Invalid IMEI for SIM 1. Must be 15 digits."
-                continue
-            fi
-            /data/adb/ksu/bin/busybox echo -n "Enter 15-digit IMEI for SIM 2: "
-            read IMEI2
-            if [ ${#IMEI2} -eq 15 ] && /data/adb/ksu/bin/busybox expr "$IMEI2" : '[0-9]\{15\}$' >/dev/null; then
-                /data/adb/ksu/bin/busybox echo "[✓] Manual IMEI for SIM 2: $IMEI2"
-                break
-            else
-                /data/adb/ksu/bin/busybox echo "[!] Invalid IMEI for SIM 2. Must be 15 digits."
-            fi
-            ;;
-        *) /data/adb/ksu/bin/busybox echo "[!] Invalid option." ;;
-    esac
-done
+RBI1=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
+TAC1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+SERIAL1=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+CHECK_DIGIT1=$(/data/adb/ksu/bin/busybox printf "%01d" $((RANDOM % 10)))
+IMEI1="${RBI1}${TAC1}${SERIAL1}${CHECK_DIGIT1}"
+RBI2=$(/data/adb/ksu/bin/busybox printf "%02d" $((RANDOM % 100)))
+TAC2=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+SERIAL2=$(/data/adb/ksu/bin/busybox printf "%06d" $((RANDOM % 1000000)))
+CHECK_DIGIT2=$(/data/adb/ksu/bin/busybox printf "%01d" $((RANDOM % 10)))
+IMEI2="${RBI2}${TAC2}${SERIAL2}${CHECK_DIGIT2}"
 
 /data/adb/ksu/bin/busybox echo ""
 /data/adb/ksu/bin/busybox echo "[+] Creating SIM-Spoof.sh..."
@@ -209,6 +174,11 @@ settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
 settings put secure android_id $NEW_ANDROID_ID
+
+sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
+       -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
+       /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
+
 EOF
 
 /data/adb/ksu/bin/busybox echo ""
@@ -280,11 +250,6 @@ iptables -t nat -C OUTPUT -p udp --dport 53 -j DNAT --to-destination \$DNS:53 2>
 /data/adb/ksu/bin/resetprop -n wlan2.dns2 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns1 \$DNS
 /data/adb/ksu/bin/resetprop -n wlan3.dns2 \$DNS
-
-sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
-       -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
-       /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
-
 EOF
 
 /data/adb/ksu/bin/busybox chmod +x /data/adb/service.d/SIM-*.sh
