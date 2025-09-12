@@ -7,7 +7,7 @@
 
 ## ⚙️ Requirements
 
-* KernelSU / Magisk (experimental)
+* KernelSU / Magisk (experimental) / APatch (experimental)
 * Android 12+
 * `iptables` & `ip6tables`
 * [bindhosts](https://github.com/bindhosts/bindhosts)
