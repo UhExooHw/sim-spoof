@@ -24,7 +24,7 @@
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
 * 📶 Hide roaming
-* ⚠️ Bypass geoblocks (e.g., Google Play, TikTok, Deezer)
+* 🌍 Bypass geoblocks (e.g., Google Play, TikTok, Deezer)
 
 ---
 
