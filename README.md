@@ -19,6 +19,7 @@
 * 🕓 Spoof time zone
 * 📶 Spoof imei
 * 🔐 Spoof Advertising ID
+* 🔐 Spoof Android ID
 * 🔐 Intercept DNS
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
