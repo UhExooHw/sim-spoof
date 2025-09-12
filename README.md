@@ -10,7 +10,7 @@
 * KernelSU / Magisk (experimental)
 * Android 12+
 * `iptables` & `ip6tables`
-* [systemless hosts KernelSU module](https://github.com/symbuzzer/systemless-hosts-KernelSU-module)
+* [bindhosts](https://github.com/bindhosts/bindhosts)
 
 ---
 
