@@ -7,7 +7,7 @@
 
 ## ⚙️ Requirements
 
-* KernelSU / Magisk (experimental) / APatch (experimental)
+* KernelSU/Magisk/APatch
 * Android 12+
 * `iptables` & `ip6tables`
 * [Systemless Hosts](https://github.com/gloeyisk/systemless-hosts)
