@@ -8,8 +8,8 @@
 
 /data/adb/ksu/bin/busybox echo "[•] Checking environment..."
 
-/data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
-/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-hosts/system/etc && /data/adb/ksu/bin/busybox echo "[×] Systemless-hosts not installed. Exiting." && exit 1
+/data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution not installed. Exiting." && exit 1
+/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-apns/system/etc && /data/adb/ksu/bin/busybox echo "[×] Systemless-apns not installed. Exiting." && exit 1
 
 CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 SERIAL_NO=""
@@ -67,7 +67,7 @@ while true; do
 done
 
 /data/adb/ksu/bin/busybox echo "[•] Downloading hosts file..."
-/data/adb/ksu/bin/busybox wget -O /data/adb/modules/systemless-hosts/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+/data/adb/ksu/bin/busybox wget -O /data/adb/modules/systemless-apns/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
 rm /data/system/users/0/settings_ssaid.xml
 
