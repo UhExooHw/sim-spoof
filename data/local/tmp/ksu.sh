@@ -8,8 +8,8 @@
 
 /data/adb/ksu/bin/busybox echo "[•] Checking environment..."
 
-/data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
-/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-apns/system/etc && /data/adb/ksu/bin/busybox echo "[×] Systemless-apns not installed. Exiting." && exit 1
+/data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution not installed. Exiting." && exit 1
+/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-apns && /data/adb/ksu/bin/busybox echo "[×] Systemless-apns not installed. Exiting." && exit 1
 
 CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 SERIAL_NO=""
@@ -38,96 +38,12 @@ OPERATOR="ReBullet Internet"
 /data/adb/ksu/bin/busybox echo "Manual Input:"
 /data/adb/ksu/bin/busybox echo -n "Enter ISO (e.g., SC for Seychelles): "
 read ISO
-
-/data/adb/ksu/bin/busybox echo "[•] Downloading timezone data..."
-/data/adb/ksu/bin/busybox wget -q -O /data/adb/tz_data.txt https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/TZ
-if [ $? -ne 0 ]; then
-    /data/adb/ksu/bin/busybox echo "[×] Failed to download timezone data. Exiting."
+/data/adb/ksu/bin/busybox echo -n "Enter Timezone (e.g., Europe/Moscow): "
+read TZ
+if [[ ! "$TZ" =~ "/" ]]; then
+    /data/adb/ksu/bin/busybox echo "[×] Invalid timezone format. Must contain a forward slash (e.g., Europe/Moscow)."
     exit 1
 fi
-
-while true; do
-    /data/adb/ksu/bin/busybox echo "Select Continent:"
-    CONTINENTS=$(/data/adb/ksu/bin/busybox awk -F'/' '{print $1}' /data/adb/tz_data.txt | /data/adb/ksu/bin/busybox sort -u)
-    CONTINENT_ARRAY=($CONTINENTS)
-    CONTINENT_COUNT=${#CONTINENT_ARRAY[@]}
-    for i in $(/data/adb/ksu/bin/busybox seq 0 $((CONTINENT_COUNT-1))); do
-        /data/adb/ksu/bin/busybox echo "  [$((i+1))] ${CONTINENT_ARRAY[$i]}"
-    done
-    /data/adb/ksu/bin/busybox echo "  [0] Exit"
-    /data/adb/ksu/bin/busybox echo -n "Enter number (0-$CONTINENT_COUNT): "
-    read CONTINENT_CHOICE
-    if [ "$CONTINENT_CHOICE" = "0" ]; then
-        /data/adb/ksu/bin/busybox echo "Exiting..."
-        exit 0
-    fi
-    if [ "$CONTINENT_CHOICE" -ge 1 ] && [ "$CONTINENT_CHOICE" -le "$CONTINENT_COUNT" ]; then
-        SELECTED_CONTINENT=${CONTINENT_ARRAY[$((CONTINENT_CHOICE-1))]}
-        break
-    else
-        /data/adb/ksu/bin/busybox echo "[!] Invalid option."
-    fi
-done
-
-PAGE_SIZE=10
-while true; do
-    /data/adb/ksu/bin/busybox echo "Select Timezone for $SELECTED_CONTINENT:"
-    TIMEZONES=$(/data/adb/ksu/bin/busybox grep "^$SELECTED_CONTINENT/" /data/adb/tz_data.txt | /data/adb/ksu/bin/busybox awk -F'/' '{print $2}' | /data/adb/ksu/bin/busybox sort)
-    TIMEZONE_ARRAY=($TIMEZONES)
-    TIMEZONE_COUNT=${#TIMEZONE_ARRAY[@]}
-    PAGE=1
-    while true; do
-        START=$(( (PAGE-1) * PAGE_SIZE ))
-        END=$(( START + PAGE_SIZE ))
-        if [ $END -gt $TIMEZONE_COUNT ]; then
-            END=$TIMEZONE_COUNT
-        fi
-        /data/adb/ksu/bin/busybox echo "Page $PAGE:"
-        for i in $(/data/adb/ksu/bin/busybox seq $START $((END-1))); do
-            /data/adb/ksu/bin/busybox echo "  [$((i+1))] ${TIMEZONE_ARRAY[$i]}"
-        done
-        /data/adb/ksu/bin/busybox echo "  [n] Next  [p] Previous  [b] Back  [0] Exit"
-        /data/adb/ksu/bin/busybox echo -n "Enter number or option (1-$TIMEZONE_COUNT, n, p, b, 0): "
-        read TIMEZONE_CHOICE
-        case "$TIMEZONE_CHOICE" in
-            0)
-                /data/adb/ksu/bin/busybox echo "Exiting..."
-                exit 0
-                ;;
-            b)
-                exec "$0"
-                ;;
-            n)
-                if [ $END -lt $TIMEZONE_COUNT ]; then
-                    PAGE=$((PAGE+1))
-                else
-                    /data/adb/ksu/bin/busybox echo "[!] No more pages."
-                fi
-                ;;
-            p)
-                if [ $PAGE -gt 1 ]; then
-                    PAGE=$((PAGE-1))
-                else
-                    /data/adb/ksu/bin/busybox echo "[!] Already on first page."
-                fi
-                ;;
-            *)
-                if [[ "$TIMEZONE_CHOICE" =~ ^[0-9]+$ ]] && [ "$TIMEZONE_CHOICE" -ge 1 ] && [ "$TIMEZONE_CHOICE" -le "$TIMEZONE_COUNT" ]; then
-                    TZ="$SELECTED_CONTINENT/${TIMEZONE_ARRAY[$((TIMEZONE_CHOICE-1))]}"
-                    if [[ ! "$TZ" =~ "/" ]]; then
-                        /data/adb/ksu/bin/busybox echo "[×] Invalid timezone format. Must contain a forward slash."
-                        exit 1
-                    fi
-                    break 2
-                else
-                    /data/adb/ksu/bin/busybox echo "[!] Invalid option."
-                fi
-                ;;
-        esac
-    done
-done
-
-/data/adb/ksu/bin/busybox rm -f /data/adb/tz_data.txt
 
 while true; do
     /data/adb/ksu/bin/busybox echo "Choose DNS Provider:"
