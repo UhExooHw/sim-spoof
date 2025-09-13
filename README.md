@@ -44,7 +44,7 @@
 
 ## 📦 Installation
 
-### SH / KSU
+### SH
 
 ```bash
 su
@@ -53,7 +53,7 @@ su
 /data/adb/ksu/bin/busybox sh /data/local/tmp/sim-spoof.sh
 ```
 
-### ADB / KSU
+### ADB
 
 ```bash
 adb root
