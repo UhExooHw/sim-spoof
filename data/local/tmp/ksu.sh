@@ -11,7 +11,13 @@
 /data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
 /data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-hosts/system/etc && /data/adb/ksu/bin/busybox echo "[×] Systemless-hosts not installed. Exiting." && exit 1
 
-NEW_ANDROID_ID=$(/data/adb/ksu/bin/busybox hexdump -n8 -ve '/1 "%02x"' /dev/urandom)
+CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+SERIAL_NO=""
+for i in $(/data/adb/ksu/bin/busybox seq 1 12); do
+    RAND_INDEX=$((RANDOM % 62))
+    SERIAL_NO="${SERIAL_NO}${CHARS:$RAND_INDEX:1}"
+done
+
 BBR_ALGORITHM=""
 /data/adb/ksu/bin/busybox grep -qw 'bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_ALGORITHM="bbr2"
 /data/adb/ksu/bin/busybox grep -qw 'bbr' /proc/sys/net/ipv4/tcp_available_congestion_control && [ -z "$BBR_ALGORITHM" ] && BBR_ALGORITHM="bbr"
@@ -174,6 +180,8 @@ done
 /data/adb/ksu/bin/resetprop -n persist.vendor.radio.imei  "$IMEI1"
 /data/adb/ksu/bin/resetprop -n persist.vendor.radio.imei1 "$IMEI1"
 /data/adb/ksu/bin/resetprop -n persist.vendor.radio.imei2 "$IMEI2"
+/data/adb/ksu/bin/resetprop -n ro.serialno "$SERIAL_NO"
+/data/adb/ksu/bin/resetprop -n ro.boot.serialno "$SERIAL_NO"
 settings put global auto_time_zone 1
 settings put global private_dns_mode off
 settings put global development_settings_enabled 1
@@ -183,7 +191,6 @@ settings put global bug_report 0
 settings put global device_name Android
 settings put secure tethering_allow_vpn_upstreams 1
 settings put secure bluetooth_name Android
-settings put secure android_id $NEW_ANDROID_ID
 
 /data/adb/ksu/bin/busybox sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
        -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
