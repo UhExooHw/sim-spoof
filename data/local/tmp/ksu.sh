@@ -156,7 +156,7 @@ IMEI2="${RBI2}${TAC2}${SERIAL2}${CHECK_DIGIT2}"
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 while [ "\$(getprop sys.boot_completed)" != "1" ]; do
-    sleep 1
+    sleep 2
 done
 
 /data/adb/ksu/bin/resetprop -n gsm.operator.iso-country "$ISO,$ISO"
@@ -203,7 +203,7 @@ EOF
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-Service.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 while [ "\$(getprop sys.boot_completed)" != "1" ]; do
-    sleep 1
+    sleep 2
 done
 
 while true; do
@@ -216,7 +216,7 @@ EOF
 /data/adb/ksu/bin/busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
 #!/data/adb/ksu/bin/busybox sh
 while [ "\$(getprop sys.boot_completed)" != "1" ]; do
-    sleep 1
+    sleep 2
 done
 
 BBR_ALGORITHM="$BBR_ALGORITHM"
