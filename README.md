@@ -32,6 +32,8 @@
 * 🔐 Spoof Android ID
 * 🔐 Intercept DNS
 * 🔐 [StevenBlack integration](https://github.com/StevenBlack/hosts)
+* 🔐 [Xray integration](https://github.com/XTLS/Xray-core)
+* 🔐 [Mihomo integration](https://github.com/MetaCubeX/mihomo)
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
 * 📶 Hide roaming
