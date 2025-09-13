@@ -19,6 +19,7 @@
 * 🌍 Spoof SIM: MCCMNC, ISO, operator
 * 🕓 Spoof time zone
 * 📶 Spoof imei (prop)
+* 🔐 Spoof serialno
 * 🔐 Spoof Advertising ID
 * 🔐 Spoof Android ID
 * 🔐 Intercept DNS
