@@ -1,6 +1,6 @@
 # 🚀 SIM Spoof
 
-* ⚠️ **Warning:** May violate laws or carrier rules. Use at **your own risk**.
+* ⚠️ Warning — for testing only. Use this script only in lab/testing environments. The author is not responsible for any consequences, including legal violations, carrier issues or device damage. Use at your own risk.
 * ⚠️ Supports **devices with only 1 SIM card in the SIM1 slot**.
 
 ---
