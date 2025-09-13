@@ -33,7 +33,7 @@ fi
 
 MCCMNC="90114"
 MCC="901"
-MNC="14"
+MNC="88"
 OPERATOR="ReBullet Internet"
 /data/adb/ksu/bin/busybox echo "Manual Input:"
 /data/adb/ksu/bin/busybox echo -n "Enter ISO (e.g., SC for Seychelles): "
