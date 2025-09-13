@@ -31,7 +31,7 @@ fi
 /data/adb/ap/bin/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/ap/bin/busybox echo "[×] ip6tables not found. Exiting."; exit 1; }
 /data/adb/ap/bin/busybox echo "[✓] Environment OK."
 
-MCCMNC="90114"
+MCCMNC="90188"
 MCC="901"
 MNC="88"
 OPERATOR="ReBullet Internet"
