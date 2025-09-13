@@ -9,7 +9,7 @@
 /data/adb/ksu/bin/busybox echo "[•] Checking environment..."
 
 /data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution KernelSU not installed. Exiting." && exit 1
-/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-hosts/system/etc && /data/adb/ksu/bin/busybox echo "[×] Systemless-hosts not installed. Exiting." && exit 1
+/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-apn/system/etc && /data/adb/ksu/bin/busybox echo "[×] Systemless-apn not installed. Exiting." && exit 1
 
 CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 SERIAL_NO=""
@@ -31,7 +31,6 @@ fi
 /data/adb/ksu/bin/busybox which ip6tables >/dev/null 2>&1 || { /data/adb/ksu/bin/busybox echo "[×] ip6tables not found. Exiting."; exit 1; }
 /data/adb/ksu/bin/busybox echo "[✓] Environment OK."
 
-# Set predefined operator details
 MCCMNC="90114"
 MCC="901"
 MNC="14"
@@ -40,7 +39,6 @@ OPERATOR="ReBullet Internet"
 /data/adb/ksu/bin/busybox echo -n "Enter ISO (e.g., SC for Seychelles): "
 read ISO
 
-# Download timezone data
 /data/adb/ksu/bin/busybox echo "[•] Downloading timezone data..."
 /data/adb/ksu/bin/busybox wget -q -O /data/adb/tz_data.txt https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/TZ
 if [ $? -ne 0 ]; then
@@ -48,10 +46,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Timezone selection
 while true; do
     /data/adb/ksu/bin/busybox echo "Select Continent:"
-    # Extract unique continents
     CONTINENTS=$(/data/adb/ksu/bin/busybox awk -F'/' '{print $1}' /data/adb/tz_data.txt | /data/adb/ksu/bin/busybox sort -u)
     CONTINENT_ARRAY=($CONTINENTS)
     CONTINENT_COUNT=${#CONTINENT_ARRAY[@]}
@@ -73,11 +69,9 @@ while true; do
     fi
 done
 
-# City/Timezone selection with pagination
 PAGE_SIZE=10
 while true; do
     /data/adb/ksu/bin/busybox echo "Select Timezone for $SELECTED_CONTINENT:"
-    # Filter timezones for the selected continent
     TIMEZONES=$(/data/adb/ksu/bin/busybox grep "^$SELECTED_CONTINENT/" /data/adb/tz_data.txt | /data/adb/ksu/bin/busybox awk -F'/' '{print $2}' | /data/adb/ksu/bin/busybox sort)
     TIMEZONE_ARRAY=($TIMEZONES)
     TIMEZONE_COUNT=${#TIMEZONE_ARRAY[@]}
@@ -101,7 +95,6 @@ while true; do
                 exit 0
                 ;;
             b)
-                # Go back to continent selection
                 exec "$0"
                 ;;
             n)
@@ -121,7 +114,6 @@ while true; do
             *)
                 if [[ "$TIMEZONE_CHOICE" =~ ^[0-9]+$ ]] && [ "$TIMEZONE_CHOICE" -ge 1 ] && [ "$TIMEZONE_CHOICE" -le "$TIMEZONE_COUNT" ]; then
                     TZ="$SELECTED_CONTINENT/${TIMEZONE_ARRAY[$((TIMEZONE_CHOICE-1))]}"
-                    # Validate timezone format
                     if [[ ! "$TZ" =~ "/" ]]; then
                         /data/adb/ksu/bin/busybox echo "[×] Invalid timezone format. Must contain a forward slash."
                         exit 1
@@ -135,7 +127,6 @@ while true; do
     done
 done
 
-# Clean up downloaded file
 /data/adb/ksu/bin/busybox rm -f /data/adb/tz_data.txt
 
 while true; do
@@ -160,7 +151,7 @@ while true; do
 done
 
 /data/adb/ksu/bin/busybox echo "[•] Downloading hosts file..."
-/data/adb/ksu/bin/busybox wget -O /data/adb/modules/systemless-hosts/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+/data/adb/ksu/bin/busybox wget -O /data/adb/modules/systemless-apns/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
 rm /data/system/users/0/settings_ssaid.xml
 
