@@ -34,6 +34,7 @@
 * 🔐 [StevenBlack integration](https://github.com/StevenBlack/hosts)
 * 🔐 [Xray integration](https://github.com/XTLS/Xray-core)
 * 🔐 [Mihomo integration](https://github.com/MetaCubeX/mihomo)
+* 🔐 [Sing-box integration](https://github.com/SagerNet/sing-box)
 * 🚀 Enable TCP BBR
 * 📶 Hide tethering
 * 📶 Hide roaming
