@@ -18,7 +18,7 @@
 * KernelSU/Magisk/APatch
 * Android 12+
 * `iptables` & `ip6tables`
-* [Systemless Hosts](https://github.com/gloeyisk/systemless-hosts)
+* [Systemless Apns](https://github.com/UhExooHw/systemless-apns)
 
 ---
 
