@@ -48,60 +48,23 @@
 
 ```bash
 su
-/data/adb/ksu/bin/busybox wget -O /data/local/tmp/ksu.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/ksu.sh
-/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/ksu.sh
-/data/adb/ksu/bin/busybox sh /data/local/tmp/ksu.sh
-```
-
-### SH / Magisk
-
-```bash
-su
-/data/adb/magisk/busybox wget -O /data/local/tmp/magisk.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/magisk.sh
-/data/adb/magisk/busybox chmod +x /data/local/tmp/magisk.sh
-/data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
-```
-
-### SH / APatch
-
-```bash
-su
-/data/adb/ap/bin/busybox wget -O /data/local/tmp/apatch.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/apatch.sh
-/data/adb/ap/bin/busybox chmod +x /data/local/tmp/apatch.sh
-/data/adb/ap/bin/busybox sh /data/local/tmp/apatch.sh
+/data/adb/ksu/bin/busybox wget -O /data/local/tmp/sim-spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/sim-spoof.sh
+/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/sim-spoof.sh
+/data/adb/ksu/bin/busybox sh /data/local/tmp/sim-spoof.sh
 ```
 
 ### ADB / KSU
 
 ```bash
 adb root
-adb shell /data/adb/ksu/bin/busybox wget -O /data/local/tmp/ksu.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/ksu.sh
-adb shell /data/adb/ksu/bin/busybox chmod +x /data/local/tmp/ksu.sh
-adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/ksu.sh
-```
-
-### ADB / Magisk
-
-```bash
-adb root
-adb shell /data/adb/magisk/busybox wget -O /data/local/tmp/magisk.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/magisk.sh
-adb shell /data/adb/magisk/busybox chmod +x /data/local/tmp/magisk.sh
-adb shell /data/adb/magisk/busybox sh /data/local/tmp/magisk.sh
-```
-
-### ADB / APatch
-
-```bash
-adb root
-adb shell /data/adb/ap/bin/busybox wget -O /data/local/tmp/apatch.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/apatch.sh
-adb shell /data/adb/ap/bin/busybox chmod +x /data/local/tmp/apatch.sh
-adb shell /data/adb/ap/bin/busybox sh /data/local/tmp/apatch.sh
+adb shell /data/adb/ksu/bin/busybox wget -O /data/local/tmp/sim-spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/sim-spoof.sh
+adb shell /data/adb/ksu/bin/busybox chmod +x /data/local/tmp/sim-spoof.sh
+adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/sim-spoof.sh
 ```
 
 ---
 
 ## TODO
-* Magisk/KernelSU/APatch module
 * Dual SIM support
 
 ---
