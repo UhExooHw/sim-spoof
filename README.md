@@ -37,32 +37,6 @@
 * 📶 Hide roaming
 * 🌍 Bypass geoblocks (e.g., Google Play, TikTok, Deezer)
 
----
-
-## 🌐 Supported Operators
-
-| Operator | Country    | MCCMNC              |
-| -------- | ---------- | ------------------- |
-| Beeline  | UZ, KZ, RU | 43404, 40101, 25099 |
-| MTS      | BY, RU     | 25702, 25001        |
-| Tele2 RU | RU         | 25020               |
-| Tele2    | LV, SE, EE | 24702, 24007, 24803 |
-| Megafon  | RU         | 25002               |
-| Yota     | RU         | 25011               |
-| Velcom   | BY         | 25701               |
-| Life:)   | BY         | 25704               |
-| Salt     | CH         | 22803               |
-| Turkcell | TR         | 28601               |
-| Tele Finland    | FI         | 24491               |
-| Telekom  | DE         | 26201               |
-| KPN      | NL         | 20408               |
-| Airtel   | IN         | 40402               |
-| Kyivstar  | UA         | 25503               |
-| Test (Debug)     | AQ           | 00101               |
-| Irancell      | IR         | 43235               |
-
----
-
 ## 📦 Installation
 
 ### SH / KSU
