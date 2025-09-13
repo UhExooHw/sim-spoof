@@ -48,18 +48,18 @@
 
 ```bash
 su
-/data/adb/ksu/bin/busybox wget -O /data/local/tmp/sim-spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/sim-spoof.sh
-/data/adb/ksu/bin/busybox chmod +x /data/local/tmp/sim-spoof.sh
-/data/adb/ksu/bin/busybox sh /data/local/tmp/sim-spoof.sh
+busybox wget -O /data/local/tmp/sim-spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/sim-spoof.sh
+busybox chmod +x /data/local/tmp/sim-spoof.sh
+busybox sh /data/local/tmp/sim-spoof.sh
 ```
 
 ### ADB
 
 ```bash
 adb root
-adb shell /data/adb/ksu/bin/busybox wget -O /data/local/tmp/sim-spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/sim-spoof.sh
-adb shell /data/adb/ksu/bin/busybox chmod +x /data/local/tmp/sim-spoof.sh
-adb shell /data/adb/ksu/bin/busybox sh /data/local/tmp/sim-spoof.sh
+adb shell busybox wget -O /data/local/tmp/sim-spoof.sh https://raw.githubusercontent.com/UhExooHw/sim-spoof/main/data/local/tmp/sim-spoof.sh
+adb shell busybox chmod +x /data/local/tmp/sim-spoof.sh
+adb shell busybox sh /data/local/tmp/sim-spoof.sh
 ```
 
 ---
