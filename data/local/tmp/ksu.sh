@@ -9,7 +9,7 @@
 /data/adb/ksu/bin/busybox echo "[•] Checking environment..."
 
 /data/adb/ksu/bin/busybox test ! -d /data/adb/service.d && /data/adb/ksu/bin/busybox echo "[×] Root solution not installed. Exiting." && exit 1
-/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-apns/system/etc && /data/adb/ksu/bin/busybox echo "[×] Systemless-apns not installed. Exiting." && exit 1
+/data/adb/ksu/bin/busybox test ! -d /data/adb/modules/systemless-apns && /data/adb/ksu/bin/busybox echo "[×] Systemless-apns not installed. Exiting." && exit 1
 
 CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 SERIAL_NO=""
