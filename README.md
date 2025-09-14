@@ -1,7 +1,5 @@
 # 🚀 SIM Spoof
 
----
-
 ## ⚙️ Requirements
 
 * KernelSU/Magisk/APatch
