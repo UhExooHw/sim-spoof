@@ -1,16 +1,5 @@
 # 🚀 SIM Spoof
 
-## Disclaimer
-* ⚠️ **For testing and research purposes only.**  
-* This project is intended exclusively for use in controlled environments. Do **not** use it for activities that violate laws, carrier policies, or service terms.
-### No warranty  
-* The software is provided **"AS IS"**, without warranty of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.
-### Limitation of liability  
-* To the fullest extent permitted by law, the author(s) and contributors shall not be liable for any direct, indirect, incidental, special, punitive, or consequential damages arising from the use of or inability to use this software.
-### Legal compliance  
-* Users are solely responsible for ensuring their use complies with applicable laws and service provider policies in their jurisdiction. If you are unsure about the legality, **do not use this software** and consult a lawyer.
-**Note:** This project supports **devices with only 1 SIM card in the SIM1 slot** (see Requirements). The Apache License 2.0 governs distribution; the license does not exempt users from local legal obligations.
-
 ---
 
 ## ⚙️ Requirements
@@ -62,11 +51,6 @@ adb shell busybox wget -O /data/local/tmp/sim-spoof.sh https://raw.githubusercon
 adb shell busybox chmod +x /data/local/tmp/sim-spoof.sh
 adb shell busybox sh /data/local/tmp/sim-spoof.sh
 ```
-
----
-
-## TODO
-* Dual SIM support
 
 ---
 
