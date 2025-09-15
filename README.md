@@ -56,6 +56,9 @@ busybox sh /data/local/tmp/sim-spoof.sh
 
 GitHub: [UhExooHw](https://github.com/UhExooHw)
 
+## TODO
+Solve the issue of detecting the SIM card’s geo-location via API
+Create a module
 
 ---
 
