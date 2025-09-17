@@ -31,7 +31,7 @@
 
 ## 📦 Installation
 
-### SH
+### Bash
 
 ```bash
 su
