@@ -9,7 +9,7 @@ busybox echo "========================================="
 busybox echo "[•] Checking environment..."
 
 busybox test ! -d /data/adb/service.d && busybox echo "[×] Root solution is not installed. Exiting." && exit 1
-busybox test ! -d /data/adb/modules/systemless-apns && busybox echo "[×] Systemless-apns not installed. Exiting." && exit 1
+busybox test ! -d /data/adb/modules/systemless-utils && busybox echo "[×] Systemless-utils not installed. Exiting." && exit 1
 
 CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 SERIAL_NO=""
@@ -60,7 +60,7 @@ while true; do
 done
 
 busybox echo "[•] Downloading hosts file..."
-busybox wget -O /data/adb/modules/systemless-apns/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+busybox wget -O /data/adb/modules/systemless-utils/system/etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
 rm /data/system/users/0/settings_ssaid.xml
 
