@@ -6,7 +6,7 @@
 * Android 13+
 * iptables & ip6tables
 * arm64-v8a
-* [Systemless Apns](https://github.com/UhExooHw/systemless-apns)
+* [Systemless Utils](https://github.com/UhExooHw/systemless-utils)
 
 ---
 
