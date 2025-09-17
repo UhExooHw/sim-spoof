@@ -1,4 +1,4 @@
-#!busybox sh
+#!/bin/bash
 
 busybox clear
 
@@ -21,11 +21,7 @@ done
 BBR_ALGORITHM=""
 busybox grep -qw 'bbr2' /proc/sys/net/ipv4/tcp_available_congestion_control && BBR_ALGORITHM="bbr2"
 busybox grep -qw 'bbr' /proc/sys/net/ipv4/tcp_available_congestion_control && [ -z "$BBR_ALGORITHM" ] && BBR_ALGORITHM="bbr"
-if [ -n "$BBR_ALGORITHM" ]; then
-    busybox echo "[✓] $BBR_ALGORITHM supported."
-else
-    busybox echo "[!] BBR/BBR2 not supported. Skipping."
-fi
+[ -n "$BBR_ALGORITHM" ] && busybox echo "[✓] $BBR_ALGORITHM supported." || busybox echo "[!] BBR/BBR2 not supported. Skipping."
 
 busybox which iptables >/dev/null 2>&1 || { busybox echo "[×] iptables not found. Exiting."; exit 1; }
 busybox which ip6tables >/dev/null 2>&1 || { busybox echo "[×] ip6tables not found. Exiting."; exit 1; }
@@ -40,10 +36,7 @@ busybox echo -n "Enter ISO (e.g., SC for Seychelles): "
 read ISO
 busybox echo -n "Enter Timezone (e.g., Europe/Moscow): "
 read TZ
-if [[ ! "$TZ" =~ "/" ]]; then
-    busybox echo "[×] Invalid timezone format. Must contain a forward slash (e.g., Europe/Moscow)."
-    exit 1
-fi
+[[ ! "$TZ" =~ "/" ]] && { busybox echo "[×] Invalid timezone format. Must contain a forward slash (e.g., Europe/Moscow)."; exit 1; }
 
 while true; do
     busybox echo "Choose DNS Provider:"
@@ -85,7 +78,7 @@ IMEI2="${RBI2}${TAC2}${SERIAL2}${CHECK_DIGIT2}"
 busybox echo ""
 busybox echo "[+] Creating SIM-Spoof.sh..."
 busybox cat > /data/adb/service.d/SIM-Spoof.sh <<EOF
-#!busybox sh
+#!/bin/bash
 while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 2
 done
@@ -130,26 +123,25 @@ settings put secure bluetooth_name Android
 busybox sed -i -e 's#<string name="adid_key">.*</string>#<string name="adid_key">00000000-0000-0000-0000-000000000000</string>#' \
        -e 's#<int name="adid_reset_count" value=".*"/>#<int name="adid_reset_count" value="1"/>#' \
        /data/data/com.google.android.gms/shared_prefs/adid_settings.xml
-
 EOF
 
 busybox echo ""
 busybox echo "[+] Creating SIM-Service.sh..."
 busybox cat > /data/adb/service.d/SIM-Service.sh <<EOF
-#!busybox sh
+#!/bin/bash
 while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 2
 done
 
 while true; do
-    busybox sh /data/adb/service.d/SIM-Spoof.sh
+    bash /data/adb/service.d/SIM-Spoof.sh
     sleep 5
 done
 EOF
 
 busybox echo "[+] Creating SIM-TTL.sh..."
 busybox cat > /data/adb/service.d/SIM-TTL.sh <<EOF
-#!busybox sh
+#!/bin/bash
 while [ "\$(getprop sys.boot_completed)" != "1" ]; do
     sleep 2
 done
@@ -158,9 +150,7 @@ BBR_ALGORITHM="$BBR_ALGORITHM"
 DNS="$DNS"
 DNSv6="$DNSv6"
 
-if [ -n "$BBR_ALGORITHM" ]; then
-    busybox echo $BBR_ALGORITHM > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
-fi
+[ -n "$BBR_ALGORITHM" ] && busybox echo $BBR_ALGORITHM > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
 
 while iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT 2>/dev/null; do :; done
 while iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT 2>/dev/null; do :; done
