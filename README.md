@@ -19,7 +19,7 @@
 * 🔐 Spoof Advertising ID
 * 🔐 Spoof Android ID
 * 🔐 Intercept DNS
-* 🔐 Systemless Busybox, Resetprop, Bash
+* 🔐 Systemless Busybox, Resetprop, Bash, Nano
 * 🔐 [StevenBlack integration](https://github.com/StevenBlack/hosts)
 * 🔐 [Xray integration](https://github.com/XTLS/Xray-core)
 * 🔐 [Mihomo integration](https://github.com/MetaCubeX/mihomo)
